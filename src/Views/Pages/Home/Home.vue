@@ -10,18 +10,18 @@
         <CardTile
             :title="$t('tiles.transport.title')"
             :description="$t('tiles.transport.description')"
-            icon="sign-merge-right"
             link="transport-instance"
+            icon="fa-solid fa-window-restore"
             />
         <CardTile
             :title="$t('tiles.grabber.title')"
             :description="$t('tiles.grabber.description')"
-            icon="clipboard2-data-fill"
+            icon="fa-solid fa-recycle"
             />
         <CardTile
             :title="$t('tiles.contractor.title')"
             :description="$t('tiles.contractor.description')"
-            icon="person-lines-fill"
+            icon="fa-regular fa-address-book"
             link="contractor-details"
         />
     </div>

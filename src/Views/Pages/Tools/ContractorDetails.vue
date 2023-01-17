@@ -5,11 +5,12 @@
             <form>
                <div class="main">
                   <div class="form-group">
-                     <BootstrapIcon
-                        icon="search"
+                     <FontAwesomeIcon
+                        icon="fa-solid fa-magnifying-glass"
                         size="2x"
-                        class="form-control-icon"
-                        />
+                        variant="light"
+                        style="position: absolute; padding: 10px"
+                     />
                      <vue-bootstrap-typeahead 
                         @input="handleInput"
                         :data="contractors"
@@ -51,9 +52,10 @@ import { required } from '@vee-validate/rules';
 import { mapActions } from "vuex";
 import VueBootstrapTypeahead from 'vue-bootstrap-typeahead'
 
-import CardHeader from '../../../Components/Card/CardHeader.vue';
-import TextInput from "../../../Components/Input/TextInput.vue";
-   
+import CardHeader from '@/Components/Card/CardHeader.vue';
+import TextInput from '@/Components/Input/TextInput.vue';
+import FontAwesomeIcon from '@/Components/Icon/FontAwesomeIcon.vue';
+
 defineRule('required', required);
    
 export default {
@@ -78,7 +80,8 @@ export default {
       BCard,
       Form,
       BTable,
-      VueBootstrapTypeahead
+      VueBootstrapTypeahead,
+      FontAwesomeIcon
    },
 
    methods: {

@@ -13,7 +13,7 @@
             <FontAwesomeIcon
                icon="fa-solid fa-bars"
                size="1x"
-               flip-v 
+               variant="light"
             />
             {{ $t('header.button.menu') }}
          </a>

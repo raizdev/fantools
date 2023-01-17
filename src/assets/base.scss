@@ -242,6 +242,7 @@ input[type="color"]:focus,
   outline: 0 none;
 }
 
-[data-prefix="fas"] {
+[data-prefix="fas"],
+[data-prefix="far"] {
   color: $primary-color !important
 }

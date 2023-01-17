@@ -135,35 +135,35 @@ export default /* #__PURE__ */defineComponent({
 
     &--variant {
         &-success {
-            color: var(--bs-success);
+            color: var(--bs-success) !important;
         }
 
         &-warning {
-            color: var(--bs-warning);
+            color: var(--bs-warning) !important;
         }
 
         &-danger {
-            color: var(--bs-danger);
+            color: var(--bs-danger) !important;
         }
 
         &-info {
-            color: var(--bs-info);
+            color: var(--bs-info) !important;
         }
 
         &-primary {
-            color: var(--bs-primary);
+            color: var(--bs-primary) !important;
         }
 
         &-secondary {
-            color: var(--bs-secondary);
+            color: var(--bs-secondary) !important;
         }
 
         &-dark {
-            color: var(--bs-dark);
+            color: var(--bs-dark) !important;
         }
 
         &-light {
-            color: var(--bs-light);
+            color: var(--bs-light) !important;
         }
     }
 
