@@ -8,12 +8,14 @@ import { resolve } from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+
   plugins: [
       vue(),
       i18nResources({
           path: resolve(__dirname, "src/Locales/frontend"),
       }),
   ],
+  base: './',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))

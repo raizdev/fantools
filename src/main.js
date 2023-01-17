@@ -2,7 +2,8 @@ import './assets/base.scss'
 
 import BootstrapVue3 from 'bootstrap-vue-3'
 import 'bootstrap/dist/css/bootstrap.css'
-import BootstrapIcon from '@dvuckovic/vue3-bootstrap-icons';
+
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 import { createApp } from 'vue'
 import App from './App.vue'
@@ -27,6 +28,7 @@ store.dispatch('auth/attempt', localStorage.getItem('token')).then(() => {
         .use(VueToast)
         .use(i18n)
         .use(BootstrapVue3)
-        .use(BootstrapIcon)
+        .component("font-awesome-icon", FontAwesomeIcon)
+
         .mount('#app')
 });

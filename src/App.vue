@@ -10,10 +10,11 @@
          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
          </ul>
          <a href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-            <BootstrapIcon
-               icon="list"
+            <FontAwesomeIcon
+               icon="fa-solid fa-bars"
                size="1x"
-               flip-v />
+               flip-v 
+            />
             {{ $t('header.button.menu') }}
          </a>
       </div>
@@ -51,9 +52,10 @@ import LanguageSwitcher from '@/Components/LanguageSwitcher/LanguageSwitcher.vue
 import Notifications from '@/Components/Notification/notifications.vue'
 import { environment } from '../environment'
 import { mapActions, mapGetters } from 'vuex';
+import FontAwesomeIcon from '@/Components/Icon/FontAwesomeIcon.vue';
 
 export default {
-
+   
     data() {
         return {
             offCanvasWidth: '250',
@@ -65,7 +67,8 @@ export default {
     components: {
         Navigation,
         Notifications,
-        LanguageSwitcher
+        LanguageSwitcher,
+        FontAwesomeIcon
     },
 
     computed: {
@@ -91,6 +94,11 @@ export default {
         $route (){
             this.bodyContainerStyling = (this.$route.name === "contractor-details")
         }
+    },
+
+    created() {
+      // Prevent blank screen in Electron builds
+      this.$router.push('/')
     }
 }
 </script>

@@ -3,30 +3,27 @@
         <CardTile
             :title="$t('tiles.accessarea.title')"
             :description="$t('tiles.accessarea.description')"
-            icon="database-up"
+            icon="fa-solid fa-database"
             link="accessarea-migration"
-        >
-        </CardTile>
-            <CardTile
+            flip-v
+        />
+        <CardTile
             :title="$t('tiles.transport.title')"
             :description="$t('tiles.transport.description')"
             icon="sign-merge-right"
             link="transport-instance"
-        >
-        </CardTile>
-            <CardTile
+            />
+        <CardTile
             :title="$t('tiles.grabber.title')"
             :description="$t('tiles.grabber.description')"
             icon="clipboard2-data-fill"
-        >
-        </CardTile>
-            <CardTile
+            />
+        <CardTile
             :title="$t('tiles.contractor.title')"
             :description="$t('tiles.contractor.description')"
             icon="person-lines-fill"
             link="contractor-details"
-        >
-        </CardTile>
+        />
     </div>
 </template>
 <script>

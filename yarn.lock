@@ -15,13 +15,6 @@
     "ajv" "^6.12.0"
     "ajv-keywords" "^3.4.1"
 
-"@dvuckovic/vue3-bootstrap-icons@^1.0.6":
-  "integrity" "sha512-UkVwD4wRmFPIgMV8u8L6tTyhYMaF0UWM9f+zYsTiR3O4N08QSgB9CUabffIcVc3X4acnRxr+ypLfRKQreme7BA=="
-  "resolved" "https://registry.npmjs.org/@dvuckovic/vue3-bootstrap-icons/-/vue3-bootstrap-icons-1.0.6.tgz"
-  "version" "1.0.6"
-  dependencies:
-    "bootstrap-icons" "^1.4.1"
-
 "@electron/get@^2.0.0":
   "integrity" "sha512-eFZVFoRXb3GFGd7Ak7W4+6jBl9wBtiZ4AaYOse97ej6mKj5tkyO0dUnUChs1IhJZtx1BENo4/p4WUTXpi6vT+g=="
   "resolved" "https://registry.npmjs.org/@electron/get/-/get-2.0.2.tgz"
@@ -49,6 +42,37 @@
     "fs-extra" "^9.0.1"
     "minimatch" "^3.0.4"
     "plist" "^3.0.4"
+
+"@fortawesome/fontawesome-common-types@6.2.1":
+  "integrity" "sha512-Sz07mnQrTekFWLz5BMjOzHl/+NooTdW8F8kDQxjWwbpOJcnoSg4vUDng8d/WR1wOxM0O+CY9Zw0nR054riNYtQ=="
+  "resolved" "https://registry.npmjs.org/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-6.2.1.tgz"
+  "version" "6.2.1"
+
+"@fortawesome/fontawesome-svg-core@^6.2.1", "@fortawesome/fontawesome-svg-core@~1 || ~6":
+  "integrity" "sha512-HELwwbCz6C1XEcjzyT1Jugmz2NNklMrSPjZOWMlc+ZsHIVk+XOvOXLGGQtFBwSyqfJDNgRq4xBCwWOaZ/d9DEA=="
+  "resolved" "https://registry.npmjs.org/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-6.2.1.tgz"
+  "version" "6.2.1"
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "6.2.1"
+
+"@fortawesome/free-regular-svg-icons@^6.2.1":
+  "integrity" "sha512-wiqcNDNom75x+pe88FclpKz7aOSqS2lOivZeicMV5KRwOAeypxEYWAK/0v+7r+LrEY30+qzh8r2XDaEHvoLsMA=="
+  "resolved" "https://registry.npmjs.org/@fortawesome/free-regular-svg-icons/-/free-regular-svg-icons-6.2.1.tgz"
+  "version" "6.2.1"
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "6.2.1"
+
+"@fortawesome/free-solid-svg-icons@^6.2.1":
+  "integrity" "sha512-oKuqrP5jbfEPJWTij4sM+/RvgX+RMFwx3QZCZcK9PrBDgxC35zuc7AOFsyMjMd/PIFPeB2JxyqDr5zs/DZFPPw=="
+  "resolved" "https://registry.npmjs.org/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-6.2.1.tgz"
+  "version" "6.2.1"
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "6.2.1"
+
+"@fortawesome/vue-fontawesome@^3.0.2":
+  "integrity" "sha512-xHVtVY8ASUeEvgcA/7vULUesENhD+pi/EirRHdMBqooHlXBqK+yrV6d8tUye1m5UKQKVgYAHMhUBfOnoiwvc8Q=="
+  "resolved" "https://registry.npmjs.org/@fortawesome/vue-fontawesome/-/vue-fontawesome-3.0.2.tgz"
+  "version" "3.0.2"
 
 "@intlify/core-base@9.1.10":
   "integrity" "sha512-So9CNUavB/IsZ+zBmk2Cv6McQp6vc2wbGi1S0XQmJ8Vz+UFcNn9MFXAe9gY67PreIHrbLsLxDD0cwo1qsxM1Nw=="
@@ -726,16 +750,6 @@
   "integrity" "sha512-d0II/GO9uf9lfUHH2BQsjxzRJZBdsjgsBiW4BvhWk/3qoKwQFjIDVN19PfX8F2D/r9PCMTtLWjYVCFrpeYUzsw=="
   "resolved" "https://registry.npmjs.org/boolean/-/boolean-3.2.0.tgz"
   "version" "3.2.0"
-
-"bootstrap-icons-vue@^1.8.1":
-  "integrity" "sha512-uItRULwQz0epETi9x/RBEqfjHmTAmkIIczpH1R6L9T6yyaaijk0826PzTWnWNm15tw66JT/8GNuXjB0HI5PHLw=="
-  "resolved" "https://registry.npmjs.org/bootstrap-icons-vue/-/bootstrap-icons-vue-1.8.1.tgz"
-  "version" "1.8.1"
-
-"bootstrap-icons@^1.4.1":
-  "integrity" "sha512-7Qvj0j0idEm/DdX9Q0CpxAnJYqBCFCiUI6qzSPYfERMcokVuV9Mdm/AJiVZI8+Gawe4h/l6zFcOzvV7oXCZArw=="
-  "resolved" "https://registry.npmjs.org/bootstrap-icons/-/bootstrap-icons-1.10.3.tgz"
-  "version" "1.10.3"
 
 "bootstrap-vue-3@^0.1.13":
   "integrity" "sha512-P3X3GvGaIzHyA14mC/jUWEGLU6XUK4b+JF+rdlWNIvihl9adqGwJSUw4LfajpvTjiqKrPi9x1ngL3UUz6jQitQ=="
@@ -2509,7 +2523,7 @@
     "@vue/compiler-sfc" "2.7.14"
     "csstype" "^3.1.0"
 
-"vue@^3.0", "vue@^3.0.0", "vue@^3.0.2", "vue@^3.0.9", "vue@^3.2.0", "vue@^3.2.2", "vue@^3.2.25", "vue@^3.2.36", "vue@3.2.37":
+"vue@^3.0", "vue@^3.0.0", "vue@^3.0.2", "vue@^3.2.0", "vue@^3.2.2", "vue@^3.2.25", "vue@^3.2.36", "vue@>= 3.0.0 < 4", "vue@3.2.37":
   "integrity" "sha512-bOKEZxrm8Eh+fveCqS1/NkG/n6aMidsI6hahas7pa0w/l7jkbssJVsRhVDs07IdDq7h9KHswZOgItnwJAgtVtQ=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-3.2.37.tgz"
   "version" "3.2.37"

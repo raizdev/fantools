@@ -2,11 +2,12 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 
 import { environment } from "../../environment";
+import  {version } from '../../package'
+
 import store from '../Store'
 import guest from './Middleware/Guest'
 import auth from './Middleware/Auth'
 import middlewarePipeline from './Middleware/MiddlewarePipeline'
-
 import HomeView from '../Views/Pages/Home/Home.vue'
 import SignInView from '../Views/Pages/Auth/Signin.vue'
 import SignUpView from '../Views/Pages/Auth/Signup.vue'
@@ -64,16 +65,14 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  
+  document.title = `${environment.ApplicationName} - v${version}`
+
   if (!to.meta.middleware) {
-    let documentTitle = `${environment.ApplicationName} - ${to?.name ? to.name.charAt(0).toUpperCase() + to.name.slice(1) : 0}`
-    if (to.params.title) {
-      documentTitle += ` - ${to.params.title}`
-    }
-    document.title = documentTitle
     return next()
   }
-  const middleware = to.meta.middleware
 
+  const middleware = to.meta.middleware
   const context = {
     to,
     from,
