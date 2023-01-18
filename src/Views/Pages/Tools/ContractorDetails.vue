@@ -25,21 +25,43 @@
       </div>
       <div>
          <div div class="container-lg p-4" v-if="selectedContractor">
-            <Form
-               @submit="onSubmit"
-               >
-               <b-card no-body class="border-0 p-2">
+            <b-card no-body class="border-0 p-2">
+               <template #header>
+                  <CardHeader
+                     :title="selectedContractor.name"
+                     >
+                  </CardHeader>
+               </template>
+               <b-card-body>
+                  <b-table outlined small hover fixed no-border-collapse :fields="fields" :items="contractorDetails" />
+               </b-card-body>
+            </b-card>
+            <b-card no-body class="border-0 p-2">
                   <template #header>
                      <CardHeader
-                        :title="selectedContractor.name"
+                        title="Service Level Manager"
                         >
                      </CardHeader>
                   </template>
                   <b-card-body>
-                     <b-table outlined small hover fixed no-border-collapse :fields="fields" :items="contractorDetails.contract_details"/>
+                     <b-table-simple responsive>
+                        <b-thead>
+                           <b-tr>
+                              <b-th>Fullname</b-th>
+                              <b-th>Mail</b-th>
+                              <b-th>Telephone</b-th>
+                           </b-tr>
+                        </b-thead>
+                        <b-tbody>
+                           <b-tr>
+                              <b-td>{{ serviceLevelManager.fullname }}</b-td>
+                              <b-td>{{ serviceLevelManager.mail }}</b-td>
+                              <b-td>{{ serviceLevelManager.telephone }}</b-td>
+                           </b-tr>
+                        </b-tbody>
+                     </b-table-simple>
                   </b-card-body>
                </b-card>
-            </Form>
          </div>
       </div>
    </div>
@@ -62,12 +84,19 @@ export default {
 
    data() {
       return {
-         fields: ['name', 'email', 'telephone', 'level'],
+         fields: [
+            { key: 'name', sortable: false },
+            { key: 'email', sortable: false },
+            { key: 'telephone', sortable: false },
+            { key: 'level', sortable: true }
+         ],
          query: '',
          contractorDetails: [],
          contractors: [],
          contractorSearch: '',
-         selectedContractor: null
+         selectedContractor: null,
+         serviceLevelManager: {},
+         sortBy: 'level'
       }
    },
 
@@ -107,7 +136,8 @@ export default {
    watch: {
       selectedContractor: function (newValue) {
          this.getContractorById(newValue.id).then((result) => {
-               this.contractorDetails = result
+               this.serviceLevelManager = result.service_level_manager
+               this.contractorDetails = result.contract_details
          })
       }
    }
