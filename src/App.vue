@@ -40,7 +40,7 @@
    </div>
 
    <div :class="!bodyContainerStyling ? 'container-lg p-4' : ''">
-      <router-view :key="$route.fullPath" v-slot="{ Component }">
+      <router-view v-slot="{ Component }">
          <transition name="fade" mode="out-in">
             <component :is="Component"></component>
          </transition>
