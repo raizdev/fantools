@@ -36,7 +36,7 @@
     </div>
 </template>
 <script>
-import { BCard, BCardBody, BButton, BCardFooter } from 'bootstrap-vue-3';
+import { BCard, BCardBody, BButton, BCardFooter } from 'bootstrap-vue';
 
 import { Form, defineRule } from 'vee-validate';
 import { required } from '@vee-validate/rules';
@@ -59,10 +59,6 @@ export default {
     components: {
         CardHeader,
         TextInput,
-        BCardBody,
-        BCardFooter,
-        BButton,
-        BCard,
         Form,
         JsonViewer
     },

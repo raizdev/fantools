@@ -1,9 +1,10 @@
 import './assets/base.scss'
 
-import BootstrapVue3 from 'bootstrap-vue-3'
+import { BootstrapVue } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
-
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
 
 import { createApp } from 'vue'
 import App from './App.vue'
@@ -19,7 +20,7 @@ import VueToast from 'vue-toast-notification';
 import setupInterceptors from './Common/Helpers/Interceptor';
 setupInterceptors(store);
 
-let app = createApp(App)
+const app = createApp(App)
 
 store.dispatch('auth/attempt', localStorage.getItem('token')).then(() => {
     app.config.globalProperties.emitter = mitt();
@@ -27,8 +28,7 @@ store.dispatch('auth/attempt', localStorage.getItem('token')).then(() => {
         .use(router)
         .use(VueToast)
         .use(i18n)
-        .use(BootstrapVue3)
+        .use(BootstrapVue)
         .component("font-awesome-icon", FontAwesomeIcon)
-
         .mount('#app')
 });

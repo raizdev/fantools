@@ -1,4 +1,4 @@
-import { createI18n } from 'vue-i18n/index'
+import { createI18n } from 'vue-i18n'
 import { messages } from "vite-i18n-resources";
 import { environment } from "../environment";
 import { configure } from "vee-validate";

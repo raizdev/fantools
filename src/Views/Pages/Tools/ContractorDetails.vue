@@ -11,13 +11,13 @@
                         variant="light"
                         style="position: absolute; padding: 10px"
                      />
-                     <vue-bootstrap-typeahead 
+                     <Typeahead
                         @input="handleInput"
                         :data="contractors"
                         :serializer="s => s.slug"
                         placeholder="Search for contractors..."
                         @hit="selectedContractor = $event"
-                        />
+                     />
                   </div>
                </div>
             </form>
@@ -33,7 +33,7 @@
                   </CardHeader>
                </template>
                <b-card-body>
-                  <b-table outlined small hover fixed no-border-collapse :fields="fields" :items="contractorDetails" />
+                  <b-table outlined small hover fixed no-border-collapse :fields="fieldsContractor" :items="contractorEmployee" />
                </b-card-body>
             </b-card>
             <b-card no-body class="border-0 p-2">
@@ -44,22 +44,7 @@
                      </CardHeader>
                   </template>
                   <b-card-body>
-                     <b-table-simple responsive>
-                        <b-thead>
-                           <b-tr>
-                              <b-th>Fullname</b-th>
-                              <b-th>Mail</b-th>
-                              <b-th>Telephone</b-th>
-                           </b-tr>
-                        </b-thead>
-                        <b-tbody>
-                           <b-tr>
-                              <b-td>{{ serviceLevelManager.fullname }}</b-td>
-                              <b-td>{{ serviceLevelManager.mail }}</b-td>
-                              <b-td>{{ serviceLevelManager.telephone }}</b-td>
-                           </b-tr>
-                        </b-tbody>
-                     </b-table-simple>
+                     <b-table outlined small hover fixed no-border-collapse :fields="fieldsServiceLevelManager" :items="serviceLevelManager" />
                   </b-card-body>
                </b-card>
          </div>
@@ -67,13 +52,11 @@
    </div>
 </template>
 <script>
-import { BCard, BCardBody, BButton, BCardFooter, BTable } from 'bootstrap-vue-3';
-
 import { Form, defineRule } from 'vee-validate';
 import { required } from '@vee-validate/rules';
 import { mapActions } from "vuex";
-import VueBootstrapTypeahead from 'vue-bootstrap-typeahead'
 
+import Typeahead from '@/Components/Input/Bootstrap/Typeahead.vue'
 import CardHeader from '@/Components/Card/CardHeader.vue';
 import TextInput from '@/Components/Input/TextInput.vue';
 import FontAwesomeIcon from '@/Components/Icon/FontAwesomeIcon.vue';
@@ -81,35 +64,24 @@ import FontAwesomeIcon from '@/Components/Icon/FontAwesomeIcon.vue';
 defineRule('required', required);
    
 export default {
-
    data() {
       return {
-         fields: [
-            { key: 'name', sortable: false },
-            { key: 'email', sortable: false },
-            { key: 'telephone', sortable: false },
-            { key: 'level', sortable: true }
-         ],
-         query: '',
-         contractorDetails: [],
+         selectedContractor: null,
+         fieldsContractor: ['name', 'email', 'telephone', 'level'],
+         fieldsServiceLevelManager: ['name', 'email', 'telephone'],
+         contractorEmployee: [],
+         serviceLevelManager: [],
          contractors: [],
          contractorSearch: '',
-         selectedContractor: null,
-         serviceLevelManager: {},
-         sortBy: 'level'
+         query: ''
       }
    },
 
    components: {
       CardHeader,
       TextInput,
-      BCardBody,
-      BCardFooter,
-      BButton,
-      BCard,
       Form,
-      BTable,
-      VueBootstrapTypeahead,
+      Typeahead,
       FontAwesomeIcon
    },
 
@@ -137,7 +109,7 @@ export default {
       selectedContractor: function (newValue) {
          this.getContractorById(newValue.id).then((result) => {
                this.serviceLevelManager = result.service_level_manager
-               this.contractorDetails = result.contract_details
+               this.contractorEmployee = result.contractors_details
          })
       }
    }

@@ -41,8 +41,6 @@
     </div>
 </template>
 <script>
-import { BCard, BCardBody, BButton, BCardFooter, BTable } from 'bootstrap-vue-3';
-
 import { Form, defineRule } from 'vee-validate';
 import { required } from '@vee-validate/rules';
 import { mapActions } from "vuex";
@@ -64,12 +62,7 @@ export default {
     components: {
         CardHeader,
         TextInput,
-        BCardBody,
-        BCardFooter,
-        BButton,
-        BCard,
-        Form,
-        BTable
+        Form
     },
 
     methods: {

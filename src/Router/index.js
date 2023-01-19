@@ -16,7 +16,8 @@ import TransportInstanceView  from '../Views/Pages/Tools/TransportInstance.vue'
 import ContractorDetailsView from '../Views/Pages/Tools/ContractorDetails.vue'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  mode: 'history',
+  history: createWebHistory(),
   routes: [
     { 
       path: '/',  
