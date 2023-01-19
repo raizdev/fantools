@@ -20,9 +20,9 @@
             <b-button variant="success" class="w-100" type="submit">Update</b-button>
         </div>
     </Form>
- </template>
+</template>
 
- <script lang="ts">
+<script lang="ts">
 import { defineComponent } from "vue";
 import { Form, Field, defineRule } from 'vee-validate';
 import { required } from '@vee-validate/rules';
@@ -73,7 +73,4 @@ export default defineComponent({
         }
     }
 });
- </script>
- <style lang="css">
-
-</style>
+</script>
