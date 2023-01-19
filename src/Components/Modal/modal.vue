@@ -1,40 +1,16 @@
 <template>
-    <transition name="fade">
-        <div class="modal" v-if="show" style="display: block">
-            <div class="modal-dialog" :class="size">
-                <b-card no-body class="modal-content">
-                    <template #header>
-                        <CardHeader
-                            :icon="icon"
-                            :title="title"
-                            :sub-title="subTitle"
-                            :close-button="openClose"
-                        />
-                    </template>
-                    <b-card-body>
-                        <slot name="body"/>
-                    </b-card-body>
-                    <b-card-footer class="p-0 m-0">
-                        <b-button variant="success" class="w-100" @click.prevent="saveModal">{{ buttonTitle }}</b-button>
-                    </b-card-footer>
-                </b-card>
-            </div>
-        </div>
-    </transition>
+    <div class="modal-header">
+        <h5 class="modal-title">{{ title }}</h5>
+    </div>
 </template>
 <script>
-import { BButton, BCard, BCardBody, BCardFooter } from "bootstrap-vue-3";
 import CardHeader from "../Card/CardHeader.vue";
 
 export default {
     name: "Modal",
 
     components: {
-        CardHeader,
-        BButton,
-        BCard,
-        BCardBody,
-        BCardFooter
+        CardHeader
     },
 
     props: {

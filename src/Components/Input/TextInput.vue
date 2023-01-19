@@ -71,6 +71,14 @@ export default {
             () => props.rules,
             (newValue, oldValue) => {
                 validationRef.value = newValue;
+            },
+        );
+
+        watch(
+            () => props.value,
+            (newValue, oldValue) => {
+                console.log("value props changed: ", newValue);
+                inputValue.value = newValue;
             }
         );
 

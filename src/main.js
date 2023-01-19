@@ -4,7 +4,7 @@ import { BootstrapVue } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-
+import Modal from "vue-bs-modal";
 
 import { createApp } from 'vue'
 import App from './App.vue'
@@ -29,6 +29,7 @@ store.dispatch('auth/attempt', localStorage.getItem('token')).then(() => {
         .use(VueToast)
         .use(i18n)
         .use(BootstrapVue)
+        .use(Modal)
         .component("font-awesome-icon", FontAwesomeIcon)
         .mount('#app')
 });

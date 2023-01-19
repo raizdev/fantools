@@ -246,3 +246,11 @@ input[type="color"]:focus,
 [data-prefix="far"] {
   color: $primary-color !important
 }
+
+.modal {
+
+  .modal-title {
+    color: $primary-color;
+  }
+  
+}

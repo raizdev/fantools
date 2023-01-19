@@ -9,7 +9,7 @@
         </router-link>
          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
          </ul>
-         <a href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+         <a href="#" v-b-toggle.sidebar-right>
             <FontAwesomeIcon
                icon="fa-solid fa-bars"
                size="1x"
@@ -20,24 +20,26 @@
       </div>
    </nav>
 
-   <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" :style="{ width: offCanvasWidth + 'px' }">
-      <div class="offcanvas-header">
+   <b-sidebar id="sidebar-right" aria-labelledby="sidebar-no-header-title" no-header right shadow :width="offCanvasWidth" :backdrop-variant="dark" backdrop>
+
+      <div class="offcanvas-header p-3">
          <h5 id="offcanvasRightLabel">{{ $t('header.button.menu') }}</h5>
          <button class="btn" style="padding: 0 !important; background-color: #fff">
             <LanguageSwitcher/>
          </button>
       </div>
-      <div class="offcanvas-body" v-if="!authenticated">
-       <router-link :to="{ name: 'sign-in' }" class="btn btn-primary">
-            Login
-        </router-link>
-      </div>
-      <div class="offcanvas-body" v-if="authenticated">
-         <a @click="signOut" class="btn btn-primary">
-            Logout
-        </a>
-      </div>
-   </div>
+
+      <nav>
+         <b-nav vertical>
+            <b-nav-item @click="hide" :to="{ name: 'sign-in' }" v-if="!authenticated">
+               Login
+            </b-nav-item>
+            <b-nav-item @click="signOut()" :to="{ name: 'sign-out' }" v-if="authenticated">
+               Logout
+            </b-nav-item>
+         </b-nav>
+      </nav>
+    </b-sidebar>
 
    <div :class="!bodyContainerStyling ? 'container-lg p-4' : ''">
       <router-view v-slot="{ Component }">
@@ -58,7 +60,7 @@ export default {
    
     data() {
         return {
-            offCanvasWidth: '250',
+            offCanvasWidth: '250px',
             applicationName: environment.ApplicationName,
             bodyContainerStyling: false
         }
@@ -111,5 +113,14 @@ export default {
     .fade-enter-from,
     .fade-leave-active {
     opacity: 0;
+    }
+
+    button {
+      border: 0;
+      background-color: #f8f9fa
+    }
+
+    #offcanvasRightLabel {
+      color: #000
     }
 </style>

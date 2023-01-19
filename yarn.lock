@@ -2527,6 +2527,11 @@
     "resize-observer-polyfill" "^1.5.0"
     "vue" "^2.5.17"
 
+"vue-bs-modal@^0.7.9":
+  "integrity" "sha512-y0sG1NtJKKmxwiT4wlpzzAEdxQvNNJ0pcDz0nuH47nR/p4RgngJpb6i1HJutGUoGnhsl4X8S3TNPZm3vWtEDUw=="
+  "resolved" "https://registry.npmjs.org/vue-bs-modal/-/vue-bs-modal-0.7.9.tgz"
+  "version" "0.7.9"
+
 "vue-functional-data-merge@^3.1.0":
   "integrity" "sha512-leT4kdJVQyeZNY1kmnS1xiUlQ9z1B/kdBFCILIjYYQDqZgLqCLa0UhjSSeRX6c3mUe6U5qYeM8LrEqkHJ1B4LA=="
   "resolved" "https://registry.npmjs.org/vue-functional-data-merge/-/vue-functional-data-merge-3.1.0.tgz"

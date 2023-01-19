@@ -27,13 +27,24 @@
          <div div class="container-lg p-4" v-if="selectedContractor">
             <b-card no-body class="border-0 p-2">
                <template #header>
-                  <CardHeader
-                     :title="selectedContractor.name"
-                     >
-                  </CardHeader>
+                  <div class="d-flex justify-content-between">
+                     <div>
+                        <CardHeader
+                           :title="selectedContractor.name"
+                        />
+                     </div>
+                     <div>
+                     <a href="#" @click="editContractor">
+                        <FontAwesomeIcon
+                           icon="fa-solid fa-pen-to-square"
+                           size="1x"
+                        />
+                     </a>
+                     </div>
+                  </div>
                </template>
                <b-card-body>
-                  <b-table outlined small hover fixed no-border-collapse :fields="fieldsContractor" :items="contractorEmployee" />
+                  <b-table striped outlined small hover fixed head-variant="dark" table-variant="light" :fields="fieldsContractor" :items="contractorEmployee" />
                </b-card-body>
             </b-card>
             <b-card no-body class="border-0 p-2">
@@ -44,7 +55,7 @@
                      </CardHeader>
                   </template>
                   <b-card-body>
-                     <b-table outlined small hover fixed no-border-collapse :fields="fieldsServiceLevelManager" :items="serviceLevelManager" />
+                     <b-table striped outlined small hover fixed :fields="fieldsServiceLevelManager" :items="serviceLevelManager" />
                   </b-card-body>
                </b-card>
          </div>
@@ -55,11 +66,13 @@
 import { Form, defineRule } from 'vee-validate';
 import { required } from '@vee-validate/rules';
 import { mapActions } from "vuex";
+import { ModalSize } from "vue-bs-modal";
 
 import Typeahead from '@/Components/Input/Bootstrap/Typeahead.vue'
 import CardHeader from '@/Components/Card/CardHeader.vue';
 import TextInput from '@/Components/Input/TextInput.vue';
 import FontAwesomeIcon from '@/Components/Icon/FontAwesomeIcon.vue';
+import EditContractorComponent from '@/Components/EditContractorComponent.vue';
 
 defineRule('required', required);
    
@@ -82,7 +95,8 @@ export default {
       TextInput,
       Form,
       Typeahead,
-      FontAwesomeIcon
+      FontAwesomeIcon,
+      EditContractorComponent
    },
 
    methods: {
@@ -102,6 +116,23 @@ export default {
          this.getContractors(event.target.value).then((result) => {
                this.contractors = result
          })
+      },
+
+      editContractor() {
+         this.$vbsModal.open({
+            content: EditContractorComponent,
+            size: ModalSize.LARGE,
+            contentProps: {
+               contractorName: this.selectedContractor.name,
+            },
+            contentEmits: {
+               onUpdate: this.onUpdate,
+            }
+         });
+      },
+
+      onUpdate(data) {
+         console.log(data)
       }
    },
 
