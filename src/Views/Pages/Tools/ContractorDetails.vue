@@ -123,7 +123,8 @@ export default {
             content: EditContractorComponent,
             size: ModalSize.LARGE,
             contentProps: {
-               contractorName: this.selectedContractor.name,
+               contractor: this.selectedContractor,
+               employee: this.contractorEmployee
             },
             contentEmits: {
                onUpdate: this.onUpdate,

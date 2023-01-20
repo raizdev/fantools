@@ -252,5 +252,23 @@ input[type="color"]:focus,
   .modal-title {
     color: $primary-color;
   }
-  
+
+  .btn {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border: 1px solid #ddcece96;
+    background-color: $primary-color;
+  }
+
+  .btn:hover,
+  .btn:focus {
+    background-color: #4f8745 !important;
+    border: 1px solid #ddcece96 !important;
+  }
+
+  .btn-close {
+    background-color: #fff;
+    border: 0;
+    font-size: 14px
+  }
 }

@@ -31,6 +31,14 @@ export default {
                 .then((response) => {
                     return response
                 });
+        },
+
+        async findEmployee ({}, value ) {
+            console.log(value)
+            return await api.get('tools/contractor/' + value.contractor + '/employee/list/' + value.searchItem)
+                .then((response) => {
+                    return response
+                });
         }
     }
 }

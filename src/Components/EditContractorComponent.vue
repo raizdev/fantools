@@ -1,7 +1,12 @@
 <template>
     <div class="modal-header">
         <h5 class="modal-title">Edit contractor</h5>
-        <b-button variant="success" class="btn-close" aria-label="Close" @click="close"></b-button>
+        <span @click="close">
+            <FontAwesomeIcon
+                icon="fa-solid fa-xmark"
+                size="lg"
+            />
+        </span>
     </div>
 
     <Form
@@ -12,13 +17,13 @@
                 name="name"
                 type="text"
                 rules="required"
-                :value="name"
+                :value="selectedContractor.name"
             />
+
+            <vSelect :options="allEmployees" @input="handleInput" placeholder="Add employee to list" label="name" multiple v-model="mustBeAdded" />
         </div>
 
-        <div class="modal-footer">
-            <b-button variant="success" class="w-100" type="submit">Update</b-button>
-        </div>
+        <b-button variant="success" class="w-100" type="submit">Update</b-button>
     </Form>
 </template>
 
@@ -26,7 +31,12 @@
 import { defineComponent } from "vue";
 import { Form, Field, defineRule } from 'vee-validate';
 import { required } from '@vee-validate/rules';
+import { mapActions } from "vuex";
 
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
+
+import FontAwesomeIcon from './Icon/FontAwesomeIcon.vue';
 import TextInput from "./Input/TextInput.vue";
 import Modal from './Modal/modal.vue'
 
@@ -37,9 +47,11 @@ export default defineComponent({
     emits: ["onUpdate"],
 
     props: {
-        contractorName: {
-            type: String,
-            default: '',
+        contractor: {
+            type: Array
+        },
+        employee: {
+            type: Array
         }
     },
 
@@ -47,29 +59,51 @@ export default defineComponent({
         Modal,
         Form,
         Field,
-        TextInput
+        TextInput,
+        FontAwesomeIcon,
+        vSelect
     },
 
     data() {
         return {
-            name: '',
-            email: ''
+            selectedContractor: [],
+            contractorEmployees: [],
+            allEmployees: [],
+            mustBeAdded: []
         };
     },
 
     created() {
         setTimeout(() => {
-            this.name = this.contractorName
+            this.contractorEmployee = this.employee
+            this.selectedContractor = this.contractor
         }, 100)
     },
 
     methods: {
+        ...mapActions({
+            findEmployee: 'tools/findEmployee'
+        }),
+
+        handleInput(event){
+
+            const values = {
+                searchItem: event.target.value,
+                contractor: this.selectedContractor.id
+            };
+
+            this.findEmployee(values).then((result) => {
+                this.allEmployees = result
+            })
+        },
+
         close() {
             this.$vbsModal.close();
         },
 
         onSubmit: function (values) {
-            this.$emit("onUpdate", values);
+            console.log(values, this.mustBeAdded)
+            //this.$emit("onUpdate", values);
         }
     }
 });
