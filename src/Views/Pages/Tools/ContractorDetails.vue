@@ -44,7 +44,7 @@
                   </div>
                </template>
                <b-card-body>
-                  <b-table striped outlined small hover fixed head-variant="dark" table-variant="light" :fields="fieldsContractor" :items="contractorEmployee" />
+                  <b-table responsive striped outlined small hover fixed head-variant="dark" table-variant="light" :fields="fieldsContractor" :items="contractorEmployee" />
                </b-card-body>
             </b-card>
             <b-card no-body class="border-0 p-2">
@@ -80,7 +80,18 @@ export default {
    data() {
       return {
          selectedContractor: null,
-         fieldsContractor: ['name', 'email', 'telephone', 'level'],
+         fieldsContractor: [{
+            key: 'name', 
+            thStyle: { width: "30%" }
+         },{
+            key: 'email'
+         },{
+            key: 'telephone',
+            thStyle: { width: "20%" }
+         },{
+            key: 'level',
+            thStyle: { width: "8%" }
+         }],
          fieldsServiceLevelManager: ['name', 'email', 'telephone'],
          contractorEmployee: [],
          serviceLevelManager: [],
@@ -103,7 +114,8 @@ export default {
       ...mapActions({
          transportInstances: 'tools/transportInstances',
          getContractors: 'tools/getContractors',
-         getContractorById: 'tools/getContractorById'
+         getContractorById: 'tools/getContractorById',
+         modifyContractor: 'tools/modifyContractor'
       }),
 
       onSubmit: function (values) {
@@ -133,7 +145,10 @@ export default {
       },
 
       onUpdate(data) {
-         console.log(data)
+         this.modifyContractor(data).then((result) => {
+               console.log(result)
+         })
+         //this.$vbsModal.close();
       }
    },
 

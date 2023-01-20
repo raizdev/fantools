@@ -20,7 +20,7 @@
                 :value="selectedContractor.name"
             />
 
-            <vSelect :options="allEmployees" @input="handleInput" placeholder="Add employee to list" label="name" multiple v-model="mustBeAdded" />
+            <vSelect :options="allEmployees" :value="mustBeAdded" @input="handleInput" placeholder="Add employee to list" label="name" multiple v-model="mustBeAdded" />
         </div>
 
         <b-button variant="success" class="w-100" type="submit">Update</b-button>
@@ -75,7 +75,7 @@ export default defineComponent({
 
     created() {
         setTimeout(() => {
-            this.contractorEmployee = this.employee
+            this.mustBeAdded = this.employee
             this.selectedContractor = this.contractor
         }, 100)
     },
@@ -101,9 +101,15 @@ export default defineComponent({
             this.$vbsModal.close();
         },
 
-        onSubmit: function (values) {
-            console.log(values, this.mustBeAdded)
-            //this.$emit("onUpdate", values);
+        onSubmit: function (value) {
+
+            const values = {
+                name: value.name ,
+                contractors_id: this.selectedContractor.id,
+                contractorPersons: this.mustBeAdded
+            }
+
+            this.$emit("onUpdate", values);
         }
     }
 });

@@ -34,9 +34,17 @@ export default {
         },
 
         async findEmployee ({}, value ) {
-            console.log(value)
             return await api.get('tools/contractor/' + value.contractor + '/employee/list/' + value.searchItem)
                 .then((response) => {
+                    return response
+                });
+        },
+
+        async modifyContractor ({}, value ) {
+            console.log(value)
+            return await api.post('tools/contractor/edit', value)
+                .then((response) => {
+                    console.log(response)
                     return response
                 });
         }
