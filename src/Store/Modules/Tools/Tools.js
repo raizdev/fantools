@@ -4,6 +4,22 @@ export default {
 
     namespaced: true,
 
+    state: {
+        employees: []
+    },
+
+    mutations: {
+        SET_EMPLOYEES(state, employees) {
+            state.employees = employees;
+        }
+    },
+
+    getters: {
+        findEmployeeBySlm: (state) => (type) => {
+            return state.employees.filter(employee => employee.slm == type)
+        }
+    },
+
     actions: {
         async accessareaMigration ({}, values ) {
             return await api.post('tools/accessarea-migration', { dslam: values.dslam })
@@ -40,9 +56,11 @@ export default {
                 });
         },
 
-        async findServiceLevelmangers ({}, type) {
-            return await api.get('tools/contractor/slm/' + type + '/list')
+        async listAllEmployees ({commit}) {
+            
+            return await api.get('/tools/contractor/employee/list')
                 .then((response) => {
+                    commit('SET_EMPLOYEES', response)
                     return response
                 });
         },

@@ -70,7 +70,7 @@
 import { defineComponent } from "vue";
 import { Form, Field, defineRule } from 'vee-validate';
 import { required } from '@vee-validate/rules';
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
@@ -118,6 +118,12 @@ export default defineComponent({
         }
     }),
 
+    computed: {
+        ...mapGetters({
+            findEmployeeBySlm: 'tools/findEmployeeBySlm',
+        })
+    },
+
     created() {
         setTimeout(() => {
             this.selectedContractor = this.contractor
@@ -127,15 +133,15 @@ export default defineComponent({
         this.seviceLevelManager = this.slm
         this.information = this.contractor.information
 
-        this.findServiceLevelmangers(1).then((result) => {
-            this.allServiceLevelManagers = result
+        this.listAllEmployees().then(() => {
+            this.allServiceLevelManagers = this.findEmployeeBySlm(1)
         })
     },
 
     methods: {
         ...mapActions({
             findEmployee: 'tools/findEmployee',
-            findServiceLevelmangers: 'tools/findServiceLevelmangers'
+            listAllEmployees: 'tools/listAllEmployees'
         }),
 
         handleEmployee(event){

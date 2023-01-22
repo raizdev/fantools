@@ -118,13 +118,13 @@ export default {
 
     methods: {
         ...mapActions({
-            findServiceLevelmangers: 'tools/findServiceLevelmangers',
+            listAllEmployees: 'tools/listAllEmployees',
             modifyRecipient: 'tools/modifyRecipient'
         }),
 
         onFiltered(filteredItems) {
-        this.totalRows = filteredItems.length
-        this.currentPage = 1
+            this.totalRows = filteredItems.length
+            this.currentPage = 1
         },
 
         editRecipient(recipientId) {
@@ -142,16 +142,21 @@ export default {
 
         updateRecipient(newValue) {
             this.modifyRecipient(newValue).then((result) => {
-            console.log('ok')
+                this.findRecipients()
+                this.$vbsModal.close();
+            })
+        },
+
+        findRecipients() {
+            this.listAllEmployees().then((result) => {
+                this.totalRows = result.length
+                this.recipient = result
             })
         }
     },
 
     mounted() {
-        this.findServiceLevelmangers(0).then((result) => {
-        this.totalRows = result.length
-        this.recipient = result
-        })
+        this.findRecipients()
     }
 }
  </script>

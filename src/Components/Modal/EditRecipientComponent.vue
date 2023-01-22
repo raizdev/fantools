@@ -76,9 +76,11 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { Form } from 'vee-validate';
+import { Form, defineRule } from 'vee-validate';
 import { required } from '@vee-validate/rules';
 import { mapActions } from "vuex";
+
+defineRule('required', required);
 
 import FontAwesomeIcon from '../Icon/FontAwesomeIcon.vue';
 import TextInput from "../Input/TextInput.vue";
@@ -131,7 +133,6 @@ export default defineComponent({
                 slm: (this.isServiceLevelManager === true) ? '1' : '0'
             }
 
-            console.log(newValues)
             this.$emit("onUpdate", newValues);
         }
     }
