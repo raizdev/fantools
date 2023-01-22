@@ -80,8 +80,8 @@ import { Form } from 'vee-validate';
 import { required } from '@vee-validate/rules';
 import { mapActions } from "vuex";
 
-import FontAwesomeIcon from './Icon/FontAwesomeIcon.vue';
-import TextInput from "./Input/TextInput.vue";
+import FontAwesomeIcon from '../Icon/FontAwesomeIcon.vue';
+import TextInput from "../Input/TextInput.vue";
 
 export default defineComponent({
     name: "EditRecipientComponent",

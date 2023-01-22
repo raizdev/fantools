@@ -75,8 +75,9 @@ import { mapActions } from "vuex";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 
-import FontAwesomeIcon from './Icon/FontAwesomeIcon.vue';
-import TextInput from "./Input/TextInput.vue";
+
+import FontAwesomeIcon from '../Icon/FontAwesomeIcon.vue';
+import TextInput from "../Input/TextInput.vue";
 
 defineRule('required', required);
 
