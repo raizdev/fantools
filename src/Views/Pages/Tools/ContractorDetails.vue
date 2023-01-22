@@ -25,11 +25,11 @@
       </div>
          
       <RecipientEdit 
-         v-if="contractorId === null" 
+         v-if="!contractorId" 
       />
 
       <ContractorEdit 
-         v-if="contractorId !== null"
+         v-if="contractorId"
          :contractorId="contractorId"
       />
    </div>
