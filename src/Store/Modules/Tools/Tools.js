@@ -40,11 +40,19 @@ export default {
                 });
         },
 
-        async modifyContractor ({}, value ) {
-            console.log(value)
-            return await api.post('tools/contractor/edit', value)
+        async findServiceLevelmangers ({}) {
+            return await api.get('tools/contractor/slm/list')
                 .then((response) => {
-                    console.log(response)
+                    return response
+                });
+        },
+
+        async modifyContractor ({}, values ) {
+
+            values.contractorPersons.push(values.serviceLevelManager)
+
+            return await api.post('tools/contractor/edit', values)
+                .then((response) => {
                     return response
                 });
         }

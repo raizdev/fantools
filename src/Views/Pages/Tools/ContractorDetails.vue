@@ -48,16 +48,27 @@
                </b-card-body>
             </b-card>
             <b-card no-body class="border-0 p-2">
-                  <template #header>
-                     <CardHeader
-                        title="Service Level Manager"
-                        >
-                     </CardHeader>
-                  </template>
-                  <b-card-body>
-                     <b-table striped outlined small hover fixed :fields="fieldsServiceLevelManager" :items="serviceLevelManager" />
-                  </b-card-body>
-               </b-card>
+               <template #header>
+                  <CardHeader
+                     title="Service Level Manager"
+                     >
+                  </CardHeader>
+               </template>
+               <b-card-body>
+                  <b-table striped outlined small hover fixed :fields="fieldsServiceLevelManager" :items="serviceLevelManager" />
+               </b-card-body>
+            </b-card>
+            <b-card no-body class="border-0 p-2" v-if="selectedContractor.information">
+               <template #header>
+                  <CardHeader
+                     title="Information"
+                     >
+                  </CardHeader>
+               </template>
+               <b-card-body>
+                  {{ selectedContractor.information }}
+               </b-card-body>
+            </b-card>
          </div>
       </div>
    </div>
@@ -97,6 +108,7 @@ export default {
          serviceLevelManager: [],
          contractors: [],
          contractorSearch: '',
+         information: '',
          query: ''
       }
    },
@@ -136,7 +148,8 @@ export default {
             size: ModalSize.LARGE,
             contentProps: {
                contractor: this.selectedContractor,
-               employee: this.contractorEmployee
+               employee: this.contractorEmployee,
+               slm: this.serviceLevelManager
             },
             contentEmits: {
                onUpdate: this.onUpdate,
@@ -144,20 +157,27 @@ export default {
          });
       },
 
+      getContractor(newValue) {
+         this.getContractorById(newValue).then((result) => {
+               this.serviceLevelManager = result.service_level_manager
+               this.contractorEmployee = result.contractors_details
+               this.selectedContractor = result
+         })
+      },
+
       onUpdate(data) {
          this.modifyContractor(data).then((result) => {
-               console.log(result)
+            if(result) {
+               this.getContractor(this.selectedContractor.id)
+               this.$vbsModal.close();
+            }
          })
-         //this.$vbsModal.close();
       }
    },
 
    watch: {
       selectedContractor: function (newValue) {
-         this.getContractorById(newValue.id).then((result) => {
-               this.serviceLevelManager = result.service_level_manager
-               this.contractorEmployee = result.contractors_details
-         })
+         this.getContractor(newValue.id)
       }
    }
 }

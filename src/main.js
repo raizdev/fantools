@@ -22,6 +22,9 @@ setupInterceptors(store);
 
 const app = createApp(App)
 
+app.config.errorHandler = () => null;
+app.config.warnHandler = () => null;
+
 store.dispatch('auth/attempt', localStorage.getItem('token')).then(() => {
     app.config.globalProperties.emitter = mitt();
     app.use(store)

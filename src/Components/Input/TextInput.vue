@@ -77,7 +77,6 @@ export default {
         watch(
             () => props.value,
             (newValue, oldValue) => {
-                console.log("value props changed: ", newValue);
                 inputValue.value = newValue;
             }
         );
