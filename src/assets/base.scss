@@ -247,6 +247,10 @@ input[type="color"]:focus,
   color: $primary-color !important
 }
 
+.v-toast__text {
+  font-size: 14px
+}
+
 .modal {
 
   .modal-title {

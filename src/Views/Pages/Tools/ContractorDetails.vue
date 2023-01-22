@@ -27,10 +27,20 @@
          <div class="container-lg p-4" v-if="!selectedContractor">
             <b-card no-body class="border-0 p-2">
                <template #header>
-                  <CardHeader
-                     title="Recipients"
-                     >
-                  </CardHeader>
+                  <div class="d-flex justify-content-between">
+                     <div>
+                        <CardHeader
+                           title="Recipients"
+                           >
+                        </CardHeader>
+                     </div>
+                     <div>
+                        <FontAwesomeIcon
+                              icon="fa-solid fa-plus"
+                              size="1x"
+                           />
+                     </div>
+                  </div>
                </template>
                <b-card-body>
                   <b-row>
@@ -69,7 +79,12 @@
                      >
 
                      <template #cell(actions)="row">
-                        <a href="#" @click="editRecipient(row.item.id)">❌</a>
+                        <a href="#" @click="editRecipient(row.item.id)">
+                           <FontAwesomeIcon
+                              icon="fa-solid fa-pen-to-square"
+                              size="1x"
+                           />
+                        </a>
                      </template>
                   </b-table>
                   <b-col sm="7" md="6" class="my-1">
@@ -99,7 +114,7 @@
                            <FontAwesomeIcon
                               icon="fa-solid fa-pen-to-square"
                               size="1x"
-                              />
+                           />
                         </a>
                      </div>
                   </div>
@@ -214,7 +229,8 @@
             getContractors: 'tools/getContractors',
             getContractorById: 'tools/getContractorById',
             modifyContractor: 'tools/modifyContractor',
-            findServiceLevelmangers: 'tools/findServiceLevelmangers'
+            findServiceLevelmangers: 'tools/findServiceLevelmangers',
+            modifyRecipient: 'tools/modifyRecipient'
          }),
    
          onFiltered(filteredItems) {
@@ -271,17 +287,10 @@
             })
          },
    
-         updateContractor(data) {
-            this.modifyContractor(data).then((result) => {
-               if(result) {
-                  this.getContractor(this.selectedContractor.id)
-                  this.$vbsModal.close();
-               }
+         updateRecipient(newValue) {
+            this.modifyRecipient(newValue).then((result) => {
+               console.log('ok')
             })
-         },
-
-         updateRecipient(data) {
-
          }
       },
    

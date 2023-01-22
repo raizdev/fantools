@@ -51,7 +51,14 @@ export default {
 
             values.contractorPersons.push(values.serviceLevelManager)
 
-            return await api.post('tools/contractor/edit', values)
+            return await api.post('tools/contractor/modify', values)
+                .then((response) => {
+                    return response
+                });
+        },
+
+        async modifyRecipient ({}, values) {
+            return await api.post('tools/contractor/recipient/modify', values)
                 .then((response) => {
                     return response
                 });
