@@ -77,7 +77,6 @@ import "vue-select/dist/vue-select.css";
 
 import FontAwesomeIcon from './Icon/FontAwesomeIcon.vue';
 import TextInput from "./Input/TextInput.vue";
-import Modal from './Modal/modal.vue'
 
 defineRule('required', required);
 
@@ -98,7 +97,6 @@ export default defineComponent({
     },
 
     components: {
-        Modal,
         Form,
         Field,
         TextInput,
@@ -128,7 +126,7 @@ export default defineComponent({
         this.seviceLevelManager = this.slm
         this.information = this.contractor.information
 
-        this.findServiceLevelmangers().then((result) => {
+        this.findServiceLevelmangers(1).then((result) => {
             this.allServiceLevelManagers = result
         })
     },

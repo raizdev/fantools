@@ -40,8 +40,8 @@ export default {
                 });
         },
 
-        async findServiceLevelmangers ({}) {
-            return await api.get('tools/contractor/slm/list')
+        async findServiceLevelmangers ({}, type) {
+            return await api.get('tools/contractor/slm/' + type + '/list')
                 .then((response) => {
                     return response
                 });

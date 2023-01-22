@@ -31,12 +31,31 @@
 
       <nav>
          <b-nav vertical>
-            <b-nav-item @click="hide" :to="{ name: 'sign-in' }" v-if="!authenticated">
-               Login
-            </b-nav-item>
-            <b-nav-item @click="signOut()" :to="{ name: 'sign-out' }" v-if="authenticated">
-               Logout
-            </b-nav-item>
+            <div v-if="!authenticated">
+               <b-nav-item @click="hide" :to="{ name: 'sign-in' }" v-if="!authenticated">
+                  Login
+               </b-nav-item>
+            </div>
+            <div v-else>
+               <b-nav-item @click="signOut()" :to="{ name: 'sign-out' }">
+                  Access Area Migrations
+               </b-nav-item>
+               <b-nav-item @click="signOut()" :to="{ name: 'sign-out' }">
+                  Transport Instances
+               </b-nav-item>
+               <b-nav-item @click="signOut()" :to="{ name: 'sign-out' }">
+                  Grabber (RODGS)
+               </b-nav-item>
+               <b-nav-item @click="signOut()" :to="{ name: 'sign-out' }">
+                  Contactpersonen
+               </b-nav-item>
+               <b-nav-item @click="signOut()" :to="{ name: 'sign-out' }">
+                  User Panel
+               </b-nav-item>
+               <b-nav-item @click="signOut()" :to="{ name: 'sign-out' }">
+                  Logout
+               </b-nav-item>
+            </div>
          </b-nav>
       </nav>
     </b-sidebar>
