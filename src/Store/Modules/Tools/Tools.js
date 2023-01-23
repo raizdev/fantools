@@ -56,6 +56,13 @@ export default {
                 });
         },
 
+        async findEmployeeByDetailsId ({}, value ) {
+            return await api.get('/tools/contractor/recipient/' + value.recipientId + '/list/' + value.searchItem)
+                .then((response) => {
+                    return response
+                });
+        },
+
         async listAllEmployees ({commit}) {
             
             return await api.get('/tools/contractor/employee/list')
@@ -89,5 +96,11 @@ export default {
                 });
         },
         
+        async findRecipientContractor ({}, recipientId ) {
+            return await api.get('/tools/contractor/list/employee/' + recipientId)
+                .then((response) => {
+                    return response
+                });
+        }
     }
 }

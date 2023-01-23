@@ -20,11 +20,11 @@
     </b-form-group>
 </template>
 <script>
-import { BFormInvalidFeedback, BFormInput, BFormGroup } from "bootstrap-vue-3";
 import { useField } from 'vee-validate';
 import { watch, ref } from 'vue';
 
 export default {
+    compatConfig: { COMPONENT_V_MODEL: false },
     name: 'TextInput',
 
     props: {
@@ -54,12 +54,6 @@ export default {
         },
         modelValue: [String, Number],
         rules: String
-    },
-
-    components:{
-        BFormInvalidFeedback,
-        BFormInput,
-        BFormGroup
     },
 
     setup(props) {

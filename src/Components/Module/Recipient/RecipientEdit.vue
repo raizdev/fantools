@@ -10,10 +10,12 @@
                         </CardHeader>
                     </div>
                     <div>
-                        <FontAwesomeIcon
-                            icon="fa-solid fa-plus"
-                            size="1x"
-                        />
+                        <span @click="createRecipient(0)">
+                            <FontAwesomeIcon
+                                icon="fa-solid fa-plus"
+                                size="1x"
+                            />
+                        </span>
                     </div>
                 </div>
             </template>
@@ -89,6 +91,7 @@ import { ModalSize } from "vue-bs-modal";
 import CardHeader from '@/Components/Card/CardHeader.vue';
 import FontAwesomeIcon from '@/Components/Icon/FontAwesomeIcon.vue';
 import EditRecipientComponent from '@/Components/Modal/EditRecipientComponent.vue';
+import CreateRecipientComponent from '@/Components/Modal/CreateRecipientComponent.vue';
 
 export default {
     data() {
@@ -112,14 +115,15 @@ export default {
         pageOptions: [5, 10, 15, { value: 100, text: "Show a lot" }],
         filter: null,
         filterOn: [],
-        recipient: []
+        recipient: null
         }
     },
 
     components: {
         CardHeader,
         FontAwesomeIcon,
-        EditRecipientComponent
+        EditRecipientComponent,
+        CreateRecipientComponent
     },
 
     methods: {
@@ -141,6 +145,16 @@ export default {
             contentProps: {
                 recipient: this.recipient.filter(recipient => recipient.id == recipientId)[0]
             },
+            contentEmits: {
+                onUpdate: this.updateRecipient,
+            }
+            });
+        },
+
+        createRecipient(recipientId) {
+            this.$vbsModal.open({
+            content: CreateRecipientComponent,
+            size: ModalSize.LARGE,
             contentEmits: {
                 onUpdate: this.updateRecipient,
             }

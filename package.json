@@ -46,7 +46,7 @@
     "install": "^0.13.0",
     "mitt": "^3.0.0",
     "notyf": "^3.10.0",
-    "vee-validate": "^4.5.11",
+    "vee-validate": "4.2.2",
     "vue": "^3.2.45",
     "vue-awesomplete": "^0.1.8",
     "vue-bootstrap-typeahead": "^0.2.6",

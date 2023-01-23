@@ -31,6 +31,7 @@
       <ContractorEdit 
          v-if="contractorId"
          :contractorId="contractorId"
+         :key="componentKey"
       />
    </div>
 </template>
@@ -46,7 +47,8 @@
       data() {
          return {
             contractors: [],
-            contractorId: null
+            contractorId: null,
+            componentKey: 0
          }
       },
    
@@ -62,6 +64,10 @@
             getContractors: 'tools/getContractors',
             getContractorById: 'tools/getContractorById'
          }),
+
+         forceRerender() {
+            this.componentKey += 1;
+         },
    
          handleInput(event){
             this.getContractors(event.target.value).then((result) => {
@@ -71,6 +77,7 @@
 
          setContractorId(contractor) {
             this.contractorId = contractor.id
+            this.forceRerender()
          }
       }
    }

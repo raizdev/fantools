@@ -22,7 +22,7 @@
                     name="name"
                     type="text"
                     rules="required"
-                    v-model="selectedContractor.name"
+                    v-model="this.contractor.name"
                 />
             </b-form-group>
 
@@ -32,7 +32,7 @@
                 label-for="recipient-1"
                 description="You can select more than one recipient"
             >
-                <vSelect :options="allEmployees" :components="{Deselect}" :value="addedRecipient" @input="handleEmployee" placeholder="Add employee to list" label="name" multiple v-model="addedRecipient">
+                <vSelect :options="allEmployees" :components="{Deselect}" @input="handleEmployee" placeholder="Add employee to list" label="name" multiple v-model="addedRecipient">
                     <template v-slot:no-options>Search reciptient ...</template>
                 </vSelect>
             </b-form-group>
@@ -107,8 +107,6 @@ export default defineComponent({
 
     data: () => ({
         information: '',
-        selectedContractor: [],
-        contractorEmployees: [],
         allEmployees: [],
         addedRecipient: [],
         seviceLevelManager: [],
@@ -125,10 +123,6 @@ export default defineComponent({
     },
 
     created() {
-        setTimeout(() => {
-            this.selectedContractor = this.contractor
-        }, 100)
-
         this.addedRecipient = this.employee
         this.seviceLevelManager = this.slm
         this.information = this.contractor.information
@@ -148,7 +142,7 @@ export default defineComponent({
 
             const values = {
                 searchItem: event.target.value,
-                contractor: this.selectedContractor.id
+                contractor: this.contractor.id
             };
 
             this.findEmployee(values).then((result) => {
@@ -164,7 +158,7 @@ export default defineComponent({
 
             const values = {
                 name: value.name,
-                contractors_id: this.selectedContractor.id,
+                contractors_id: this.contractor.id,
                 contractorPersons: this.addedRecipient,
                 serviceLevelManager: this.seviceLevelManager[0] ?? this.seviceLevelManager,
                 information: this.information

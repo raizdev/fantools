@@ -391,7 +391,7 @@
     "@vue/compiler-dom" "3.2.45"
     "@vue/shared" "3.2.45"
 
-"@vue/devtools-api@^6.0.0-beta.11", "@vue/devtools-api@^6.1.4", "@vue/devtools-api@^6.2.1", "@vue/devtools-api@^6.4.5":
+"@vue/devtools-api@^6.0.0-beta.11", "@vue/devtools-api@^6.2.1", "@vue/devtools-api@^6.4.5":
   "integrity" "sha512-JD5fcdIuFxU4fQyXUu3w2KpAJHzTVdN+p4iOX2lMWSHMOoQdMAcpFLZzm9Z/2nmsoZ1a96QEhZ26e50xLBsgOQ=="
   "resolved" "https://registry.npmjs.org/@vue/devtools-api/-/devtools-api-6.4.5.tgz"
   "version" "6.4.5"
@@ -2485,12 +2485,10 @@
   "resolved" "https://registry.npmjs.org/utf8-byte-length/-/utf8-byte-length-1.0.4.tgz"
   "version" "1.0.4"
 
-"vee-validate@^4.5.11":
-  "integrity" "sha512-1MwHLOzCrabSeChySZVVMamWStcucM1hHxapoebY9mJ7KWOvncMG19a7AlPl38zpE9pcD+G3CHKLvviGmTl5BQ=="
-  "resolved" "https://registry.npmjs.org/vee-validate/-/vee-validate-4.7.3.tgz"
-  "version" "4.7.3"
-  dependencies:
-    "@vue/devtools-api" "^6.1.4"
+"vee-validate@4.2.2":
+  "integrity" "sha512-YSs9YtmrdeipBLfM0xt/rvWHWqAbFe5L//baFFPPJbeMTBYBnV+YV77l8gG74xSZtpCu25o4Loyszntd6R17/w=="
+  "resolved" "https://registry.npmjs.org/vee-validate/-/vee-validate-4.2.2.tgz"
+  "version" "4.2.2"
 
 "vite-plugin-rewrite-all@^1.0.1":
   "integrity" "sha512-W0DAchC8ynuQH0lYLIu5/5+JGfYlUTRD8GGNtHFXRJX4FzzB9MajtqHBp26zq/ly9sDt5BqrfdT08rv3RbB0LQ=="

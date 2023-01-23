@@ -1,16 +1,14 @@
 <template>
-  <div class="btn-group">
-    <button class="btn  btn-sm small-padding" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-      <div :class="`icon--flags ${$i18n.locale}`"></div>
-    </button>
-    <ul class="dropdown-menu menu dropdown-language-switcher-toggle" aria-labelledby="languageSwitcher">
-      <li v-for="locale in $i18n.availableLocales">
+  <b-dropdown id="dropdown-dropright" variant="white" style="border: 0">
+    <template #button-content>
+      <div :class="`icon--flags ${$i18n.locale}`" style="position: absolute;margin-left: -6px !important;"></div>
+    </template>
+    <b-dropdown-item v-for="locale in $i18n.availableLocales">
         <a href="#" @click="updateLanguage(locale)" :key="locale">
           <div :class="`icon--flags ${locale}`"></div>
         </a>
-      </li>
-    </ul>
-  </div>
+    </b-dropdown-item>
+  </b-dropdown>
 </template>
 
 <script>

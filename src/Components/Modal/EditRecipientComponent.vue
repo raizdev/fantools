@@ -22,7 +22,7 @@
                     name="name"
                     type="text"
                     rules="required"
-                    v-model="person.name"
+                    v-model="this.person.name"
                 />
             </b-form-group>
 
@@ -30,12 +30,12 @@
                 id="recipient-email"
                 label="Recipient email"
                 label-for="recipient-email"
+                class="mt-2 mb-2"
             >
                 <TextInput
                     name="email"
                     type="text"
-                    rules="required"
-                    v-model="person.email"
+                    v-model="this.person.email"
                 />
                 
             </b-form-group>
@@ -44,19 +44,31 @@
                 id="recipient-telephone"
                 label="Recipient telephone"
                 label-for="recipient-telephone"
+                class="mt-2 mb-2"
             >
                 <TextInput
                     name="telephone"
                     type="text"
                     rules="required"
-                    v-model="person.telephone"
+                    v-model="this.person.telephone"
                 />
+            </b-form-group>
+            <b-form-group
+                id="recipient-slm"
+                label-for="recipient-slm"
+                class="mt-2 mb-2"
+                label="Contractors"
+            >
+            <vSelect :options="allRecipients" v-model="recipientContractor" @input="handleRecipient" placeholder="Add employee to contractor" label="name" multiple>
+                    <template v-slot:no-options>Search contractor ...</template>
+                </vSelect>
             </b-form-group>
 
             <b-form-group
                 id="recipient-slm"
                 label="Is Service Level Manager?"
                 label-for="recipient-slm"
+                class="mt-3 mb-2"
             >
                 <b-form-checkbox
                     id="slm"
@@ -76,14 +88,14 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { Form, defineRule } from 'vee-validate';
-import { required } from '@vee-validate/rules';
+import { Form } from 'vee-validate';
 import { mapActions } from "vuex";
-
-defineRule('required', required);
 
 import FontAwesomeIcon from '../Icon/FontAwesomeIcon.vue';
 import TextInput from "../Input/TextInput.vue";
+
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
 
 export default defineComponent({
     name: "EditRecipientComponent",
@@ -91,32 +103,28 @@ export default defineComponent({
 
     props: {
         recipient: {
-            type: Array
+            type: Object
         }
     },
 
     components: {
         Form,
         FontAwesomeIcon,
-        TextInput
+        TextInput,
+        vSelect
     },
 
-    data() {
-        return {
-            isServiceLevelManager: 0,
-            person: []
-        }
-    },
-
-    created() {
-        setTimeout(() => {
-            this.person = this.recipient
-        }, 100)
-    },
+    data: () => ({
+        isServiceLevelManager: 0,
+        recipientContractor: [],
+        person: [],
+        allRecipients: []
+    }),
 
     methods: {
         ...mapActions({
-            findEmployee: 'tools/updateRecipient'
+            findEmployee: 'tools/findEmployeeByDetailsId',
+            findRecipientContractor: 'tools/findRecipientContractor'
         }),
 
         close() {
@@ -134,7 +142,29 @@ export default defineComponent({
             }
 
             this.$emit("onUpdate", newValues);
+        },
+
+        handleRecipient(event) {
+
+            const values = {
+                searchItem: event.target.value,
+                recipientId: this.person.id
+            };
+
+            this.findEmployee(values).then((result) => {
+                this.allRecipients = result
+            }) 
         }
+    },
+
+    created() {
+
+        this.person = this.recipient
+
+        this.findRecipientContractor(this.person.id).then((result) => {
+            this.recipientContractor = result.contract_person
+            console.log(result)
+        })
     }
 });
 </script>
