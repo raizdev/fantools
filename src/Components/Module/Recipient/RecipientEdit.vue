@@ -112,7 +112,7 @@ export default {
         pageOptions: [5, 10, 15, { value: 100, text: "Show a lot" }],
         filter: null,
         filterOn: [],
-        recipient: []
+        recipient: null
         }
     },
 
