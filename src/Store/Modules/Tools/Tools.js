@@ -80,6 +80,14 @@ export default {
                 .then((response) => {
                     return response
                 });
-        }
+        },
+
+        async deleteRecipient ({}, recipientId ) {
+            return await api.post('tools/contractor/recipient/delete', { id: recipientId })
+                .then((response) => {
+                    return response
+                });
+        },
+        
     }
 }

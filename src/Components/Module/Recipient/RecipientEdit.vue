@@ -54,12 +54,18 @@
                     >
 
                     <template #cell(actions)="row">
-                        <a href="#" @click="editRecipient(row.item.id)">
-                        <FontAwesomeIcon
-                            icon="fa-solid fa-pen-to-square"
-                            size="1x"
-                        />
-                        </a>
+                        <span @click="editRecipient(row.item.id)">
+                            <FontAwesomeIcon
+                                icon="fa-solid fa-pen-to-square"
+                                size="1x"
+                            />
+                        </span>
+                        <span @click="deleteRecipient(row.item)" style="margin-left: 10px !important">
+                            <FontAwesomeIcon
+                                icon="fa-solid fa-trash"
+                                size="1x"
+                            />
+                        </span>
                     </template>
                 </b-table>
                 <b-col sm="7" md="6" class="my-1">
@@ -119,7 +125,8 @@ export default {
     methods: {
         ...mapActions({
             listAllEmployees: 'tools/listAllEmployees',
-            modifyRecipient: 'tools/modifyRecipient'
+            modifyRecipient: 'tools/modifyRecipient',
+            delete: 'tools/deleteRecipient'
         }),
 
         onFiltered(filteredItems) {
@@ -152,6 +159,20 @@ export default {
                 this.totalRows = result.length
                 this.recipient = result
             })
+        },
+
+        deleteRecipient(recipient) {
+            this.$vbsModal.confirm({
+                message: "Are you sure you want to delete " + recipient.name + "?",
+                title: "Delete Recipient",
+                icon: null
+            })
+            .then((confirmed) => {
+                if (confirmed) {
+                    this.delete(recipient.id);
+                    this.findRecipients();
+                }
+            });
         }
     },
 
