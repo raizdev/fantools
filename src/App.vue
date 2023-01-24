@@ -46,7 +46,7 @@
                <b-nav-item @click="signOut()" :to="{ name: 'sign-out' }">
                   Grabber (RODGS)
                </b-nav-item>
-               <b-nav-item @click="signOut()" :to="{ name: 'sign-out' }">
+               <b-nav-item @click="signOut()" :to="{ name: 'sign-out' }" v-role="'escalatiedesk'">
                   Contactpersonen
                </b-nav-item>
                <b-nav-item @click="signOut()" :to="{ name: 'sign-out' }">
@@ -95,7 +95,8 @@ export default {
     computed: {
         ...mapGetters({
             authenticated: 'auth/authenticated',
-            notifications: 'notifications/list'
+            notifications: 'notifications/list',
+            permissions: 'auth/permission'
         })
     },
 
@@ -119,8 +120,9 @@ export default {
     },
 
     created() {
-      // Prevent blank screen in Electron builds
-      this.$router.push('/')
+      this.$router.push('/');
+
+      this.$zo.setRoles(this.permissions);
     }
 }
 </script>

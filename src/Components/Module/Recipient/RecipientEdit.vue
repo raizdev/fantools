@@ -10,7 +10,7 @@
                         </CardHeader>
                     </div>
                     <div>
-                        <span @click="createRecipient(0)">
+                        <span @click="createRecipient(0)" v-role="'escalatiedesk-edit'">
                             <FontAwesomeIcon
                                 icon="fa-solid fa-plus"
                                 size="1x"
@@ -96,26 +96,29 @@ import CreateRecipientComponent from '@/Components/Modal/CreateRecipientComponen
 export default {
     data() {
         return {
-        fields: [{
-            key: 'name',
-            thStyle: { width: "25%" }
-        },{
-            key: 'email',
-            thStyle: { width: "40%" }
-        },{
-            key: 'telephone',
-            thStyle: { width: "25%" }
-        },{ 
-            key: 'actions', 
-            label: 'Actions' 
-        }],
-        totalRows: 1,
-        currentPage: 1,
-        perPage: 10,
-        pageOptions: [5, 10, 15, { value: 100, text: "Show a lot" }],
-        filter: null,
-        filterOn: [],
-        recipient: null
+            fields: [{
+                key: 'name',
+                thStyle: { width: "25%" }
+            },{
+                key: 'email',
+                thStyle: { width: "40%" }
+            },{
+                key: 'telephone',
+                thStyle: { width: "25%" }
+            },{ 
+                key: 'actions', 
+                thClass: (this.$zo.hasRole('escalatiedesk-edit')) ? '': 'd-none',
+                tdClass: (this.$zo.hasRole('escalatiedesk-edit')) ? '': 'd-none',
+                label: 'Actions' 
+            }],
+            totalRows: 1,
+            currentPage: 1,
+            perPage: 10,
+            pageOptions: [5, 10, 15, { value: 100, text: "Show a lot" }],
+            filter: null,
+            filterOn: [],
+            recipient: null,
+            canEdit: ''
         }
     },
 

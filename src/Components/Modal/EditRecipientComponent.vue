@@ -65,6 +65,19 @@
             </b-form-group>
 
             <b-form-group
+                id="level-name"
+                label="Level"
+                label-for="level-name"
+            >
+                <TextInput
+                    name="level"
+                    type="number"
+                    rules="required"
+                    v-model="this.person.level"
+                />
+            </b-form-group>
+
+            <b-form-group
                 id="recipient-slm"
                 label="Is Service Level Manager?"
                 label-for="recipient-slm"

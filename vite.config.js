@@ -8,7 +8,9 @@ import { resolve } from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-
+  define: {
+    'process.env': {}
+  },
   plugins: [
       vue({
         template: {

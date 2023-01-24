@@ -5,7 +5,6 @@
             :description="$t('tiles.accessarea.description')"
             icon="fa-solid fa-database"
             link="accessarea-migration"
-            flip-v
         />
         <CardTile
             :title="$t('tiles.transport.title')"
@@ -23,6 +22,7 @@
             :description="$t('tiles.contractor.description')"
             icon="fa-regular fa-address-book"
             link="contractor-details"
+            v-role="'escalatiedesk-view'"
         />
     </div>
 </template>
@@ -39,7 +39,7 @@ export default {
 
     computed: {
         ...mapGetters({
-            authenticated: 'auth/authenticated'
+            authenticated: 'auth/authenticated',
         })
     }
 }

@@ -1,12 +1,12 @@
 import api from "@/Common/Helpers/Api";
-import { environment } from "../../../../environment";
 
 export default {
     namespaced: true,
 
     state: {
         token: localStorage.getItem('token') || '',
-        user: {}
+        user: {},
+        permission: {}
     },
 
     getters: {
@@ -16,6 +16,10 @@ export default {
 
         user(state) {
             return state.user;
+        },
+
+        permission(state) {
+            return state.permission;
         }
     },
 
@@ -26,10 +30,8 @@ export default {
         SET_USER(state, user) {
             state.user = user;
         },
-        ADD_USER_DATA: (state, data) => {
-            Object.keys(data).forEach(key => {
-                Vue.set(state.user, key, data[key])
-            })
+        SET_PERMISSION(state, permission) {
+            state.permission = permission;
         }
     },
 
@@ -45,7 +47,6 @@ export default {
         },
 
         async attempt({commit, state }, token) {
-
             if (token) {
                 commit('SET_TOKEN', token)
             }
@@ -58,6 +59,8 @@ export default {
                 let response = await api.get('user');
 
                 commit('SET_USER', response)
+                commit('SET_PERMISSION', response.permission)
+
             } catch (e) {
                 commit('SET_TOKEN', null)
                 commit('SET_USER', null)
