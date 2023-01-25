@@ -59,7 +59,7 @@
                 class="mt-2 mb-2"
                 label="Contractors"
             >
-            <vSelect :options="allRecipients" v-model="recipientContractor" @input="handleRecipient" placeholder="Add employee to contractor" label="name" multiple>
+            <vSelect :options="this.contractor" v-model="this.contractors" placeholder="Add employee to contractor" label="name" multiple>
                     <template v-slot:no-options>Search contractor ...</template>
                 </vSelect>
             </b-form-group>
@@ -101,7 +101,8 @@
 
 <script>
 import { Form } from 'vee-validate';
-import { mapState } from  'pinia'
+import { mapState, mapActions } from  'pinia'
+import { useToolsStore } from '@/stores'
 
 import FontAwesomeIcon from '../Icon/FontAwesomeIcon.vue';
 import TextInput from "../Input/TextInput.vue";
@@ -127,27 +128,48 @@ export default {
     data() {
         return {
             recipient: this.recipients,
+            contractors: null,
             isServiceLevelManager: 0
         }
     },
+    
+    computed: {
+        ...mapState(
+            useToolsStore, { 
+                contractor: 'contractor',
+            }
+        )
+    },
+
+    created() {
+        this.getAllRecipientByContractor(this.recipient.id).then((result) => {
+            this.contractors = result[0].contract_person
+        })
+    },
 
     methods: {
+        ...mapActions(
+            useToolsStore, { 
+                getAllRecipientByContractor: 'getAllRecipientByContractor',
+                getContractors: 'getContractors'
+            }
+        ),
 
         close() {
             this.$vbsModal.close();
         },
 
-        onSubmit: function (values) {
+        onSubmit: function (value) {
 
-            const newValues = {
-                id: this.person.id,
-                name: values.name,
-                email: values.email,
-                telephone: values.telephone,
+            const values = {
+                id: this.recipient.id,
+                name: value.name,
+                email: value.email,
+                telephone: value.telephone,
                 slm: (this.isServiceLevelManager === true) ? '1' : '0'
             }
-
-            this.$emit("onUpdate", newValues);
+            
+            this.$emit("onUpdate", values);
         }
     }
 }

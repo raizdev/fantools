@@ -41,13 +41,18 @@ export const useToolsStore = defineStore({
             this.recipients = response
         },
 
-        async getRecipientByContractor (value) {
-            const response = await api.get('tools/contractor/' + value.contractor + '/employee/list/' + value.searchItem)
+        async getAllRecipientByContractor(recipientId) {
+            const response = await api.get('/tools/contractor/list/employee/' + recipientId)
             return response
         },
         
         async modifyContractor (values) {
             const response = await api.post('tools/contractor/modify', values)
+            return response
+        },
+
+        async modifyRecipient (values) {
+            const response = await api.post('tools/contractor/recipient/modify', values)
             return response
         },
     }

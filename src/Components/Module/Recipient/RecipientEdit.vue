@@ -137,7 +137,8 @@ export default {
     methods: {
         ...mapActions(
             useToolsStore, { 
-                getAllRecipients: 'getAllRecipients'
+                getAllRecipients: 'getAllRecipients',
+                modifyRecipient: 'modifyRecipient'
             }
         ),
 
@@ -169,8 +170,9 @@ export default {
 
         updateRecipient(newValue) {
             this.modifyRecipient(newValue).then((result) => {
-                this.findRecipients()
-                this.$vbsModal.close();
+                if(result) {
+                    this.$vbsModal.close();
+                }
             })
         },
 
@@ -190,8 +192,9 @@ export default {
     },
 
     created() {
-        this.getAllRecipients()
-        this.totalRows = this.recipients.length
-    }
+        this.getAllRecipients().then(() => {
+            this.totalRows = this.recipients.length
+        })
+    },
 }
  </script>
