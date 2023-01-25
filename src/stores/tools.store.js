@@ -6,21 +6,27 @@ export const useToolsStore = defineStore({
     id: 'tools',
     state: () => ({
         recipients: null,
-        contractors: null
+        contractor: null,
+        contractorRecipients: null
     }),
     getters: {
         recipientByType: (state) => (type) => {
             return state.recipients.filter(recipient => recipient.slm == type)
         },
-        contractorById: (state) => (id) => {
-            return state.contractor.filter(contractor => contractor.id == id)
+        getContractorByName: (state) => (value) => {
+            return state.contractor.filter((contractor => contractor.slug.toLowerCase().includes(value)))
         }
     },
     actions: {
 
-        async getContractors(values) {
-            const response = await api.get('tools/contractor/list/' + values)
-            return response
+        async getContractors() {
+            const response = await api.get('tools/contractor/list/all')
+            this.contractor = response
+        },
+
+        async getContractorRecipients (value) {
+            const response = await api.get('tools/contractor/' + value)
+            this.contractorRecipients = response
         },
 
         async getAllRecipients () {

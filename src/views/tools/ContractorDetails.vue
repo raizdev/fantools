@@ -13,10 +13,10 @@
                         />
                      <Typeahead
                         @input="handleInput"
-                        :data="contractors"
+                        :data="this.searchTerm"
                         :serializer="s => s.slug"
                         placeholder="Search for contractors..."
-                        @hit="setContractorId($event)"
+                        @hit="setContractor($event)"
                         />
                   </div>
                </div>
@@ -25,18 +25,17 @@
       </div>
          
       <RecipientEdit 
-         v-if="!contractorId" 
+         v-if="!this.contractorRecipients" 
       />
 
       <ContractorEdit 
-         v-if="contractorId"
-         :contractorId="contractorId"
-         :key="componentKey"
+         v-if="this.contractorRecipients"
+         :contractor="this.contractorRecipients"
       />
    </div>
 </template>
 <script>
-   import { mapActions } from 'pinia'
+   import { mapActions, mapState } from 'pinia'
    import { useToolsStore } from '@/stores'
    
    import Typeahead from '@/Components/Input/Bootstrap/Typeahead.vue'
@@ -47,9 +46,7 @@
    export default {
       data() {
          return {
-            contractors: [],
-            contractorId: null,
-            componentKey: 0
+            searchTerm: []
          }
       },
    
@@ -59,29 +56,35 @@
          RecipientEdit,
          ContractorEdit
       },
+
+      computed: {
+         ...mapState(
+            useToolsStore, { 
+               contractorRecipients: 'contractorRecipients' ,
+               getContractorByName: 'getContractorByName'
+            }
+         )
+      },
    
       methods: {
          ...mapActions(
             useToolsStore, { 
                getContractors: 'getContractors',
-               getContractorById: 'getContractorById'
+               getContractorRecipients: 'getContractorRecipients',
             }
          ),
-
-         forceRerender() {
-            this.componentKey += 1;
-         },
    
          handleInput(event){
-            this.getContractors(event.target.value).then((result) => {
-                  this.contractors = result
-            })
+            this.searchTerm = this.getContractorByName(event.target.value.toLowerCase());
          },
 
-         setContractorId(contractor) {
-            this.contractorId = contractor.id
-            this.forceRerender()
+         setContractor(contractor) {
+            this.getContractorRecipients(contractor.id)
          }
+      },
+
+      mounted() {
+         this.getContractors()
       }
    }
 </script>

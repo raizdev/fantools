@@ -5,7 +5,7 @@
              <div class="d-flex justify-content-between">
                 <div>
                    <CardHeader
-                      :title="selectedContractor.name"
+                      :title="this.contractor.name"
                       />
                 </div>
                 <div>
@@ -19,7 +19,7 @@
              </div>
           </template>
           <b-card-body>
-             <b-table responsive striped outlined small hover fixed head-variant="dark" table-variant="light" :fields="fieldsContractor" :items="this.contractorEmployee">
+             <b-table responsive striped outlined small hover fixed head-variant="dark" table-variant="light" :fields="fieldsContractor" :items="this.contractor.contractors_details">
                   <template #cell(email)="email">
                      <span v-clipboard="email.item.email" style="cursor: pointer !important">
                         <FontAwesomeIcon 
@@ -51,10 +51,10 @@
              </CardHeader>
           </template>
           <b-card-body>
-             <b-table striped outlined small hover fixed :fields="fieldsServiceLevelManager" :items="this.serviceLevelManager" />
+             <b-table striped outlined small hover fixed :fields="fieldsServiceLevelManager" :items="this.contractor.service_level_manager" />
           </b-card-body>
        </b-card>
-       <b-card no-body class="border-0 p-2" v-if="selectedContractor.information">
+       <b-card no-body class="border-0 p-2" v-if="this.contractor.information">
           <template #header>
              <CardHeader
                 title="Information"
@@ -62,13 +62,13 @@
              </CardHeader>
           </template>
           <b-card-body>
-             {{ selectedContractor.information }}
+             {{ this.contractor.information }}
           </b-card-body>
        </b-card>
     </div>
  </template>
  <script>
-import { mapActions } from 'pinia'
+import { mapActions, mapState } from 'pinia'
 import { useToolsStore } from '@/stores'
 import { ModalSize } from "vue-bs-modal";
 
@@ -80,7 +80,8 @@ export default {
    name: 'ContractorEdit',
 
    props: {
-      contractorId: Number
+      contractorId: Number,
+      contractor: Object
    },
 
    data() {
@@ -98,10 +99,6 @@ export default {
             thStyle: { width: "8%" }
          }],
          fieldsServiceLevelManager: ['name', 'email', 'telephone'],
-         serviceLevelManager: [],
-         contractorEmployee: [],
-         selectedContractor: [],
-         information: ''
       }
    },
 
@@ -109,6 +106,12 @@ export default {
       CardHeader,
       FontAwesomeIcon,
       EditContractorComponent
+   },
+
+   computed: {
+      ...mapState(
+         useToolsStore, { getContractor: 'contractor' }
+      )
    },
 
    methods: {
@@ -124,28 +127,13 @@ export default {
             content: EditContractorComponent,
             size: ModalSize.LARGE,
             contentProps: {
-               contractor: this.selectedContractor,
-               employee: this.contractorEmployee,
-               slm: this.serviceLevelManager
+               contractor: this.contractor
             },
             contentEmits: {
                onUpdate: this.updateContractor,
             }
          });
       },
-
-      getContractor(contractorId) {
-         this.getContractorById(contractorId).then((result) => {
-               this.serviceLevelManager = result.service_level_manager
-               this.contractorEmployee = result.contractors_details
-               this.selectedContractor = result
-         })
-      },
-
-      copy() {
-      this.$refs.clone.focus();
-      document.execCommand('copy');
-   },
    
       updateContractor(data) {
          this.modifyContractor(data).then((result) => {
@@ -155,10 +143,6 @@ export default {
             }
          })
       }
-   },
-
-   mounted() {
-      this.getContractor(this.contractorId)
    }
 }
  </script>

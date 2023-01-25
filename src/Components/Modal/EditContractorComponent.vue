@@ -32,7 +32,7 @@
                 label-for="recipient-1"
                 description="You can select more than one recipient"
             >
-                <vSelect :options="allEmployees" :components="{Deselect}" @input="handleEmployee" placeholder="Add employee to list" label="name" multiple v-model="addedRecipient">
+                <vSelect :options="this.filterAllRecipients(0)" :components="{Deselect}" placeholder="Add employee to list" label="name" multiple v-model="selectedRecipients">
                     <template v-slot:no-options>Search reciptient ...</template>
                 </vSelect>
             </b-form-group>
@@ -43,7 +43,7 @@
                 label-for="service-level-manager-1"
                 class="mt-3"
             >
-                <vSelect :options="allServiceLevelManagers" :value="seviceLevelManager" placeholder="Service Level Manager" label="name" v-model="seviceLevelManager" />
+                <vSelect :options="this.filterAllRecipients(1)" placeholder="Service Level Manager" label="name" v-model="selectedServiceLevelManager" />
             </b-form-group>
 
             <b-form-group
@@ -55,7 +55,7 @@
             >
                 <b-form-textarea
                     id="textarea"
-                    v-model="information"
+                    v-model="this.contractor.information"
                     placeholder=""
                     rows="3"
                     max-rows="6"
@@ -88,13 +88,7 @@ export default defineComponent({
 
     props: {
         contractor: {
-            type: Array
-        },
-        employee: {
-            type: Array
-        },
-        slm: {
-            type: Array
+            type: Object
         }
     },
 
@@ -107,11 +101,8 @@ export default defineComponent({
     },
 
     data: () => ({
-        information: '',
-        allEmployees: [],
-        addedRecipient: [],
-        seviceLevelManager: [],
-        allServiceLevelManagers: [],
+        selectedRecipients: [],
+        selectedServiceLevelManager: [],
         Deselect: {
             render: createElement => createElement('span', '❌'),
         }
@@ -120,20 +111,15 @@ export default defineComponent({
     computed: {
         ...mapState(
             useToolsStore, { 
-                filter: 'recipientByType'
+                filterAllRecipients: 'recipientByType',
             }
         )
     },
 
     created() {
-        this.addedRecipient = this.employee
-        this.seviceLevelManager = this.slm
-        this.information = this.contractor.information
-
-        this.getAllRecipients().then(() => {
-            console.log(this.filter(1))
-            this.allServiceLevelManagers = this.listAllEmployees
-        })
+        this.selectedRecipients = this.contractor.contractors_details
+        this.selectedServiceLevelManager = this.contractor.service_level_manager
+        this.getAllRecipients()
     },
 
     methods: {
@@ -144,24 +130,14 @@ export default defineComponent({
             }
          ),
 
-        handleEmployee(event){
-
-            const values = {
-                searchItem: event.target.value,
-                contractor: this.contractor.id
-            };
-
-            this.getRecipientByContractor(values).then((result) => {
-                this.allEmployees = result
-            })
-        },
-
         close() {
             this.$vbsModal.close();
         },
 
         onSubmit: function (value) {
 
+            console.log(this.selectedRecipients, this.selectedServiceLevelManager)
+            
             const values = {
                 name: value.name,
                 contractors_id: this.contractor.id,
@@ -170,7 +146,7 @@ export default defineComponent({
                 information: this.information
             }
 
-            this.$emit("onUpdate", values);
+            //this.$emit("onUpdate", values);
         }
     }
 });
