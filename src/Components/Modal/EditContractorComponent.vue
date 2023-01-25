@@ -55,7 +55,7 @@
             >
                 <b-form-textarea
                     id="textarea"
-                    v-model="this.contractor.information"
+                    v-model="this.information"
                     placeholder=""
                     rows="3"
                     max-rows="6"
@@ -66,7 +66,7 @@
     </Form>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent } from "vue";
 import { Form, Field, defineRule } from 'vee-validate';
 import { required } from '@vee-validate/rules';
@@ -100,13 +100,16 @@ export default defineComponent({
         vSelect
     },
 
-    data: () => ({
-        selectedRecipients: [],
-        selectedServiceLevelManager: [],
-        Deselect: {
-            render: createElement => createElement('span', '❌'),
+    data() {
+        return {
+            selectedRecipients: this.contractor.contractors_details,
+            selectedServiceLevelManager: this.contractor.service_level_manager,
+            information: this.contractor.information,
+            Deselect: {
+                render: createElement => createElement('span', '❌'),
+            }
         }
-    }),
+    },
 
     computed: {
         ...mapState(
@@ -117,37 +120,32 @@ export default defineComponent({
     },
 
     created() {
-        this.selectedRecipients = this.contractor.contractors_details
-        this.selectedServiceLevelManager = this.contractor.service_level_manager
         this.getAllRecipients()
     },
 
     methods: {
         ...mapActions(
             useToolsStore, { 
-                getRecipientByContractor: 'getRecipientByContractor',
                 getAllRecipients: 'getAllRecipients'
             }
-         ),
+        ),
+
+        onSubmit: function (value) {
+
+            const values = {
+                name: value.name,
+                contractors_id: this.contractor.id,
+                contractorPersons: this.selectedRecipients,
+                serviceLevelManager: this.selectedServiceLevelManager[0] ?? this.selectedServiceLevelManager,
+                information: this.information
+            }
+
+            this.$emit("onUpdate", values);
+        },
 
         close() {
             this.$vbsModal.close();
         },
-
-        onSubmit: function (value) {
-
-            console.log(this.selectedRecipients, this.selectedServiceLevelManager)
-            
-            const values = {
-                name: value.name,
-                contractors_id: this.contractor.id,
-                contractorPersons: this.addedRecipient,
-                serviceLevelManager: this.seviceLevelManager[0] ?? this.seviceLevelManager,
-                information: this.information
-            }
-
-            //this.$emit("onUpdate", values);
-        }
     }
 });
 </script>

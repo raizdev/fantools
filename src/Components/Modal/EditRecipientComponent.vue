@@ -22,7 +22,7 @@
                     name="name"
                     type="text"
                     rules="required"
-                    v-model="this.person.name"
+                    v-model="this.recipient.name"
                 />
             </b-form-group>
 
@@ -35,7 +35,7 @@
                 <TextInput
                     name="email"
                     type="text"
-                    v-model="this.person.email"
+                    v-model="this.recipient.email"
                 />
                 
             </b-form-group>
@@ -50,7 +50,7 @@
                     name="telephone"
                     type="text"
                     rules="required"
-                    v-model="this.person.telephone"
+                    v-model="this.recipient.telephone"
                 />
             </b-form-group>
             <b-form-group
@@ -99,10 +99,9 @@
     </Form>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script>
 import { Form } from 'vee-validate';
-import { mapActions } from "vuex";
+import { mapState } from  'pinia'
 
 import FontAwesomeIcon from '../Icon/FontAwesomeIcon.vue';
 import TextInput from "../Input/TextInput.vue";
@@ -110,14 +109,12 @@ import TextInput from "../Input/TextInput.vue";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 
-export default defineComponent({
+export default {
     name: "EditRecipientComponent",
     emits: ["onUpdate"],
 
     props: {
-        recipient: {
-            type: Object
-        }
+        recipients: Object
     },
 
     components: {
@@ -127,18 +124,14 @@ export default defineComponent({
         vSelect
     },
 
-    data: () => ({
-        isServiceLevelManager: 0,
-        recipientContractor: [],
-        person: [],
-        allRecipients: []
-    }),
+    data() {
+        return {
+            recipient: this.recipients,
+            isServiceLevelManager: 0
+        }
+    },
 
     methods: {
-        ...mapActions({
-            findEmployee: 'tools/findEmployeeByDetailsId',
-            findRecipientContractor: 'tools/findRecipientContractor'
-        }),
 
         close() {
             this.$vbsModal.close();
@@ -155,29 +148,7 @@ export default defineComponent({
             }
 
             this.$emit("onUpdate", newValues);
-        },
-
-        handleRecipient(event) {
-
-            const values = {
-                searchItem: event.target.value,
-                recipientId: this.person.id
-            };
-
-            this.findEmployee(values).then((result) => {
-                this.allRecipients = result
-            }) 
         }
-    },
-
-    created() {
-
-        this.person = this.recipient
-
-        this.findRecipientContractor(this.person.id).then((result) => {
-            this.recipientContractor = result.contract_person
-            console.log(result)
-        })
     }
-});
+}
 </script>

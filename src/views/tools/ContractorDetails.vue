@@ -28,6 +28,16 @@
          v-if="!this.contractorRecipients" 
       />
 
+      <a href="#" @click="goBack" v-if="this.contractorRecipients">
+         <FontAwesomeIcon
+            icon="fa-solid fa-arrow-left"
+            size="2x"
+            variant="success"
+            class="mt-3"
+            style="margin-left: 65px"
+         />
+      </a>
+
       <ContractorEdit 
          v-if="this.contractorRecipients"
          :contractor="this.contractorRecipients"
@@ -71,6 +81,7 @@
             useToolsStore, { 
                getContractors: 'getContractors',
                getContractorRecipients: 'getContractorRecipients',
+               clearRecipients: 'clearRecipients'
             }
          ),
    
@@ -80,6 +91,10 @@
 
          setContractor(contractor) {
             this.getContractorRecipients(contractor.id)
+         },
+
+         goBack() {
+            this.clearRecipients()
          }
       },
 

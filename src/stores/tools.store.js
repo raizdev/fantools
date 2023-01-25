@@ -13,11 +13,18 @@ export const useToolsStore = defineStore({
         recipientByType: (state) => (type) => {
             return state.recipients.filter(recipient => recipient.slm == type)
         },
+        recipientById: (state) => (value) => {
+            return state.recipients.filter(recipient => recipient.id == value)
+        },
         getContractorByName: (state) => (value) => {
             return state.contractor.filter((contractor => contractor.slug.toLowerCase().includes(value)))
         }
     },
     actions: {
+
+        clearRecipients() {
+            this.contractorRecipients = null
+        },
 
         async getContractors() {
             const response = await api.get('tools/contractor/list/all')
@@ -35,15 +42,11 @@ export const useToolsStore = defineStore({
         },
 
         async getRecipientByContractor (value) {
-
             const response = await api.get('tools/contractor/' + value.contractor + '/employee/list/' + value.searchItem)
             return response
         },
         
         async modifyContractor (values) {
-
-            values.contractorPersons.push(values.serviceLevelManager)
-
             const response = await api.post('tools/contractor/modify', values)
             return response
         },

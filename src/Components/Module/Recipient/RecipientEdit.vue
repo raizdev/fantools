@@ -43,7 +43,7 @@
                 </b-row>
                 <b-table
                     :fields="fields"
-                    :items="recipient"
+                    :items="this.recipients"
                     :current-page="currentPage"
                     :per-page="perPage"
                     :filter="filter"
@@ -85,9 +85,8 @@
     </div>
 </template>
 <script>
-import { mapState, mapActions } from 'pinia'
+import { mapActions, mapState } from 'pinia'
 import { useToolsStore } from '@/stores'
-import { ModalSize } from "vue-bs-modal";
 
 import CardHeader from '@/Components/Card/CardHeader.vue';
 import FontAwesomeIcon from '@/Components/Icon/FontAwesomeIcon.vue';
@@ -108,8 +107,6 @@ export default {
                 thStyle: { width: "25%" }
             },{ 
                 key: 'actions', 
-                thClass: (this.$zo.hasRole('escalatiedesk-edit')) ? '': 'd-none',
-                tdClass: (this.$zo.hasRole('escalatiedesk-edit')) ? '': 'd-none',
                 label: 'Actions' 
             }],
             totalRows: 1,
@@ -118,8 +115,6 @@ export default {
             pageOptions: [5, 10, 15, { value: 100, text: "Show a lot" }],
             filter: null,
             filterOn: [],
-            recipient: null,
-            canEdit: ''
         }
     },
 
@@ -130,9 +125,20 @@ export default {
         CreateRecipientComponent
     },
 
+    computed: {
+        ...mapState(
+            useToolsStore, { 
+                recipients: 'recipients',
+                recipientById: 'recipientById'
+            }
+        )
+    },
+
     methods: {
         ...mapActions(
-            useToolsStore, { listAllEmployees: 'listAllEmployees'}
+            useToolsStore, { 
+                getAllRecipients: 'getAllRecipients'
+            }
         ),
 
         onFiltered(filteredItems) {
@@ -142,24 +148,22 @@ export default {
 
         editRecipient(recipientId) {
             this.$vbsModal.open({
-            content: EditRecipientComponent,
-            size: ModalSize.LARGE,
-            contentProps: {
-                recipient: this.recipient.filter(recipient => recipient.id == recipientId)[0]
-            },
-            contentEmits: {
-                onUpdate: this.updateRecipient,
-            }
+                content: EditRecipientComponent,
+                contentProps: {
+                    recipients: this.recipientById(recipientId)[0]
+                },
+                contentEmits: {
+                    onUpdate: this.updateRecipient,
+                }
             });
         },
 
         createRecipient(recipientId) {
             this.$vbsModal.open({
-            content: CreateRecipientComponent,
-            size: ModalSize.LARGE,
-            contentEmits: {
-                onUpdate: this.updateRecipient,
-            }
+                content: CreateRecipientComponent,
+                contentEmits: {
+                    onUpdate: this.updateRecipient,
+                }
             });
         },
 
@@ -167,13 +171,6 @@ export default {
             this.modifyRecipient(newValue).then((result) => {
                 this.findRecipients()
                 this.$vbsModal.close();
-            })
-        },
-
-        findRecipients() {
-            this.listAllEmployees().then((result) => {
-                this.totalRows = result.length
-                this.recipient = result
             })
         },
 
@@ -192,8 +189,9 @@ export default {
         }
     },
 
-    mounted() {
-        this.findRecipients()
+    created() {
+        this.getAllRecipients()
+        this.totalRows = this.recipients.length
     }
 }
  </script>

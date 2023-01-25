@@ -98,6 +98,7 @@ export default {
             key: 'level',
             thStyle: { width: "8%" }
          }],
+         contractor: this.contractor,
          fieldsServiceLevelManager: ['name', 'email', 'telephone'],
       }
    },
@@ -110,13 +111,17 @@ export default {
 
    computed: {
       ...mapState(
-         useToolsStore, { getContractor: 'contractor' }
+         useToolsStore, { 
+            contractorRecipients: 'contractorRecipients',
+            getContractor: 'contractor' 
+         }
       )
    },
 
    methods: {
       ...mapActions(
          useToolsStore, { 
+            getContractorRecipients: 'getContractorRecipients',
             getContractorById: 'getContractorById',
             modifyContractor: 'modifyContractor'
          }
@@ -137,10 +142,8 @@ export default {
    
       updateContractor(data) {
          this.modifyContractor(data).then((result) => {
-            if(result) {
-               this.getContractor(this.contractorId)
-               this.$vbsModal.close();
-            }
+            this.getContractorRecipients(this.contractor.id)
+            this.$vbsModal.close();
          })
       }
    }
