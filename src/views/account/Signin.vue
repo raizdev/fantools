@@ -32,12 +32,14 @@
     </div>
 </template>
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from 'pinia'
+import { useAuthStore } from '@/stores';
+
 import { Form, Field, defineRule } from 'vee-validate';
 import { required } from '@vee-validate/rules';
 
-import CardHeader from '../../../Components/Card/CardHeader.vue';
-import TextInput from "../../../Components/Input/TextInput.vue";
+import CardHeader from '@/Components/Card/CardHeader.vue';
+import TextInput from "@/Components/Input/TextInput.vue";
 
 defineRule('required', required);
 
@@ -60,10 +62,6 @@ export default {
     },
 
     computed: {
-        ...mapGetters({
-            authenticated: 'auth/authenticated',
-            user: 'auth/user'
-        })
     },
 
     methods: {
@@ -75,9 +73,7 @@ export default {
             })
         },
 
-        ...mapActions({
-            signIn: 'auth/signIn'
-        })
+        ...mapActions(useAuthStore, { signIn: 'signIn'})
     }
   }
 </script>

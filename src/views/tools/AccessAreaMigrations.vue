@@ -26,25 +26,16 @@
         </Form>
 
         <b-card no-body class="border-0 p-2" v-if="data">
-            <json-viewer
-                :value="data"
-                :expand-depth=5
-                copyable
-            >
-            </json-viewer>
         </b-card>
     </div>
 </template>
 <script>
-import { BCard, BCardBody, BButton, BCardFooter } from 'bootstrap-vue';
-
 import { Form, defineRule } from 'vee-validate';
 import { required } from '@vee-validate/rules';
 import { mapActions } from "vuex";
-import JsonViewer from 'vue-json-viewer'
 
-import CardHeader from '../../../Components/Card/CardHeader.vue';
-import TextInput from "../../../Components/Input/TextInput.vue";
+import CardHeader from '@/Components/Card/CardHeader.vue';
+import TextInput from '@/Components/Input/TextInput.vue';
 
 defineRule('required', required);
 
@@ -59,8 +50,7 @@ export default {
     components: {
         CardHeader,
         TextInput,
-        Form,
-        JsonViewer
+        Form
     },
 
     methods: {

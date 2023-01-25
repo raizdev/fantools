@@ -1,92 +1,29 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router';
 
+import { useAuthStore } from '@/stores';
+import { Home } from '@/views';
+import accountRoutes from './account.routes';
+import toolsRoutes from './tools.routes';
+import { environment } from '../../environment';
 
-import { environment } from "../../environment";
-import  {version } from '../../package'
-
-import store from '../Store'
-import guest from './Middleware/Guest'
-import auth from './Middleware/Auth'
-import middlewarePipeline from './Middleware/MiddlewarePipeline'
-import HomeView from '../Views/Pages/Home/Home.vue'
-import SignInView from '../Views/Pages/Auth/Signin.vue'
-import SignUpView from '../Views/Pages/Auth/Signup.vue'
-import AccessAreaMigrationView from '../Views/Pages/Tools/AccessAreaMigrations.vue'
-import TransportInstanceView  from '../Views/Pages/Tools/TransportInstance.vue'
-import ContractorDetailsView from '../Views/Pages/Tools/ContractorDetails.vue'
-
-const router = createRouter({
-  mode: 'history',
+export const router = createRouter({
   history: createWebHistory(),
-  routes: [
-    { 
-      path: '/',  
-      name: 'home', 
-      component: HomeView, 
-      meta: {
-        middleware: [
-            auth
-        ]
-      }  
-    },
-    { path: '/auth/sign-in', name: 'sign-in', component: SignInView },
-    { path: '/auth/sign-up', name: 'sign-up', component: SignUpView },
-    { path: '/auth/sign-out', name: 'sign-out', component: SignInView },
-    { 
-      path: '/tools/accessarea-migration',  
-      name: 'accessarea-migration', 
-      component: AccessAreaMigrationView ,
-      meta: {
-        middleware: [
-            auth
-        ]
-      }  
-    },
-    { 
-      path: '/tools/transport-instance',  
-      name: 'transport-instance', 
-      component: TransportInstanceView,
-      meta: {
-        middleware: [
-            auth
-        ]
-      }  
-    },
-    { 
-      path: '/tools/contractor-details',  
-      name: 'contractor-details', 
-      component: ContractorDetailsView,
-      meta: {
-        middleware: [
-            auth
-        ]
-      }  
+  linkActiveClass: 'active',
+    routes: [
+        { path: '/', name: 'home', component: Home },
+        { ...accountRoutes },
+        { ...toolsRoutes },
+        { path: '/:pathMatch(.*)*', redirect: '/' }
+    ]
+});
+
+router.beforeEach(async (to) => {
+    const publicPages = ['/account/login', '/account/register'];
+    const authRequired = !publicPages.includes(to.path);
+    const authStore = useAuthStore();
+
+    if (authRequired && !authStore.user) {
+        authStore.returnUrl = to.fullPath;
+        return '/account/login';
     }
-  ]
-})
-
-router.beforeEach((to, from, next) => {
-  
-  document.title = `${environment.ApplicationName} - v${version}`
-
-  if (!to.meta.middleware) {
-    return next()
-  }
-
-  const middleware = to.meta.middleware
-  const context = {
-    to,
-    from,
-    next,
-    store
-  }
-
-
-  return middleware[0]({
-    ...context,
-    next: middlewarePipeline(context, middleware, 1)
-  })
-
-})
-
-export default router;
+});

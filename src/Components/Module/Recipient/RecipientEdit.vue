@@ -85,7 +85,8 @@
     </div>
 </template>
 <script>
-import { mapActions } from "vuex";
+import { mapState, mapActions } from 'pinia'
+import { useToolsStore } from '@/stores'
 import { ModalSize } from "vue-bs-modal";
 
 import CardHeader from '@/Components/Card/CardHeader.vue';
@@ -130,11 +131,9 @@ export default {
     },
 
     methods: {
-        ...mapActions({
-            listAllEmployees: 'tools/listAllEmployees',
-            modifyRecipient: 'tools/modifyRecipient',
-            delete: 'tools/deleteRecipient'
-        }),
+        ...mapActions(
+            useToolsStore, { listAllEmployees: 'listAllEmployees'}
+        ),
 
         onFiltered(filteredItems) {
             this.totalRows = filteredItems.length

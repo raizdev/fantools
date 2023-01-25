@@ -1,32 +1,34 @@
 <template>
-  <div class="notifications">
-    <notification
-        v-for="(notification, index) in notifications"
-        :key="notification.text + index"
-        :notification="notification"
-        @close-notification="removeNotification"
-    ></notification>
-  </div>
 </template>
+
 <script>
-import { mapGetters } from 'vuex'
-import Notification from '@/Components/Notification/Notification.vue';
+import { defineComponent, ref, watch } from 'vue'
+import { mapState } from 'pinia'
+import { useNotificationStore } from '@/stores'
 
-export default {
-  components: {
-    Notification
-  },
+export default defineComponent({
+    id: 'notifications',
 
-  computed: {
-    ...mapGetters({
-      notifications: 'notifications/list',
-    }),
-  },
-
-  methods: {
-    removeNotification: function (notification) {
-      this.$store.commit('notifications/REMOVE_NOTIFICATION', notification);
+    computed: {
+        ...mapState(
+            useNotificationStore, { getNotification: 'notifications' }
+        )
     },
-  },
-}
+
+    watch: {
+        getNotification(notifications) {
+            const notification = notifications.shift();
+
+            this.$toast.open({
+                message: notification.text,
+                type: `${notification.type || 'success'}`,
+                duration: 5000,
+                dismissible: true,
+                position: 'top-right',
+                queue: true,
+                pauseOnHover: true
+            })
+        }
+    }
+})
 </script>

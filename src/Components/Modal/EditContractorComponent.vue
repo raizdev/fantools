@@ -70,7 +70,8 @@
 import { defineComponent } from "vue";
 import { Form, Field, defineRule } from 'vee-validate';
 import { required } from '@vee-validate/rules';
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapState } from 'pinia'
+import { useToolsStore } from '@/stores'
 
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
@@ -117,9 +118,11 @@ export default defineComponent({
     }),
 
     computed: {
-        ...mapGetters({
-            findEmployeeBySlm: 'tools/findEmployeeBySlm',
-        })
+        ...mapState(
+            useToolsStore, { 
+                filter: 'recipientByType'
+            }
+        )
     },
 
     created() {
@@ -127,16 +130,19 @@ export default defineComponent({
         this.seviceLevelManager = this.slm
         this.information = this.contractor.information
 
-        this.listAllEmployees().then(() => {
-            this.allServiceLevelManagers = this.findEmployeeBySlm(1)
+        this.getAllRecipients().then(() => {
+            console.log(this.filter(1))
+            this.allServiceLevelManagers = this.listAllEmployees
         })
     },
 
     methods: {
-        ...mapActions({
-            findEmployee: 'tools/findEmployee',
-            listAllEmployees: 'tools/listAllEmployees'
-        }),
+        ...mapActions(
+            useToolsStore, { 
+                getRecipientByContractor: 'getRecipientByContractor',
+                getAllRecipients: 'getAllRecipients'
+            }
+         ),
 
         handleEmployee(event){
 
@@ -145,7 +151,7 @@ export default defineComponent({
                 contractor: this.contractor.id
             };
 
-            this.findEmployee(values).then((result) => {
+            this.getRecipientByContractor(values).then((result) => {
                 this.allEmployees = result
             })
         },

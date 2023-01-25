@@ -36,7 +36,8 @@
    </div>
 </template>
 <script>
-   import { mapActions } from "vuex";
+   import { mapActions } from 'pinia'
+   import { useToolsStore } from '@/stores'
    
    import Typeahead from '@/Components/Input/Bootstrap/Typeahead.vue'
    import FontAwesomeIcon from '@/Components/Icon/FontAwesomeIcon.vue';
@@ -60,10 +61,12 @@
       },
    
       methods: {
-         ...mapActions({
-            getContractors: 'tools/getContractors',
-            getContractorById: 'tools/getContractorById'
-         }),
+         ...mapActions(
+            useToolsStore, { 
+               getContractors: 'getContractors',
+               getContractorById: 'getContractorById'
+            }
+         ),
 
          forceRerender() {
             this.componentKey += 1;

@@ -9,7 +9,7 @@
                       />
                 </div>
                 <div>
-                   <a href="#" @click="editContractor" v-role="'escalatiedesk-edit'">
+                   <a href="#" @click="editContractor">
                       <FontAwesomeIcon
                          icon="fa-solid fa-pen-to-square"
                          size="1x"
@@ -68,7 +68,8 @@
     </div>
  </template>
  <script>
-import { mapActions } from "vuex";
+import { mapActions } from 'pinia'
+import { useToolsStore } from '@/stores'
 import { ModalSize } from "vue-bs-modal";
 
 import CardHeader from '@/Components/Card/CardHeader.vue';
@@ -111,10 +112,12 @@ export default {
    },
 
    methods: {
-      ...mapActions({
-         getContractorById: 'tools/getContractorById',
-         modifyContractor: 'tools/modifyContractor'
-      }),
+      ...mapActions(
+         useToolsStore, { 
+            getContractorById: 'getContractorById',
+            modifyContractor: 'modifyContractor'
+         }
+      ),
 
       editContractor() {
          this.$vbsModal.open({

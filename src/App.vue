@@ -1,11 +1,11 @@
 <template>
 
-   <Notifications/>
+   <Notifications />
 
    <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
         <router-link :to="{ name: 'home' }" class="navbar-brand">
-            {{ applicationName }}
+            {{ this.applicationName }}
         </router-link>
          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
          </ul>
@@ -95,7 +95,6 @@ export default {
     computed: {
         ...mapGetters({
             authenticated: 'auth/authenticated',
-            notifications: 'notifications/list',
             permissions: 'auth/permission'
         })
     },
