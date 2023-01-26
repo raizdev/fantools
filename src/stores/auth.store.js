@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia';
 
 import api from "@/includes/api";
+import { useNotificationStore } from '@/stores';
+import i18n from '@/includes/i18n';
 
 export const useAuthStore = defineStore({
     
@@ -10,12 +12,26 @@ export const useAuthStore = defineStore({
         user: null,
         permission: null
     }),
+    getters: {
+        authenticated(state) {
+            return state.token && state.user;
+        }
+    },
     actions: {
 
         async signIn(credentials) {
             const response = await api.post('auth/login', credentials); 
             return this.attempt(response.token)
         },
+
+        async signUp(credentials) {
+            const response = await api.post('auth/register', credentials); 
+            if(response) {
+                const notificationStore = useNotificationStore()
+                notificationStore.notifications.push({ text: i18n.t('auth.signup.success'), type: 'success' })
+                this.router.push('/account/login');
+            }
+        },     
 
         async attempt(token) {
 
@@ -32,17 +48,23 @@ export const useAuthStore = defineStore({
             try {
                 let response = await api.get('user');
 
-                this.user = response
+                this.$patch({
+                    user: response
+                })
+
             } catch (e) {
-                this.token = null
-                this.user = null
+                this.logout()
             }
         },
 
         logout() {
-            this.user = null;
-            localStorage.removeItem('token');
-            router.push('/account/login');
+            this.$patch({
+                user: '',
+                token: ''
+            })
+
+            localStorage.removeItem('token')
+            this.router.push('/account/login');
         }
     }
 });

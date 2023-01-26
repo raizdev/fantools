@@ -45,61 +45,61 @@
    </div>
 </template>
 <script>
-   import { mapActions, mapState } from 'pinia'
-   import { useToolsStore } from '@/stores'
-   
-   import Typeahead from '@/components/Input/Bootstrap/Typeahead.vue'
-   import FontAwesomeIcon from '@/components/Icon/FontAwesomeIcon.vue';
-   import RecipientEdit from '@/components/Module/Recipient/RecipientEdit.vue';
-   import ContractorEdit from '@/components/Module/Contractor/ContractorEdit.vue';
-      
-   export default {
-      data() {
-         return {
-            searchTerm: []
-         }
-      },
-   
-      components: {
-         Typeahead,
-         FontAwesomeIcon,
-         RecipientEdit,
-         ContractorEdit
-      },
+import { mapActions, mapState } from 'pinia'
+import { useToolsStore } from '@/stores'
 
-      computed: {
-         ...mapState(
-            useToolsStore, { 
-               contractorRecipients: 'contractorRecipients' ,
-               getContractorByName: 'getContractorByName'
-            }
-         )
-      },
+import Typeahead from '@/components/Input/Bootstrap/Typeahead.vue'
+import FontAwesomeIcon from '@/components/Icon/FontAwesomeIcon.vue';
+import RecipientEdit from '@/components/Module/Recipient/RecipientEdit.vue';
+import ContractorEdit from '@/components/Module/Contractor/ContractorEdit.vue';
    
-      methods: {
-         ...mapActions(
-            useToolsStore, { 
-               getContractors: 'getContractors',
-               getContractorRecipients: 'getContractorRecipients',
-               clearRecipients: 'clearRecipients'
-            }
-         ),
-   
-         handleInput(event){
-            this.searchTerm = this.getContractorByName(event.target.value.toLowerCase());
-         },
-
-         setContractor(contractor) {
-            this.getContractorRecipients(contractor.id)
-         },
-
-         goBack() {
-            this.clearRecipients()
-         }
-      },
-
-      mounted() {
-         this.getContractors()
+export default {
+   data() {
+      return {
+         searchTerm: []
       }
+   },
+
+   components: {
+      Typeahead,
+      FontAwesomeIcon,
+      RecipientEdit,
+      ContractorEdit
+   },
+
+   computed: {
+      ...mapState(
+         useToolsStore, { 
+            contractorRecipients: 'contractorRecipients' ,
+            getContractorByName: 'getContractorByName'
+         }
+      )
+   },
+
+   methods: {
+      ...mapActions(
+         useToolsStore, { 
+            getContractors: 'getContractors',
+            getContractorRecipients: 'getContractorRecipients',
+            clearRecipients: 'clearRecipients'
+         }
+      ),
+
+      handleInput(event){
+         this.searchTerm = this.getContractorByName(event.target.value.toLowerCase());
+      },
+
+      setContractor(contractor) {
+         this.getContractorRecipients(contractor.id)
+      },
+
+      goBack() {
+         this.clearRecipients()
+      }
+   },
+
+   mounted() {
+      this.getContractors()
    }
+}
 </script>

@@ -1,25 +1,82 @@
 <template>
-    <div class="uk-background-default uk-border-rounded uk-box-shadow-small">
-        <div class="uk-container uk-container-xsmall uk-padding-large">
-
-        <h1>Sign Up</h1>
-        <form class="uk-form-stacked uk-margin-medium-top" action="auth/account-registration">
-                <div class="uk-margin-bottom">
-                    <label class="uk-form-label" for="name">Ruisnaam</label>
-                    <div class="uk-form-controls">
-                        <input class="uk-input uk-border-rounded" name="username" type="text" required>
-                    </div>
-                </div>
-                <div class="uk-margin-bottom">
-                    <label class="uk-form-label" for="name">Email (work)</label>
-                    <div class="uk-form-controls">
-                        <input class="uk-input uk-border-rounded" name="mail" type="email" required>
-                    </div>
-                </div>
-                <div class="uk-text-center">
-                    <input class="uk-button uk-button-primary uk-border-rounded" type="submit" value="Send Message">
-                </div>
-            </form>
-        </div>
+    <div>
+        <Form
+            @submit="onSubmit"
+        >
+            <b-card no-body class="border-0 p-2">
+                <template #header>
+                    <CardHeader
+                        :title="$t('auth.signup.title')"
+                    >
+                    </CardHeader>
+                </template>
+                <b-card-body>
+                    <TextInput
+                        name="username"
+                        type="text"
+                        :placeholder="$t('auth.signup.username')"
+                        rules="required"
+                        class="mb-3"
+                    />
+                    <TextInput
+                        name="email"
+                        type="email"
+                        :placeholder="$t('auth.signup.email')"
+                        rules="required"
+                        class="mb-3"
+                    />
+                </b-card-body>
+                <b-card-footer class="p-0 m-0">
+                    <b-button variant="success" class="w-100" type="submit">{{ $t('auth.signup.button') }}</b-button>
+                </b-card-footer>
+            </b-card>
+        </Form>
     </div>
 </template>
+<script>
+import { mapActions } from 'pinia'
+import { useAuthStore } from '@/stores';
+
+import { Form, Field, defineRule } from 'vee-validate';
+import { required } from '@vee-validate/rules';
+
+import CardHeader from '@/components/Card/CardHeader.vue';
+import TextInput from "@/components/Input/TextInput.vue";
+
+defineRule('required', required);
+
+export default {
+
+    components: {
+        Form,
+        Field,
+        TextInput,
+        CardHeader
+    },  
+
+    data() {
+        return {
+            form: {
+                username: '',
+                password: ''
+            }
+        }
+    },
+
+    computed: {
+    },
+
+    methods: {
+        onSubmit: function (values) {
+            console.log(values)
+            this.signUp(values).then(() => {
+                this.$router.replace({
+                    name: 'home'
+                })
+            })
+        },
+
+        ...mapActions(useAuthStore, { signIn: 'signUp'})
+    }
+  }
+</script>

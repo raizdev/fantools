@@ -37,7 +37,14 @@
         "signin" : {
             "title": "Inloggen",
             "description": "Wachtwoord vergeten?",
-            "button": "Sign in"
+            "button": "Inloggen"
+        },
+        "signup": {
+            "title": "Registreer account",
+            "button": "Registeren",
+            "username": "Ruisnaam",
+            "email": "Email (werk)",
+            "success": "Account is aangemaakt maar moet nog worden goedgekeurd door de beheerder"
         }
     },
     "messages": {

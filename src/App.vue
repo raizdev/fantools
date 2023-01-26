@@ -32,27 +32,30 @@
       <nav>
          <b-nav vertical>
             <div v-if="!authenticated">
-               <b-nav-item @click="hide" :to="{ name: 'sign-in' }" v-if="!authenticated">
+               <b-nav-item @click="hide" :to="{ name: 'sign-in' }">
                   Login
+               </b-nav-item>
+               <b-nav-item @click="hide" :to="{ name: 'sign-up' }">
+                  Registreren
                </b-nav-item>
             </div>
             <div v-else>
-               <b-nav-item @click="signOut()" :to="{ name: 'sign-out' }">
+               <b-nav-item>
                   Access Area Migrations
                </b-nav-item>
-               <b-nav-item @click="signOut()" :to="{ name: 'sign-out' }">
+               <b-nav-item>
                   Transport Instances
                </b-nav-item>
-               <b-nav-item @click="signOut()" :to="{ name: 'sign-out' }">
+               <b-nav-item>
                   Grabber (RODGS)
                </b-nav-item>
-               <b-nav-item @click="signOut()" :to="{ name: 'sign-out' }" v-role="'escalatiedesk'">
+               <b-nav-item>
                   Contactpersonen
                </b-nav-item>
-               <b-nav-item @click="signOut()" :to="{ name: 'sign-out' }">
+               <b-nav-item>
                   User Panel
                </b-nav-item>
-               <b-nav-item @click="signOut()" :to="{ name: 'sign-out' }">
+               <b-nav-item @click="this.logout()">
                   Logout
                </b-nav-item>
             </div>
@@ -72,55 +75,52 @@
 import LanguageSwitcher from '@/Components/LanguageSwitcher/LanguageSwitcher.vue';
 import Notifications from '@/Components/Notification/notifications.vue'
 import { environment } from '../environment'
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapState } from 'pinia';
 import FontAwesomeIcon from '@/Components/Icon/FontAwesomeIcon.vue';
-import { inject } from 'vue'
+import { useAuthStore } from '@/stores'
 
 export default {
-    data() {
-        return {
-            offCanvasWidth: '250px',
-            applicationName: environment.ApplicationName,
-            bodyContainerStyling: false
-        }
-    },
-
-    components: {
-        Navigation,
-        Notifications,
-        LanguageSwitcher,
-        FontAwesomeIcon
-    },
-
-    computed: {
-        ...mapGetters({
-            authenticated: 'auth/authenticated',
-            permissions: 'auth/permission'
-        })
-    },
-
-    methods: {
-      ...mapActions({
-         signOutAction: 'auth/signOut'
-      }),
-
-      signOut () {
-         this.signOutAction().then(() => {
-            this.$router.push('/auth/sign-in')
-      })
+   data() {
+      return {
+         offCanvasWidth: '250px',
+         applicationName: environment.ApplicationName,
+         bodyContainerStyling: false
       }
-    },
-    
-    watch:{
-        $route (){
-            this.bodyContainerStyling = (this.$route.name === "contractor-details")
-        },
-        deep: true
-    },
+   },
 
-    created() {
+   components: {
+      Navigation,
+      Notifications,
+      LanguageSwitcher,
+      FontAwesomeIcon
+   },
+
+   computed: {
+      ...mapState(
+         useAuthStore, { 
+            authenticated: 'authenticated'
+         }
+      )
+   },
+
+   methods: {
+      ...mapActions(
+         useAuthStore, { 
+            logout: 'logout'
+         }
+      )
+   },
+   
+   watch:{
+      $route (){
+         this.bodyContainerStyling = (this.$route.name === "contractor-details")
+      },
+      deep: true
+   },
+
+   created() {
       this.$router.push('/');
-    }
+   }
 }
 </script>
 <style>

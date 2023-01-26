@@ -16,12 +16,14 @@
                         type="text"
                         placeholder="Username"
                         rules="required"
+                        class="mb-3"
                     />
                     <TextInput
                         name="password"
                         type="password"
                         placeholder="Password"
                         rules="required"
+                        class="mb-3"
                     />
                 </b-card-body>
                 <b-card-footer class="p-0 m-0">

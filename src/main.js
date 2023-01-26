@@ -6,7 +6,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import { BootstrapVue } from 'bootstrap-vue'
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { createPinia } from 'pinia'
-import { createApp } from 'vue'
+import { createApp, markRaw } from 'vue'
 import { router } from './router'
 import { VueClipboard } from '@soerenmartius/vue3-clipboard'
 import { VueZo } from 'vue-zo'
@@ -22,6 +22,7 @@ import VueToast from 'vue-toast-notification';
 import { useAuthStore } from '@/stores';
 
 const pinia = createPinia();
+pinia.use(({ store }) => { store.router = markRaw(router) });
 
 const app = createApp(App)
 
@@ -31,7 +32,6 @@ app.config.warnHandler = () => null;
 app.use(pinia)
 
 const authStore = useAuthStore();
-progressBar(router)
 authStore.attempt(localStorage.getItem('token')).then(() => 
 {
     app.use(router)
@@ -43,4 +43,5 @@ authStore.attempt(localStorage.getItem('token')).then(() =>
     .use(VueZo)
     .component("font-awesome-icon", FontAwesomeIcon)
     .mount('#app')
+    progressBar(router)
 })

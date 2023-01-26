@@ -27,11 +27,12 @@ instance.interceptors.response.use(function (response) {
             logout();
         }
 
-        let responseCodes = import(`../../locales/backend/${locale}.json`).then(module => {
+        let responseCodes = import(`../locales/backend/${locale}.json`).then(module => {
             responseCodes = module.default
 
             if(responseCodes[error.response.data.code]) {
                 const notificationStore = useNotificationStore()
+                console.log(responseCodes[error.response.data.code])
                 notificationStore.notifications.push({ text: responseCodes[error.response.data.code], type: error.response.data.status })
             }
         });

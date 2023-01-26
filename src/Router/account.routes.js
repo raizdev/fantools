@@ -3,7 +3,7 @@ import { Signin, Signup } from '@/views/account';
 export default {
     path: '/account',
     children: [
-        { path: 'login', component: Signin },
-        { path: 'register', component: Signup }
+        { path: 'login', name: 'sign-in', component: Signin },
+        { path: 'register', name: 'sign-up', component: Signup }
     ]
 };
