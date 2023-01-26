@@ -1,5 +1,5 @@
 import axios from "axios";
-import { environment } from "../../../environment";
+import { environment } from "../../environment";
 import { useAuthStore, useNotificationStore } from '@/stores';
 
 const locale = localStorage.getItem("locale") || environment.locale.default
@@ -27,7 +27,7 @@ instance.interceptors.response.use(function (response) {
             logout();
         }
 
-        let responseCodes = import(`../../Locales/backend/${locale}.json`).then(module => {
+        let responseCodes = import(`../../locales/backend/${locale}.json`).then(module => {
             responseCodes = module.default
 
             if(responseCodes[error.response.data.code]) {

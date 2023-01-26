@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
-
-import api from "@/Common/Helpers/Api";
+import api from "@/includes/api";
 
 export const useToolsStore = defineStore({
     id: 'tools',

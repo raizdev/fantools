@@ -38,8 +38,8 @@ import { useAuthStore } from '@/stores';
 import { Form, Field, defineRule } from 'vee-validate';
 import { required } from '@vee-validate/rules';
 
-import CardHeader from '@/Components/Card/CardHeader.vue';
-import TextInput from "@/Components/Input/TextInput.vue";
+import CardHeader from '@/components/Card/CardHeader.vue';
+import TextInput from "@/components/Input/TextInput.vue";
 
 defineRule('required', required);
 

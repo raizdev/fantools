@@ -5,8 +5,6 @@ export const useGatesStore = defineStore("api", () => {
   const $zo = inject("$zo");
   
   const setRoles = () => {
-    $zo.setRoles(['writer']);
-    $zo.setPermissions(['posts.*', 'images.create']);
   }
 
   return {

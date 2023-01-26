@@ -10,7 +10,7 @@
                         </CardHeader>
                     </div>
                     <div>
-                        <span @click="createRecipient(0)" v-role="'escalatiedesk-edit'">
+                        <span @click="createRecipient(0)">
                             <FontAwesomeIcon
                                 icon="fa-solid fa-plus"
                                 size="1x"
@@ -170,9 +170,8 @@ export default {
 
         updateRecipient(newValue) {
             this.modifyRecipient(newValue).then((result) => {
-                if(result) {
-                    this.$vbsModal.close();
-                }
+                this.getAllRecipients()
+                this.$vbsModal.close();
             })
         },
 
@@ -185,7 +184,7 @@ export default {
             .then((confirmed) => {
                 if (confirmed) {
                     this.delete(recipient.id);
-                    this.findRecipients();
+                    this.getAllRecipients()
                 }
             });
         }

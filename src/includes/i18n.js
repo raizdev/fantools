@@ -1,6 +1,6 @@
 import { createI18n } from 'vue-i18n'
 import { messages } from "vite-i18n-resources";
-import { environment } from "../environment";
+import { environment } from '../../environment';
 import { configure } from "vee-validate";
 import { localize } from '@vee-validate/i18n';
 

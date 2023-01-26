@@ -70,7 +70,6 @@
  <script>
 import { mapActions, mapState } from 'pinia'
 import { useToolsStore } from '@/stores'
-import { ModalSize } from "vue-bs-modal";
 
 import CardHeader from '@/Components/Card/CardHeader.vue';
 import FontAwesomeIcon from '@/Components/Icon/FontAwesomeIcon.vue';
@@ -130,7 +129,6 @@ export default {
       editContractor() {
          this.$vbsModal.open({
             content: EditContractorComponent,
-            size: ModalSize.LARGE,
             contentProps: {
                contractor: this.contractor
             },

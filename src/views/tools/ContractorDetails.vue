@@ -48,10 +48,10 @@
    import { mapActions, mapState } from 'pinia'
    import { useToolsStore } from '@/stores'
    
-   import Typeahead from '@/Components/Input/Bootstrap/Typeahead.vue'
-   import FontAwesomeIcon from '@/Components/Icon/FontAwesomeIcon.vue';
-   import RecipientEdit from '@/Components/Module/Recipient/RecipientEdit.vue';
-   import ContractorEdit from '@/Components/Module/Contractor/ContractorEdit.vue';
+   import Typeahead from '@/components/Input/Bootstrap/Typeahead.vue'
+   import FontAwesomeIcon from '@/components/Icon/FontAwesomeIcon.vue';
+   import RecipientEdit from '@/components/Module/Recipient/RecipientEdit.vue';
+   import ContractorEdit from '@/components/Module/Contractor/ContractorEdit.vue';
       
    export default {
       data() {

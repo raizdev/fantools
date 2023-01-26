@@ -1,21 +1,23 @@
 import './assets/base.scss'
-import { BootstrapVue } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
+import 'nprogress/nprogress.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import Modal from "vue-bs-modal";
 
+import { BootstrapVue } from 'bootstrap-vue'
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
-
-import App from './App.vue'
 import { router } from './router'
-import i18n from './i18n'
+import { VueClipboard } from '@soerenmartius/vue3-clipboard'
+import { VueZo } from 'vue-zo'
+
+import Modal from "vue-bs-modal";
+import progressBar from './includes/progress-bar';
+import App from './App.vue'
+import i18n from './includes/i18n'
 
 import 'vue-toast-notification/dist/theme-sugar.css';
 import VueToast from 'vue-toast-notification';
-import { VueClipboard } from '@soerenmartius/vue3-clipboard'
-import { VueZo } from 'vue-zo'
 
 import { useAuthStore } from '@/stores';
 
@@ -29,7 +31,7 @@ app.config.warnHandler = () => null;
 app.use(pinia)
 
 const authStore = useAuthStore();
-
+progressBar(router)
 authStore.attempt(localStorage.getItem('token')).then(() => 
 {
     app.use(router)

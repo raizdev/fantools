@@ -69,7 +69,7 @@
    </Form>
 </template>
 
-<script lang="ts">
+<script>
 import { Form } from 'vee-validate';
 import { mapActions } from "vuex";
 

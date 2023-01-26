@@ -27,9 +27,10 @@
 </template>
 <script>
 import {mapGetters} from 'vuex'
-import CardTile from '@/Components/Card/CardTile.vue'
+import CardTile from '@/components/Card/CardTile.vue'
 
 export default {
+
     name: 'Home',
 
     components: {

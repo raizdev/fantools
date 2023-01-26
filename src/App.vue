@@ -28,7 +28,7 @@
             <LanguageSwitcher/>
          </button>
       </div>
-
+      <span v-role="'test'">test</span>
       <nav>
          <b-nav vertical>
             <div v-if="!authenticated">
@@ -74,9 +74,9 @@ import Notifications from '@/Components/Notification/notifications.vue'
 import { environment } from '../environment'
 import { mapActions, mapGetters } from 'vuex';
 import FontAwesomeIcon from '@/Components/Icon/FontAwesomeIcon.vue';
+import { inject } from 'vue'
 
 export default {
-   
     data() {
         return {
             offCanvasWidth: '250px',
@@ -120,8 +120,6 @@ export default {
 
     created() {
       this.$router.push('/');
-
-      this.$zo.setRoles(this.permissions);
     }
 }
 </script>
