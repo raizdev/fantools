@@ -25,6 +25,7 @@ export const useAuthStore = defineStore({
         },
 
         async signUp(credentials) {
+            console.log(credentials)
             const response = await api.post('auth/register', credentials); 
             if(response) {
                 const notificationStore = useNotificationStore()

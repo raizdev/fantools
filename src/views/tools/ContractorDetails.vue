@@ -23,7 +23,7 @@
             </form>
          </div>
       </div>
-         
+
       <RecipientEdit 
          v-if="!this.contractorRecipients" 
       />

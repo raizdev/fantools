@@ -16,8 +16,7 @@ import progressBar from './includes/progress-bar';
 import App from './App.vue'
 import i18n from './includes/i18n'
 
-import 'vue-toast-notification/dist/theme-sugar.css';
-import VueToast from 'vue-toast-notification';
+import 'notyf/notyf.min.css';
 
 import { useAuthStore } from '@/stores';
 
@@ -35,7 +34,6 @@ const authStore = useAuthStore();
 authStore.attempt(localStorage.getItem('token')).then(() => 
 {
     app.use(router)
-    .use(VueToast)
     .use(i18n)
     .use(BootstrapVue)
     .use(Modal)

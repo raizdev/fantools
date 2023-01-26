@@ -78,14 +78,47 @@ import { environment } from '../environment'
 import { mapActions, mapState } from 'pinia';
 import FontAwesomeIcon from '@/Components/Icon/FontAwesomeIcon.vue';
 import { useAuthStore } from '@/stores'
+import { Notyf } from 'notyf';
+
+const NotfyProvider = new Notyf({
+   duration: 3000,
+   dismissible: true,
+   ripple: false,
+   position: {
+      x: 'right',
+      y: 'top'
+   },
+   types: [
+    {
+      type: 'warning',
+      background: 'orange',
+      icon: {
+        className: 'material-icons',
+        tagName: 'i',
+        text: 'warning'
+      }
+    },
+    {
+      type: 'error',
+      background: 'indianred',
+      duration: 2000,
+      dismissible: true
+    }
+   ]
+})
 
 export default {
+
    data() {
       return {
          offCanvasWidth: '250px',
          applicationName: environment.ApplicationName,
          bodyContainerStyling: false
       }
+   },
+
+   provide: {
+      notyf: NotfyProvider
    },
 
    components: {
@@ -126,7 +159,7 @@ export default {
 <style>
     .fade-enter-active,
     .fade-leave-active {
-    transition: opacity 0.50s ease;
+    transition: opacity 0.25s ease;
     }
     .fade-enter-from,
     .fade-leave-active {

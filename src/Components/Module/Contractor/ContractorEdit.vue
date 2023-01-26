@@ -21,7 +21,7 @@
           <b-card-body>
              <b-table responsive striped outlined small hover fixed head-variant="dark" table-variant="light" :fields="fieldsContractor" :items="this.contractor.contractors_details">
                   <template #cell(email)="email">
-                     <span v-clipboard="email.item.email" style="cursor: pointer !important">
+                     <span v-clipboard="email.item.email" @click="notifyClipboard(email)" style="cursor: pointer !important">
                         <FontAwesomeIcon 
                            icon="fa-regular fa-clipboard"
                            size="1x"
@@ -31,7 +31,7 @@
                      </span>
                   </template>
                   <template #cell(telephone)="telephone">
-                     <span v-clipboard="telephone.item.telephone" style="cursor: pointer !important">
+                     <span v-clipboard="telephone.item.telephone" @click="notifyClipboard(telephone)" style="cursor: pointer !important">
                         <FontAwesomeIcon 
                            icon="fa-regular fa-clipboard"
                            size="1x"
@@ -77,6 +77,8 @@ import EditContractorComponent from '@/Components/Modal/EditContractorComponent.
 
 export default {
    name: 'ContractorEdit',
+
+   inject: ["notyf"],
 
    props: {
       contractorId: Number,
@@ -143,6 +145,10 @@ export default {
             this.getContractorRecipients(this.contractor.id)
             this.$vbsModal.close();
          })
+      },
+
+      notifyClipboard(type) {
+         this.notyf.success(type.field.label + ' copied!');
       }
    }
 }

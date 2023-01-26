@@ -32,7 +32,6 @@
 <script>
 import { Form, defineRule } from 'vee-validate';
 import { required } from '@vee-validate/rules';
-import { mapActions } from "vuex";
 
 import CardHeader from '@/components/Card/CardHeader.vue';
 import TextInput from '@/components/Input/TextInput.vue';
@@ -54,10 +53,6 @@ export default {
     },
 
     methods: {
-        ...mapActions({
-            accessareaMigration: 'tools/accessareaMigration'
-        }),
-    
         onSubmit: function (values) {
             this.accessareaMigration(values).then((result) => {
                 this.data = result

@@ -26,7 +26,6 @@
     </div>
 </template>
 <script>
-import {mapGetters} from 'vuex'
 import CardTile from '@/components/Card/CardTile.vue'
 
 export default {
@@ -35,12 +34,6 @@ export default {
 
     components: {
         CardTile
-    },
-
-    computed: {
-        ...mapGetters({
-            authenticated: 'auth/authenticated',
-        })
     }
 }
 </script>

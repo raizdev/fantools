@@ -19,7 +19,7 @@
                         class="mb-3"
                     />
                     <TextInput
-                        name="email"
+                        name="mail"
                         type="email"
                         :placeholder="$t('auth.signup.email')"
                         rules="required"
@@ -58,7 +58,7 @@ export default {
         return {
             form: {
                 username: '',
-                password: ''
+                email: ''
             }
         }
     },
@@ -67,16 +67,12 @@ export default {
     },
 
     methods: {
+
         onSubmit: function (values) {
-            console.log(values)
-            this.signUp(values).then(() => {
-                this.$router.replace({
-                    name: 'home'
-                })
-            })
+            this.signUp(values)
         },
 
-        ...mapActions(useAuthStore, { signIn: 'signUp'})
+        ...mapActions(useAuthStore, { signUp: 'signUp'})
     }
   }
 </script>

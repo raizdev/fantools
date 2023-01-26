@@ -1,6 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap');
 
 $primary-color: #46a335;
+$font-family: 'Poppins';
 
 body {
   background-color: #f9f9fc !important;
@@ -16,6 +17,11 @@ a {
 }
 
 .navbar {
+
+  .collapsed {
+    font-size: 16px !important;
+  }
+
   background-color: $primary-color;
 
   a {
@@ -60,7 +66,7 @@ a {
 
 
 .card {
-  font-family: "Muli";
+  font-family: $font-family;
   background: #fff;
   color: #67607c !important;
   box-shadow: 0 2px 8px rgb(88 58 188 / 8%);
@@ -95,7 +101,7 @@ a {
 }
 
 .card-tile {
-  font-family: "Muli";
+  font-family: $font-family;
   background: #fff;
   color: #67607c !important;
   box-shadow: 0 2px 8px rgb(88 58 188 / 8%);
@@ -113,10 +119,10 @@ a {
 
   .card-title {
     margin: 0 !important;
-    font-size: 20px;
+    font-size: 19px;
     line-height: 1.4;
     margin: 0 0 20px 0;
-    font-weight: 500;
+    font-weight: 400;
     color: $primary-color;
     text-transform: none;
   }
@@ -134,16 +140,6 @@ a {
 .jumbotron {
   background-color: $primary-color;
   height: 220px;
-
-  .slide-bottom-medium {
-    animation-name: uk-fade-bottom-medium;
-  }
-
-  [class*='slide-bottom-'] {
-      animation-duration: 0.5s;
-      animation-timing-function: ease-out;
-      animation-fill-mode: both;
-  }
 
   input {
     background-color: rgb(255 255 255 / 27%);
@@ -190,6 +186,10 @@ a {
 
 .card:hover {
   box-shadow: 0 5px 15px rgba(88, 58, 188, 0.09);
+}
+
+.card-header .title {
+  font-size: 18px
 }
 
 .icon--flags {
@@ -240,6 +240,10 @@ input[type="color"]:focus,
   border-color: rgba(169, 173, 168, 0.39);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6);
   outline: 0 none;
+
+  font-size: 18px;
+  font-family: 'Poppins';
+  font-weight: 100 !important
 }
 
 [data-prefix="fas"],
@@ -275,4 +279,18 @@ input[type="color"]:focus,
     border: 0;
     font-size: 14px
   }
+}
+
+.table {
+  font-size: 14px;
+}
+
+input::placeholder {
+  font-family: $font-family;
+  font-weight: 100 !important
+}
+
+.notyf__message {
+  font-family: $font-family;
+  font-size: 14px
 }
