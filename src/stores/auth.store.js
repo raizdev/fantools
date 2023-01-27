@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
-
+import { useGatesStore } from '@/stores';
 import api from "@/includes/api";
-import { useNotificationStore } from '@/stores';
 import i18n from '@/includes/i18n';
 
 export const useAuthStore = defineStore({
@@ -10,7 +9,7 @@ export const useAuthStore = defineStore({
     state: () => ({
         token: localStorage.getItem('token')| '',
         user: null,
-        permission: null
+        permissions: null
     }),
     getters: {
         authenticated(state) {
@@ -25,7 +24,6 @@ export const useAuthStore = defineStore({
         },
 
         async signUp(credentials) {
-            console.log(credentials)
             const response = await api.post('auth/register', credentials); 
             if(response) {
                 const notificationStore = useNotificationStore()
@@ -34,7 +32,7 @@ export const useAuthStore = defineStore({
             }
         },     
 
-        async attempt(token) {
+        async attempt(token, skip = true) {
 
             if (token) {
                 this.token = token
@@ -50,8 +48,16 @@ export const useAuthStore = defineStore({
                 let response = await api.get('user');
 
                 this.$patch({
-                    user: response
+                    user: response,
+                    permissions: response.permission
                 })
+
+                if(skip) {
+                    const useGate = useGatesStore()
+                    useGate.setRoles()
+                }
+
+                this.router.push('/')
 
             } catch (e) {
                 this.logout()

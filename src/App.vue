@@ -77,8 +77,10 @@ import Notifications from '@/Components/Notification/notifications.vue'
 import { environment } from '../environment'
 import { mapActions, mapState } from 'pinia';
 import FontAwesomeIcon from '@/Components/Icon/FontAwesomeIcon.vue';
-import { useAuthStore } from '@/stores'
+import { useAuthStore, useGatesStore } from '@/stores'
 import { Notyf } from 'notyf';
+import { onBeforeMount, onMounted } from '@vue/runtime-core';
+
 
 const NotfyProvider = new Notyf({
    duration: 3000,
@@ -108,6 +110,11 @@ const NotfyProvider = new Notyf({
 })
 
 export default {
+
+   setup() {
+      const gateStore = useGatesStore();
+      gateStore.setRoles()
+   },
 
    data() {
       return {
@@ -152,6 +159,11 @@ export default {
    },
 
    created() {
+
+      if(this.authenticated) {
+         this.setRoleHandler()
+      }
+
       this.$router.push('/');
    }
 }
