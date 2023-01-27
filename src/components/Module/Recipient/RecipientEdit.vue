@@ -56,13 +56,13 @@
                     >
 
                     <template #cell(actions)="row">
-                        <span @click="editRecipient(row.item.id)">
+                        <span @click="editRecipient(row.item.id)" v-role="'escalatiedesk-edit'">
                             <FontAwesomeIcon
                                 icon="fa-solid fa-pen-to-square"
                                 size="1x"
                             />
                         </span>
-                        <span @click="deleteRecipient(row.item)" style="margin-left: 10px !important">
+                        <span @click="deleteRecipient(row.item)" style="margin-left: 10px !important"  v-role="'escalatiedesk-edit'">
                             <FontAwesomeIcon
                                 icon="fa-solid fa-trash"
                                 size="1x"
@@ -107,6 +107,7 @@ export default {
                 thStyle: { width: "25%" }
             },{ 
                 key: 'actions', 
+                thClass: (this.$zo.hasRole('escalatiedesk-edit')) ? '': 'd-none',
                 label: 'Actions' 
             }],
             totalRows: 1,
