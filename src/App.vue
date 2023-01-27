@@ -52,7 +52,7 @@
                <b-nav-item>
                   Contactpersonen
                </b-nav-item>
-               <b-nav-item>
+               <b-nav-item :to="{ name: 'admin-userpanel'}" v-role="'super-admin'">
                   User Panel
                </b-nav-item>
                <b-nav-item @click="this.logout()">
@@ -83,7 +83,7 @@ import { onBeforeMount, onMounted } from '@vue/runtime-core';
 
 
 const NotfyProvider = new Notyf({
-   duration: 3000,
+   duration: 5000,
    dismissible: true,
    ripple: false,
    position: {
