@@ -4,7 +4,7 @@ import { useAuthStore } from '@/stores';
 import { Home } from '@/views';
 import accountRoutes from './account.routes';
 import toolsRoutes from './tools.routes';
-import { environment } from '../../environment';
+import adminRoutes from './admin.routes';
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -13,6 +13,7 @@ export const router = createRouter({
         { path: '/', name: 'home', component: Home },
         { ...accountRoutes },
         { ...toolsRoutes },
+        { ...adminRoutes },
         { path: '/:pathMatch(.*)*', redirect: '/' }
     ]
 });
