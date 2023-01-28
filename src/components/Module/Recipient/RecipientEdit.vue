@@ -87,12 +87,10 @@
 <script>
 import { mapActions, mapState } from 'pinia'
 import { useToolsStore } from '@/stores'
-
 import CardHeader from '@/Components/Card/CardHeader.vue';
 import FontAwesomeIcon from '@/Components/Icon/FontAwesomeIcon.vue';
 import EditRecipientComponent from '@/Components/Modal/EditRecipientComponent.vue';
 import CreateRecipientComponent from '@/Components/Modal/CreateRecipientComponent.vue';
-
 export default {
     data() {
         return {
@@ -118,14 +116,12 @@ export default {
             filterOn: [],
         }
     },
-
     components: {
         CardHeader,
         FontAwesomeIcon,
         EditRecipientComponent,
         CreateRecipientComponent
     },
-
     computed: {
         ...mapState(
             useToolsStore, { 
@@ -134,7 +130,6 @@ export default {
             }
         )
     },
-
     methods: {
         ...mapActions(
             useToolsStore, { 
@@ -142,12 +137,10 @@ export default {
                 modifyRecipient: 'modifyRecipient'
             }
         ),
-
         onFiltered(filteredItems) {
             this.totalRows = filteredItems.length
             this.currentPage = 1
         },
-
         editRecipient(recipientId) {
             this.$vbsModal.open({
                 content: EditRecipientComponent,
@@ -159,7 +152,6 @@ export default {
                 }
             });
         },
-
         createRecipient(recipientId) {
             this.$vbsModal.open({
                 content: CreateRecipientComponent,
@@ -168,14 +160,12 @@ export default {
                 }
             });
         },
-
         updateRecipient(newValue) {
             this.modifyRecipient(newValue).then((result) => {
                 this.getAllRecipients()
                 this.$vbsModal.close();
             })
         },
-
         deleteRecipient(recipient) {
             this.$vbsModal.confirm({
                 message: "Are you sure you want to delete " + recipient.name + "?",
@@ -190,7 +180,6 @@ export default {
             });
         }
     },
-
     created() {
         this.getAllRecipients().then(() => {
             this.totalRows = this.recipients.length

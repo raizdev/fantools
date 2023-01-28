@@ -17,6 +17,7 @@
                         :serializer="s => s.slug"
                         placeholder="Search for contractors..."
                         @hit="setContractor($event)"
+                        v-on:keydown.enter.prevent="this.contractorRecipients"
                         />
                   </div>
                </div>
