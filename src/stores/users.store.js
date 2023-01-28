@@ -18,7 +18,7 @@ export const useUsersStore = defineStore({
         },
 
         async modifyPendingUser(user, type) {
-            const response = await api.get('user/modifyPendingUser', { user: user.id, type: type })
+            const response = await api.post('user/modifyPendingUser', { id: user.id, activated: type })
             return response
         },
     }

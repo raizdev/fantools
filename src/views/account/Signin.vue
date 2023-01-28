@@ -2,6 +2,7 @@
     <div>
         <Form
             @submit="onSubmit"
+            v-slot="{ isSubmitting }"
         >
             <b-card no-body class="border-0 p-2">
                 <template #header>
@@ -27,7 +28,7 @@
                     />
                 </b-card-body>
                 <b-card-footer class="p-0 m-0">
-                    <b-button variant="success" class="w-100" type="submit">{{ $t('auth.signin.button') }}</b-button>
+                    <Button variant="success" :isSubmitting="isSubmitting" :text="$t('auth.signin.button')"></Button>
                 </b-card-footer>
             </b-card>
         </Form>
@@ -42,6 +43,7 @@ import { required } from '@vee-validate/rules';
 
 import CardHeader from '@/components/Card/CardHeader.vue';
 import TextInput from "@/components/Input/TextInput.vue";
+import Button from '@/Components/Input/Button.vue';
 
 defineRule('required', required);
 
@@ -51,7 +53,8 @@ export default {
         Form,
         Field,
         TextInput,
-        CardHeader
+        CardHeader,
+        Button
     },  
 
     data() {
@@ -67,12 +70,8 @@ export default {
     },
 
     methods: {
-        onSubmit: function (values) {
-            this.signIn(values).then(() => {
-                this.$router.replace({
-                    name: 'home'
-                })
-            })
+        async onSubmit(values) {
+            await this.signIn(values)
         },
 
         ...mapActions(useAuthStore, { signIn: 'signIn'})

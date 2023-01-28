@@ -20,7 +20,10 @@ export default defineComponent({
     watch: {
         getNotification(notifications) {
             const notification = notifications.shift();
-            this.notyf.success(notification.text);
+            this.notyf.open({
+                type: notification.type,
+                message: notification.text
+            })
         }
     }
 })
