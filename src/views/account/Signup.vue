@@ -1,5 +1,17 @@
 <template>
     <div>
+        <div>
+            <b-alert show variant="info" v-if="registrationDone">
+                <h4 class="alert-heading">{{ $t('auth.signup.title-success')}} </h4>
+                <p>
+                    {{ $t('auth.signup.success') }}
+                </p>
+                <hr>
+                <p class="mb-0">
+                    {{ $t('auth.signup.too-long') }}
+                </p>
+            </b-alert>
+        </div>
         <Form
             @submit="onSubmit"
             v-slot="{ isSubmitting }"
@@ -59,6 +71,7 @@ export default {
 
     data() {
         return {
+            registrationDone: false,
             form: {
                 username: '',
                 email: ''
@@ -72,10 +85,13 @@ export default {
     methods: {
 
         async onSubmit(values) {
-            await this.signUp(values)
+            const response = await this.signUp(values)
+            if(response) {
+                this.registrationDone = true
+            }
         },
 
-        ...mapActions(useAuthStore, { signUp: 'signUp'})
+        ...mapActions(useAuthStore, { signUp: 'signUp'}),
     }
   }
 </script>

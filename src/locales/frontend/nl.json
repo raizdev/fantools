@@ -105,7 +105,9 @@
             "button": "Registeren",
             "username": "Ruisnaam",
             "email": "Email (werk)",
-            "success": "Account is aangemaakt maar moet nog worden goedgekeurd door de beheerder."
+            "title-success": "Account geregistreerd!",
+            "success": "Je account is met succes geregistreerd, deze dient echter door de beheerder te worden goedgekeurd. Wanneer dit gebeurd is ontvang je per mail een wachtwoord van ons waarmee je kunt inloggen op de app. Na het inloggen kun je je wachtwoord direct wijzigen.",
+            "too-long": "Mocht de activatie te lang op zich laten wachten neem dan contact op met de beheerder."
         }
     },
     "notification": {
