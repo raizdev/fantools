@@ -9,7 +9,7 @@
                       />
                 </div>
                 <div>
-                   <a href="#" @click="editContractor">
+                   <a href="#" @click="editContractor" v-role:any="'super-admin|escalatiedesk-edit'">
                       <FontAwesomeIcon
                          icon="fa-solid fa-pen-to-square"
                          size="1x"
@@ -165,7 +165,7 @@ export default {
       },
 
       notifyClipboard(type) {
-         this.notyf.success(type.field.label + this.$i18n.t('contractor.recipient.copied'));
+         this.notyf.success(type.field.label + " " + this.$i18n.t('contractor.recipient.copied'));
       }
    }
 }

@@ -95,9 +95,9 @@ export default {
        },
 
        async onSubmit() {
-            result = await this.modifyPendingUser(this.person, '1', this.addedRoles);
+            const result = await this.modifyPendingUser(this.person, '1', this.addedRoles);
             if(result) {
-                this.addNotification.push({ text: this.$i18n.t('admin.userlist.pending.approved'), type: 'success'})
+                this.addNotification.push({ text: 'Account sucessfully approved!', type: 'success'})
                 this.$emit("onUpdate");
             }
        }

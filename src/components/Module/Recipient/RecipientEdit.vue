@@ -10,7 +10,7 @@
                         </CardHeader>
                     </div>
                     <div>
-                        <span @click="createRecipient(0)">
+                        <span @click="createRecipient(0)" v-role:any="'super-admin|escalatiedesk-edit'">
                             <FontAwesomeIcon
                                 icon="fa-solid fa-plus"
                                 size="1x"
@@ -107,7 +107,8 @@ export default {
                 thStyle: { width: "25%" }
             },{ 
                 key: 'actions', 
-                thClass: (this.$zo.hasAnyRole('escalatiedesk-edit|super-admin')) ? '': 'd-none',
+                tdClass: (this.$zo.hasAnyRole('super-admin|escalatiedesk-edit')) ? '': 'd-none',
+                thClass: (this.$zo.hasAnyRole('super-admin|escalatiedesk-edit')) ? '': 'd-none',
                 label: this.$i18n.t('contractor.recipient.table.actions')
             }],
             totalRows: 1,
@@ -190,6 +191,7 @@ export default {
         }
     },
     created() {
+        console.log(this.$zo.hasAnyRole('super-admin'))
         this.getAllRecipients().then(() => {
             this.totalRows = this.recipients.length
         })
