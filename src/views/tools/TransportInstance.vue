@@ -2,6 +2,7 @@
     <div>
         <Form
             @submit="onSubmit"
+            v-slot="{ isSubmitting }"
         >
             <b-card no-body class="border-0 p-2">
                 <template #header>
@@ -17,6 +18,7 @@
                         type="text"
                         placeholder="WSO"
                         rules="required"
+                        class="mb-2"
                     />
                     <TextInput
                         name="accessarea"
@@ -26,7 +28,7 @@
                     />
                 </b-card-body>
                 <b-card-footer class="p-0 m-0">
-                    <b-button variant="success" class="w-100" type="submit">{{ $t('button.search') }}</b-button>
+                    <Button variant="success" :isSubmitting="isSubmitting" :text="$t('button.search')"></Button>
                 </b-card-footer>
             </b-card>
         </Form>
@@ -43,7 +45,10 @@
 <script>
 import { Form, defineRule } from 'vee-validate';
 import { required } from '@vee-validate/rules';
+import { mapActions } from 'pinia';
+import { useToolsStore } from '@/stores';
 
+import Button from '@/components/Input/Button.vue';
 import CardHeader from '@/components/Card/CardHeader.vue';
 import TextInput from '@/components/Input/TextInput.vue';
 
@@ -61,14 +66,18 @@ export default {
     components: {
         CardHeader,
         TextInput,
-        Form
+        Form,
+        Button
     },
 
     methods: {
-        onSubmit: function (values) {
-            this.transportInstances(values).then((result) => {
-                this.items = result
-            })
+        ...mapActions(
+            useToolsStore, { 
+                transportInstances: 'transportInstances'
+        }),
+
+        async onSubmit(values) {
+            this.items = await this.transportInstances(values)
         }
     }
 }

@@ -16,6 +16,7 @@
             :title="$t('tiles.grabber.title')"
             :description="$t('tiles.grabber.description')"
             icon="fa-solid fa-recycle"
+            link="grabber"
             />
         <CardTile
             :title="$t('tiles.contractor.title')"

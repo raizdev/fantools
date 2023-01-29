@@ -6,5 +6,5 @@ export const useNotificationStore = defineStore({
 
   state: () => ({
     notifications: [],
-  }),
+  })
 })

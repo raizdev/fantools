@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { useGatesStore } from '@/stores';
+import { useGatesStore, useNotificationStore } from '@/stores';
 import api from "@/includes/api";
 import i18n from '@/includes/i18n';
 
@@ -27,7 +27,7 @@ export const useAuthStore = defineStore({
             const response = await api.post('auth/register', credentials); 
             if(response) {
                 const notificationStore = useNotificationStore()
-                notificationStore.notifications.push({ text: i18n.t('auth.signup.success'), type: 'success' })
+                notificationStore.notifications.push({ text: 'Account registration successfull', type: 'success' })
                 this.router.push('/account/login');
             }
         },     

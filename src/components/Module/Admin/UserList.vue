@@ -85,7 +85,7 @@
     </div>
 </template>
 <script>
-import { mapActions, mapState } from 'pinia'
+import { mapActions, mapState, mapWritableState } from 'pinia'
 import { useUsersStore } from '@/stores'
 import ModifyPendingUserComponent from '@/components/Modal/Admin/ModifyPendingUserComponent.vue'
 import CardHeader from '@/components/Card/CardHeader.vue';
@@ -126,36 +126,33 @@ export default {
     },  
 
     computed: {
-      ...mapState(
-         useUsersStore, {
+        ...mapState(
+            useUsersStore, {
             activatedUsers: 'activatedUsers',
-            getUserById: 'getUserById'
-         }
-      )
+            getUserById: 'getUserById',
+        })
    },
 
     methods: {
-      ...mapActions(
-         useUsersStore, { 
-            getUsers: 'userList',
-            modifyPendingUser: 'modifyPendingUser'
-         }
-      ),
-
-      async modifyUser(user) {
+        ...mapActions(
+            useUsersStore, { 
+            getUsers: 'userList'
+        }),
+ 
+        async modifyUser(user) {
             this.$vbsModal.open({
                 content: ModifyPendingUserComponent,
                 contentProps: {
                     user: user
                 },
                 contentEmits: {
-                    onUpdate: this.AmodifyPendingUser,
+                    onUpdate: this.modifyPendingUser,
                 }
             });
         },
 
-        async AmodifyPendingUser(values) {
-            await this.modifyPendingUser(values)
+        async modifyPendingUser() {
+            this.$vbsModal.close();
         }
    },
 

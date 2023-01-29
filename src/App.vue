@@ -159,11 +159,6 @@ export default {
    },
 
    created() {
-
-      if(this.authenticated) {
-         this.setRoleHandler()
-      }
-
       this.$router.push('/');
    }
 }

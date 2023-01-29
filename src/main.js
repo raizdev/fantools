@@ -27,7 +27,7 @@ const app = createApp(App)
 app.config.errorHandler = () => null;
 app.config.warnHandler = () => null;
 
-app.use(VueZo).use(pinia)
+app.use(i18n).use(VueZo).use(pinia)
 
 const authStore = useAuthStore();
 authStore.attempt(localStorage.getItem('token'), false).then(() => {
@@ -35,7 +35,6 @@ authStore.attempt(localStorage.getItem('token'), false).then(() => {
     .use(VueClipboard)
     .use(BootstrapVue)
     .use(Modal)
-    .use(i18n)
     .component("font-awesome-icon", FontAwesomeIcon)
     .mount('#app')
     progressBar(router)

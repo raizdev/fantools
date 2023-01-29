@@ -54,5 +54,15 @@ export const useToolsStore = defineStore({
             const response = await api.post('tools/contractor/recipient/modify', values)
             return response
         },
+
+        async accessareaMigration (values) {
+            const response = await api.post('tools/accessarea-migration', { dslam: values.dslam })
+            return response
+        },
+
+        async transportInstances (values) {
+            const response = await api.post('tools/transport-instance', { wso: values.wso, accessarea: values.accessarea })
+            return response
+        },
     }
 });

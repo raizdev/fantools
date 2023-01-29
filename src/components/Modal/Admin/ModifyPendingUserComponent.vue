@@ -28,8 +28,8 @@
 
 <script>
 import { Form } from 'vee-validate';
-import { mapState, mapActions } from  'pinia'
-import { useRolesStore, useUsersStore } from '@/stores'
+import { mapState, mapActions, mapWritableState } from  'pinia'
+import { useRolesStore, useUsersStore, useNotificationStore  } from '@/stores'
 
 import FontAwesomeIcon from '@/components/Icon/FontAwesomeIcon.vue';
 import TextInput from "@/components/Input/TextInput.vue";
@@ -62,11 +62,15 @@ export default {
    },
    
    computed: {
-       ...mapState(
+        ...mapState(
             useRolesStore, { 
                 roles: 'roles'
             }
-       )
+        ),
+        ...mapWritableState(
+            useNotificationStore, { 
+                addNotification: 'notifications'
+        }),
    },
 
    created() {
@@ -91,11 +95,13 @@ export default {
        },
 
        async onSubmit() {
-            response = this.modifyPendingUser(this.person, '1', this.addedRoles);
-            if(response) {
+            result = await this.modifyPendingUser(this.person, '1', this.addedRoles);
+            if(result) {
+                this.addNotification.push({ text: 'Account sucessfully approved!', type: 'success'})
                 this.$emit("onUpdate");
             }
        }
    }
+   
 }
 </script>
