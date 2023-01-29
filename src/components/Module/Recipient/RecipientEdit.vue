@@ -84,8 +84,8 @@
     </div>
 </template>
 <script>
-import { mapActions, mapState } from 'pinia'
-import { useToolsStore } from '@/stores'
+import { mapActions, mapState, mapWritableState } from 'pinia'
+import { useToolsStore, useNotificationStore  } from '@/stores'
 import CardHeader from '@/Components/Card/CardHeader.vue';
 import FontAwesomeIcon from '@/Components/Icon/FontAwesomeIcon.vue';
 import EditRecipientComponent from '@/Components/Modal/EditRecipientComponent.vue';
@@ -130,13 +130,18 @@ export default {
                 recipients: 'recipients',
                 recipientById: 'recipientById'
             }
-        )
+        ),
+        ...mapWritableState(
+            useNotificationStore, { 
+                addNotification: 'notifications'
+        }),
     },
     methods: {
         ...mapActions(
             useToolsStore, { 
                 getAllRecipients: 'getAllRecipients',
-                modifyRecipient: 'modifyRecipient'
+                modifyRecipient: 'modifyRecipient',
+                delete: 'deleteRecipient'
             }
         ),
         onFiltered(filteredItems) {
@@ -165,6 +170,7 @@ export default {
         updateRecipient(newValue) {
             this.modifyRecipient(newValue).then((result) => {
                 this.getAllRecipients()
+                this.addNotification.push({ text: this.$i18n.t('notification.updated', {name: newValue.name}), type: 'success'})
                 this.$vbsModal.close();
             })
         },
@@ -177,6 +183,7 @@ export default {
             .then((confirmed) => {
                 if (confirmed) {
                     this.delete(recipient.id);
+                    this.addNotification.push({ text: this.$i18n.t('notification.deleted', {name: recipient.name}), type: 'success'})
                     this.getAllRecipients()
                 }
             });

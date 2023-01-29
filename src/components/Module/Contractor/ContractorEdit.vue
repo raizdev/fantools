@@ -68,8 +68,8 @@
     </div>
  </template>
  <script>
-import { mapActions, mapState } from 'pinia'
-import { useToolsStore } from '@/stores'
+import { mapActions, mapState, mapWritableState } from 'pinia'
+import { useToolsStore, useNotificationStore } from '@/stores'
 
 import CardHeader from '@/Components/Card/CardHeader.vue';
 import FontAwesomeIcon from '@/Components/Icon/FontAwesomeIcon.vue';
@@ -128,7 +128,11 @@ export default {
             contractorRecipients: 'contractorRecipients',
             getContractor: 'contractor' 
          }
-      )
+      ),
+      ...mapWritableState(
+            useNotificationStore, { 
+                addNotification: 'notifications'
+        }),
    },
 
    methods: {
@@ -155,6 +159,7 @@ export default {
       updateContractor(data) {
          this.modifyContractor(data).then((result) => {
             this.getContractorRecipients(this.contractor.id)
+            this.addNotification.push({ text: this.$i18n.t('notification.updated', {name: data.name}), type: 'success'})
             this.$vbsModal.close();
          })
       },

@@ -6,7 +6,8 @@
     },
     "button": {
         "search": "Zoeken",
-        "update": "Updaten"
+        "update": "Updaten",
+        "create": "Maken"
     },
     "tiles": {
         "accessarea": {
@@ -106,6 +107,10 @@
             "email": "Email (werk)",
             "success": "Account is aangemaakt maar moet nog worden goedgekeurd door de beheerder."
         }
+    },
+    "notification": {
+        "deleted": "{name} is verwijderd!",
+        "updated": "{name} is geupdatet!"
     },
     "messages": {
         "alpha": "{field} mag alleen letters bevatten",

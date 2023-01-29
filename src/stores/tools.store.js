@@ -64,5 +64,10 @@ export const useToolsStore = defineStore({
             const response = await api.post('tools/transport-instance', { wso: values.wso, accessarea: values.accessarea })
             return response
         },
+
+        async deleteRecipient (recipientId ) {
+            const response = await api.post('tools/contractor/recipient/delete', { id: recipientId })
+            return response
+        }
     }
 });

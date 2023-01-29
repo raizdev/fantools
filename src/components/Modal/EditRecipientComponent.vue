@@ -166,7 +166,8 @@ export default {
                 name: value.name,
                 email: value.email,
                 telephone: value.telephone,
-                slm: (this.isServiceLevelManager === true) ? '1' : '0'
+                slm: (this.isServiceLevelManager === true) ? '1' : '0',
+                level: value.level
             }
             
             this.$emit("onUpdate", values);

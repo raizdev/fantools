@@ -1,6 +1,6 @@
 <template>
     <div class="modal-header">
-       <h5 class="modal-title">{{ $t('contractor.modal.recipient.new') }}</h5>
+       <h5 class="modal-title"> {{ $t('contractor.modal.recipient.title') }}</h5>
        <span @click="close">
            <FontAwesomeIcon
                icon="fa-solid fa-xmark"
@@ -50,16 +50,6 @@
                    rules="required"
                />
            </b-form-group>
-           <b-form-group
-               id="recipient-slm"
-               label-for="recipient-slm"
-               class="mt-2 mb-2"
-               :label="$t('contractor.modal.recipient.contractor')"
-           >
-           <vSelect :options="this.contractor" v-model="this.contractors" placeholder="Add employee to contractor" label="name" multiple>
-                   <template v-slot:no-options>Search contractor ...</template>
-               </vSelect>
-           </b-form-group>
 
            <b-form-group
                id="level-name"
@@ -81,7 +71,6 @@
            >
                <b-form-checkbox
                    id="slm"
-                   v-model="isServiceLevelManager"
                    name="slm"
                    true-value="'1'"
                    false-value="'0'"
@@ -91,7 +80,7 @@
            </b-form-group>
        </div>
 
-       <b-button variant="success" class="w-100" type="submit">{{ $t('button.update') }}</b-button>
+       <b-button variant="success" class="w-100" type="submit">{{ $t('button.create') }}</b-button>
    </Form>
 </template>
 
@@ -158,11 +147,12 @@ export default {
        onSubmit: function (value) {
 
            const values = {
-               id: this.recipient.id,
+               id: 0,
                name: value.name,
                email: value.email,
                telephone: value.telephone,
-               slm: (this.isServiceLevelManager === true) ? '1' : '0'
+               slm: (this.isServiceLevelManager === true) ? '1' : '0',
+               level: value.level
            }
            
            this.$emit("onUpdate", values);
