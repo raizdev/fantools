@@ -5,18 +5,10 @@
                 <div class="d-flex justify-content-between">
                     <div>
                         <CardHeader
-                            title="Pending Users"
-                            description="Requests requested which needs to be approved"
+                            :title="$t('admin.userlist.pending.title')"
+                            :description="$t('admin.userlist.pending.description')"
                         >
                         </CardHeader>
-                    </div>
-                    <div>
-                        <span>
-                            <FontAwesomeIcon
-                                icon="fa-solid fa-plus"
-                                size="1x"
-                            />
-                        </span>
                     </div>
                 </div>
             </template>
@@ -36,7 +28,6 @@
                                 id="filter-input"
                                 v-model="filter"
                                 type="search"
-                                placeholder="Type to Search"
                                 ></b-form-input>
                         </b-input-group>
                         </b-form-group>

@@ -1,6 +1,6 @@
 <template>
     <div class="modal-header">
-       <h5 class="modal-title">Edit Recipient</h5>
+       <h5 class="modal-title">{{ $t('contractor.modal.recipient.new') }}</h5>
        <span @click="close">
            <FontAwesomeIcon
                icon="fa-solid fa-xmark"
@@ -15,34 +15,32 @@
        <div class="modal-body">
            <b-form-group
                id="recipient-name"
-               label="Recipient Name"
+               :label="$t('contractor.modal.recipient.name')"
                label-for="recipient-name"
            >
                <TextInput
                    name="name"
                    type="text"
                    rules="required"
-                   v-model="this.recipient.name"
                />
            </b-form-group>
 
            <b-form-group
                id="recipient-email"
-               label="Recipient email"
+               :label="$t('contractor.modal.recipient.email')"
                label-for="recipient-email"
                class="mt-2 mb-2"
            >
                <TextInput
                    name="email"
                    type="text"
-                   v-model="this.recipient.email"
                />
                
            </b-form-group>
 
            <b-form-group
                id="recipient-telephone"
-               label="Recipient telephone"
+               :label="$t('contractor.modal.recipient.telephone')"
                label-for="recipient-telephone"
                class="mt-2 mb-2"
            >
@@ -50,14 +48,13 @@
                    name="telephone"
                    type="text"
                    rules="required"
-                   v-model="this.recipient.telephone"
                />
            </b-form-group>
            <b-form-group
                id="recipient-slm"
                label-for="recipient-slm"
                class="mt-2 mb-2"
-               label="Contractors"
+               :label="$t('contractor.modal.recipient.contractor')"
            >
            <vSelect :options="this.contractor" v-model="this.contractors" placeholder="Add employee to contractor" label="name" multiple>
                    <template v-slot:no-options>Search contractor ...</template>
@@ -73,13 +70,12 @@
                    name="level"
                    type="number"
                    rules="required"
-                   v-model="this.person.level"
                />
            </b-form-group>
 
            <b-form-group
                id="recipient-slm"
-               label="Is Service Level Manager?"
+               :label="$t('contractor.modal.recipient.isslm')"
                label-for="recipient-slm"
                class="mt-3 mb-2"
            >
@@ -95,7 +91,7 @@
            </b-form-group>
        </div>
 
-       <b-button variant="success" class="w-100" type="submit">Update</b-button>
+       <b-button variant="success" class="w-100" type="submit">{{ $t('button.update') }}</b-button>
    </Form>
 </template>
 

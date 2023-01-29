@@ -15,7 +15,7 @@
                         @input="handleInput"
                         :data="this.searchTerm"
                         :serializer="s => s.slug"
-                        placeholder="Search for contractors..."
+                        :placeholder="$t('contractor.placeholder')"
                         @hit="setContractor($event)"
                         v-on:keydown.enter.prevent="this.contractorRecipients"
                         />

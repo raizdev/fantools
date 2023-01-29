@@ -5,12 +5,13 @@
         }
     },
     "button": {
-        "search": "Zoeken"
+        "search": "Zoeken",
+        "update": "Updaten"
     },
     "tiles": {
         "accessarea": {
             "title": "Access Area Migraties",
-            "description": "Vind DSLAM's die betrokken zijn bij accessarea migraties"
+            "description": "DSLAM's die betrokken zijn bij accessarea migraties"
         },
         "transport": {
             "title": "Transport instances",
@@ -18,20 +19,79 @@
         },
         "grabber": {
             "title": "Grabber (RODGS)",
-            "description": "Filter service-ids uit lijsten"
+            "description": "Filter services uit kanvas of de beschikbaarheidschecker"
         },            
         "contractor": {
-            "title": "Contactpersonen",
-            "description": "Emails, telefoonnummers beheerd in een lijst"
+            "title": "Escalatiematrix",
+            "description": "Contactpersonen mails, telefoonummers gesorteerd per aannemer"
         }
     },
     "accessarea-migration": {
         "title": "Migraties per DSLAM",
-        "description": "Intrinsicly maximize unique infomediaries without an expanded array of mindshare. Credibly disseminate resource sucking customer service through functionalized schemas."
+        "description": "Vul DSLAM naam in bijvoorbeeld: ZL-Z-DSLA-5. Migratie datum die op de dag staan vandaag betekent dat die desbetreffende DSLAM is gemigreerd.",
+        "placeholder": {
+            "dslam": "DSLAM"
+        }
     },
     "transport-instance": {
         "title": "Transport Instances",
-        "description": "Voer de WSO in bijv (DSLW) en de accessarea om de resultaten te zien"
+        "description": "Voer de naam van de WSO in bijvoorbeeld: DSLW met als accessarea 45 (AA/45). In de lijst vind je op welke WAP vlan de transport instance is geconfigureerd en welke bandbreedte daar op wordt afgenomen. ",
+        "placeholder": {
+            "wso": "WSO",
+            "accessarea": "AA/"
+        }
+    },
+    "grabber": {
+        "title": "Grabber (RODGS)",
+        "description": "Grab service id's uit KANVAS of de beschikbaarheidschecker"
+    },
+    "contractor": {
+        "placeholder": "Zoek aannemers...",
+        "recipient": {
+            "recipient": "Contactpersonen",
+            "table": {
+                "name": "Naam",
+                "email": "Email",
+                "telephone": "Telefoon",
+                "actions": "Actie"
+            },
+            "delete": " verwijderen?",
+            "delete-recipient": "Verwijder contactpersoon",
+            "copied": "gekopieerd!"
+        },
+        "modal": {
+            "contractor": {
+                "title": "Wijzig aannemer",
+                "name": "Aannemer:",
+                "recipients": "Contactpersonen:",
+                "recipients-select": "Je kunt meerdere contactpersonen selecteren",
+                "servicelevelmanager": "Service Level Manager:",
+                "information": "Informatie:",
+                "information-description": "Je kunt hier informatie plaatsen die belangrijk is voor deze aannemer",
+                "search": "Zoek contactpersonen in het adresboek"
+            },
+            "recipient": {
+                "title": "Wijzig contactpersoon",
+                "new": "Maak contactpersoon",
+                "name": "Naam:",
+                "email": "Email:",
+                "telephone": "Telefoonnummer:",
+                "contractor": "Aannemers:",
+                "search": "Zoek aannemer ..",
+                "isslm": "Is Service level Manager?"
+            }
+        }
+    },
+    "admin": {
+        "userlist": {
+            "pending": {
+                "title": "Wachtende gebruikers",
+                "description": "Aangevraade verzoeken voor het gebruik te maken van de tool",
+                "approve": "Aanvraag",
+                "roles": "Welke rollen mag deze gebruiker?",
+                "approved": "Gebruiker toevoegen gelukt"
+            }
+        }
     },
     "auth": {
         "signin" : {
@@ -44,7 +104,7 @@
             "button": "Registeren",
             "username": "Ruisnaam",
             "email": "Email (werk)",
-            "success": "Account is aangemaakt maar moet nog worden goedgekeurd door de beheerder"
+            "success": "Account is aangemaakt maar moet nog worden goedgekeurd door de beheerder."
         }
     },
     "messages": {

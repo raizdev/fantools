@@ -15,7 +15,7 @@
                     <TextInput
                         name="dslam"
                         type="text"
-                        placeholder="DSLAM"
+                        :placeholder="$t('accessarea-migration.placeholder.dslam')"
                         rules="required"
                     />
                 </b-card-body>

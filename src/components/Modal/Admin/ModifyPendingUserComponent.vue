@@ -1,6 +1,6 @@
 <template>
     <div class="modal-header">
-       <h5 class="modal-title">Approve {{ this.person.username }}</h5>
+       <h5 class="modal-title">{{ $t('admin.userlist.pending.approve') }} {{ this.person.username }}</h5>
        <span @click="close">
            <FontAwesomeIcon
                icon="fa-solid fa-xmark"
@@ -19,9 +19,9 @@
                 label-for="roles"
                 class="mt-2 mb-2"
             >
-            <vSelect :options="this.roles" v-model="this.addedRoles" placeholder="Add Roles" label="name" multiple />
+            <vSelect :options="this.roles" v-model="this.addedRoles" :placeholder="$t('admin.userlist.pending.roles')" label="name" multiple />
             </b-form-group>
-            <Button variant="success" :isSubmitting="isSubmitting" text="Approve"></Button>
+            <Button variant="success" :isSubmitting="isSubmitting" :text="$t('button.update')"></Button>
         </div>
    </Form>
 </template>
@@ -97,7 +97,7 @@ export default {
        async onSubmit() {
             result = await this.modifyPendingUser(this.person, '1', this.addedRoles);
             if(result) {
-                this.addNotification.push({ text: 'Account sucessfully approved!', type: 'success'})
+                this.addNotification.push({ text: this.$i18n.t('admin.userlist.pending.approved'), type: 'success'})
                 this.$emit("onUpdate");
             }
        }

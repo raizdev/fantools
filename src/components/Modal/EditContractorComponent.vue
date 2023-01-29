@@ -1,6 +1,6 @@
 <template>
     <div class="modal-header">
-        <h5 class="modal-title">Edit contractor</h5>
+        <h5 class="modal-title"> {{ $t('contractor.modal.contractor.title') }}</h5>
         <span @click="close">
             <FontAwesomeIcon
                 icon="fa-solid fa-xmark"
@@ -15,7 +15,7 @@
         <div class="modal-body">
             <b-form-group
                 id="contractor-name"
-                label="Contractor Name"
+                :label="$t('contractor.modal.contractor.name')"
                 label-for="contractor-name"
             >
                 <TextInput
@@ -28,18 +28,19 @@
 
             <b-form-group
                 id="recipient"
-                label="Recipient:"
+                :label="$t('contractor.modal.contractor.recipients')"
                 label-for="recipient-1"
-                description="You can select more than one recipient"
+                :description="$t('contractor.modal.contractor.recipients-select')"
+                class="mt-3"
             >
                 <vSelect :options="this.filterAllRecipients(0)" :components="{Deselect}" placeholder="Add employee to list" label="name" multiple v-model="selectedRecipients">
-                    <template v-slot:no-options>Search reciptient ...</template>
+                    <template v-slot:no-options>{{ $t('contractor.modal.contractor.search')}}</template>
                 </vSelect>
             </b-form-group>
 
             <b-form-group
                 id="service-level-manager"
-                label="Service Level Manager:"
+                :label="$t('contractor.modal.contractor.servicelevelmanager')"
                 label-for="service-level-manager-1"
                 class="mt-3"
             >
@@ -48,9 +49,9 @@
 
             <b-form-group
                 id="information"
-                label="Information"
+                :label="$t('contractor.modal.contractor.information')"
                 label-for="information-1"
-                description="You can leave specific information about the contractor here"
+                :description="$t('contractor.modal.contractor.information-description')"
                 class="mt-3"
             >
                 <b-form-textarea
@@ -62,7 +63,7 @@
                 />
             </b-form-group>
             </div>
-        <b-button variant="success" class="w-100" type="submit">Update</b-button>
+        <b-button variant="success" class="w-100" type="submit">{{  $t('button.update')  }}</b-button>
     </Form>
 </template>
 

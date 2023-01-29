@@ -4,60 +4,107 @@
             "menu": "Menu"
         }
     },
+    "button": {
+        "search": "Zoeken",
+        "update": "Updaten"
+    },
     "tiles": {
         "accessarea": {
-            "title": "Access Area Migrations",
-            "description": "Look if affected DSLAM is migrated to different accessarea"
+            "title": "Access Area Migraties",
+            "description": "DSLAM's die betrokken zijn bij accessarea migraties"
         },
         "transport": {
-            "title": "Transport instances by WSO's",
-            "description": "See filtered current transport instances and bandwidth"
+            "title": "Transport instances",
+            "description": "Lijst met transport instances en bandbreedtes gefilterd op WSO"
         },
         "grabber": {
             "title": "Grabber (RODGS)",
-            "description": "Get services from a attached file"
+            "description": "Filter services uit kanvas of de beschikbaarheidschecker"
         },            
         "contractor": {
-            "title": "Get contractor details",
-            "description": "Email, telephone number or any other details"
+            "title": "Escalatiematrix",
+            "description": "Contactpersonen mails, telefoonummers gesorteerd per aannemer"
         }
     },
     "accessarea-migration": {
-        "title": "Migrations each DSLAM",
-        "description": "See if DSLAM is affected in accessarea migration projects."
+        "title": "Migraties per DSLAM",
+        "description": "Vul DSLAM naam in bijvoorbeeld: ZL-Z-DSLA-5. Migratie datum die op de dag staan vandaag betekent dat die desbetreffende DSLAM is gemigreerd.",
+        "placeholder": {
+            "dslam": "DSLAM"
+        }
     },
     "transport-instance": {
         "title": "Transport Instances",
-        "description": "Fill in WSO like (DSLW) and the specific accessarea to see the results"
+        "description": "Voer de naam van de WSO in bijvoorbeeld: DSLW met als accessarea 45 (AA/45). In de lijst vind je op welke WAP vlan de transport instance is geconfigureerd en welke bandbreedte daar op wordt afgenomen. ",
+        "placeholder": {
+            "wso": "WSO",
+            "accessarea": "AA/"
+        }
+    },
+    "grabber": {
+        "title": "Grabber (RODGS)",
+        "description": "Grab service id's uit KANVAS of de beschikbaarheidschecker"
+    },
+    "contractor": {
+        "placeholder": "Zoek aannemers...",
+        "recipient": {
+            "recipient": "Contactpersonen",
+            "table": {
+                "name": "Naam",
+                "email": "Email",
+                "telephone": "Telefoon",
+                "actions": "Actie"
+            },
+            "delete": " verwijderen?",
+            "delete-recipient": "Verwijder contactpersoon",
+            "copied": "gekopieerd!"
+        },
+        "modal": {
+            "contractor": {
+                "title": "Wijzig aannemer",
+                "name": "Aannemer:",
+                "recipients": "Contactpersonen:",
+                "recipients-select": "Je kunt meerdere contactpersonen selecteren",
+                "servicelevelmanager": "Service Level Manager:",
+                "information": "Informatie:",
+                "information-description": "Je kunt hier informatie plaatsen die belangrijk is voor deze aannemer",
+                "search": "Zoek contactpersonen in het adresboek"
+            },
+            "recipient": {
+                "title": "Wijzig contactpersoon",
+                "new": "Maak contactpersoon",
+                "name": "Naam:",
+                "email": "Email:",
+                "telephone": "Telefoonnummer:",
+                "contractor": "Aannemers:",
+                "search": "Zoek aannemer ..",
+                "isslm": "Is Service level Manager?"
+            }
+        }
+    },
+    "admin": {
+        "userlist": {
+            "pending": {
+                "title": "Wachtende gebruikers",
+                "description": "Aangevraade verzoeken voor het gebruik te maken van de tool",
+                "approve": "Aanvraag",
+                "roles": "Welke rollen mag deze gebruiker?",
+                "approved": "Gebruiker toevoegen gelukt"
+            }
+        }
     },
     "auth": {
-        "login" : {
-            "title": "Login into Habbo",
-            "description": "Take a look inside and have fun!",
-            "buttonTitle": "Login"
+        "signin" : {
+            "title": "Inloggen",
+            "description": "Wachtwoord vergeten?",
+            "button": "Inloggen"
         },
-        "registration": {
-            "header": {
-                "text": "Registration page",
-                "subtext": "Create your account",
-                "text-first": "Create your account",
-                "sub-first": "Choose your fancy account name",
-                "text-second": "Create a strong password",
-                "sub-second": "We all want that your account is safe!",
-                "text-third": "Choose your Look",
-                "sub-third": "Did you already see the fancy one?"
-            },
-            "username": {
-                "taken": "Username already registered"
-            },
-            "password": {
-                "doesNotMatch": "Password does not match!"
-            },
-            "submit": "Go inside!",
-            "info": {
-                "title": "What can you expect?",
-                "content": "Habbo game registreer en geniet van onze fantastische voordelen zoals gratis Habbo Credits, VIP-lidmaatschap of ons welkomstgeschenk. Allemaal helemaal gratis!<br /><br /><br /><br />Je kunt Habbo gratis spelen en daarbij een oneindig universum van kamers, uitdagingen, chats verkennen en honderden gratis Habbo-credits verdienen. vul nu het hobbaregister in."
-            }
+        "signup": {
+            "title": "Registreer account",
+            "button": "Registeren",
+            "username": "Ruisnaam",
+            "email": "Email (werk)",
+            "success": "Account is aangemaakt maar moet nog worden goedgekeurd door de beheerder."
         }
     },
     "messages": {

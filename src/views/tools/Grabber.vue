@@ -6,17 +6,15 @@
             <b-card no-body class="border-0 p-2">
                 <template #header>
                     <CardHeader
-                        :title="$t('accessarea-migration.title')"
-                        :description="$t('accessarea-migration.description')"
+                        :title="$t('grabber.title')"
                     >
                     </CardHeader>
                 </template>
                 <b-card-body>
                     <b-form-group
-                        id="Grabber"
-                        label="Grabber"
-                        label-for="Grabber-1"
-                        description="Grab service id's uit KANVAS of de beschikbaarheidschecker"
+                        id="grabber"
+                        label-for="grabber-1"
+                        :description="$t('grabber.description')"
                     >
                         <b-form-textarea
                             id="textarea"
@@ -28,7 +26,7 @@
                     </b-form-group>
                 </b-card-body>
                 <b-card-footer class="p-0 m-0">
-                    <b-button variant="success" class="w-100" type="submit">Update</b-button>
+                    <b-button variant="success" class="w-100" type="submit">{{ $t('button.search') }}</b-button>
                 </b-card-footer>
             </b-card>
         </Form>

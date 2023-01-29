@@ -23,7 +23,7 @@
             :description="$t('tiles.contractor.description')"
             icon="fa-regular fa-address-book"
             link="contractor-details"
-            v-role="'escalatiedesk-view'"
+            v-role:any="'escalatiedesk-view|super-admin'"
         />
     </div>
 </template>

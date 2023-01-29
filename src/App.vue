@@ -40,19 +40,19 @@
                </b-nav-item>
             </div>
             <div v-else>
-               <b-nav-item>
+               <b-nav-item :to="{ name: 'accessarea-migrations'}">
                   Access Area Migrations
                </b-nav-item>
-               <b-nav-item>
+               <b-nav-item :to="{ name: 'transport-instance'}">
                   Transport Instances
                </b-nav-item>
-               <b-nav-item>
+               <b-nav-item :to="{ name: 'grabber'}">
                   Grabber (RODGS)
                </b-nav-item>
-               <b-nav-item>
+               <b-nav-item :to="{ name: 'contractor-details'}" v-role:any="'escalatiedesk-view|super-admin'">
                   Contactpersonen
                </b-nav-item>
-               <b-nav-item :to="{ name: 'admin-userpanel'}" v-role="'super-admin'">
+               <b-nav-item :to="{ name: 'admin-userpanel'}" v-role:any="'super-admin'">
                   User Panel
                </b-nav-item>
                <b-nav-item @click="this.logout()">

@@ -5,7 +5,7 @@
                 <div class="d-flex justify-content-between">
                     <div>
                         <CardHeader
-                        title="Recipients"
+                        :title="$t('contractor.recipient.recipient')"
                         >
                         </CardHeader>
                     </div>
@@ -35,7 +35,6 @@
                                 id="filter-input"
                                 v-model="filter"
                                 type="search"
-                                placeholder="Type to Search"
                                 ></b-form-input>
                         </b-input-group>
                         </b-form-group>
@@ -56,13 +55,13 @@
                     >
 
                     <template #cell(actions)="row">
-                        <span @click="editRecipient(row.item.id)" v-role="'escalatiedesk-edit'">
+                        <span @click="editRecipient(row.item.id)">
                             <FontAwesomeIcon
                                 icon="fa-solid fa-pen-to-square"
                                 size="1x"
                             />
                         </span>
-                        <span @click="deleteRecipient(row.item)" style="margin-left: 10px !important"  v-role="'escalatiedesk-edit'">
+                        <span @click="deleteRecipient(row.item)" style="margin-left: 10px !important">
                             <FontAwesomeIcon
                                 icon="fa-solid fa-trash"
                                 size="1x"
@@ -96,17 +95,20 @@ export default {
         return {
             fields: [{
                 key: 'name',
+                label: this.$i18n.t('contractor.recipient.table.name'),
                 thStyle: { width: "25%" }
             },{
                 key: 'email',
+                label: this.$i18n.t('contractor.recipient.table.email'),
                 thStyle: { width: "40%" }
             },{
                 key: 'telephone',
+                label: this.$i18n.t('contractor.recipient.table.telephone'),
                 thStyle: { width: "25%" }
             },{ 
                 key: 'actions', 
-                thClass: (this.$zo.hasRole('escalatiedesk-edit')) ? '': 'd-none',
-                label: 'Actions' 
+                thClass: (this.$zo.hasAnyRole('escalatiedesk-edit|super-admin')) ? '': 'd-none',
+                label: this.$i18n.t('contractor.recipient.table.actions')
             }],
             totalRows: 1,
             currentPage: 1,
@@ -168,8 +170,8 @@ export default {
         },
         deleteRecipient(recipient) {
             this.$vbsModal.confirm({
-                message: "Are you sure you want to delete " + recipient.name + "?",
-                title: "Delete Recipient",
+                message: recipient.name + this.$i18n.t('contractor.recipient.delete'),
+                title: this.$i18n.t('contractor.recipient.delete-recipient'),
                 icon: null
             })
             .then((confirmed) => {

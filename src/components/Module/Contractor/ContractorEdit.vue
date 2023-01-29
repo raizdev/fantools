@@ -89,18 +89,30 @@ export default {
       return {
          fieldsContractor: [{
             key: 'name', 
+            label: this.$i18n.t('contractor.recipient.table.name'),
             thStyle: { width: "30%" }
          },{
-            key: 'email'
+            key: 'email',
+            label: this.$i18n.t('contractor.recipient.table.email')
          },{
             key: 'telephone',
+            label: this.$i18n.t('contractor.recipient.table.telephone'),
             thStyle: { width: "20%" }
          },{
             key: 'level',
             thStyle: { width: "8%" }
          }],
          contractor: this.contractor,
-         fieldsServiceLevelManager: ['name', 'email', 'telephone'],
+         fieldsServiceLevelManager: [{ 
+            key: 'name', 
+            label: this.$i18n.t('contractor.recipient.table.name') 
+         },{
+            key: 'email',
+            label: this.$i18n.t('contractor.recipient.table.email'),
+         },{
+            key: 'telephone',
+            label: this.$i18n.t('contractor.recipient.table.email')
+         }]
       }
    },
 
@@ -148,7 +160,7 @@ export default {
       },
 
       notifyClipboard(type) {
-         this.notyf.success(type.field.label + ' copied!');
+         this.notyf.success(type.field.label + this.$i18n.t('contractor.recipient.copied'));
       }
    }
 }

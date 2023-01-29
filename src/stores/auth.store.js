@@ -25,15 +25,10 @@ export const useAuthStore = defineStore({
 
         async signUp(credentials) {
             const response = await api.post('auth/register', credentials); 
-            if(response) {
-                const notificationStore = useNotificationStore()
-                notificationStore.notifications.push({ text: 'Account registration successfull', type: 'success' })
-                this.router.push('/account/login');
-            }
+            return response
         },     
 
         async attempt(token, skip = true) {
-
             if (token) {
                 this.token = token
             }

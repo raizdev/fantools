@@ -16,14 +16,14 @@
                     <TextInput
                         name="wso"
                         type="text"
-                        placeholder="WSO"
+                        :placeholder="$t('transport-instance.placeholder.wso')"
                         rules="required"
                         class="mb-2"
                     />
                     <TextInput
                         name="accessarea"
                         type="text"
-                        placeholder="AA/"
+                        :placeholder="$t('transport-instance.placeholder.accessarea')"
                         rules="required"
                     />
                 </b-card-body>
