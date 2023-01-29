@@ -9,6 +9,9 @@ export const useUsersStore = defineStore({
     getters: {
         activatedUsers: (state) => (activated) => {
             return state.users.filter(users => users.activated == activated)
+        },
+        getUserById: (state) => (id) => {
+            return state.users.filter(users => users.id == id)
         }
     },
     actions: {
@@ -17,8 +20,8 @@ export const useUsersStore = defineStore({
             this.users = response
         },
 
-        async modifyPendingUser(user, type) {
-            const response = await api.post('user/modifyPendingUser', { id: user.id, activated: type })
+        async modifyPendingUser(user, type, roles) {
+            const response = await api.post('user/modifyPendingUser', { id: user.id, activated: type, roles: roles })
             return response
         },
     }

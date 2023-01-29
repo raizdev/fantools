@@ -56,13 +56,13 @@
                     responsive striped outlined hover fixed head-variant="dark" table-variant="light"
                 >
                     <template #cell(actions)="row">
-                        <span @click="modifyPendingUser(row.item, 1)">
+                        <span @click="modifyUser(row.item)">
                             <FontAwesomeIcon
                                 icon="fa-solid fa-user-plus"
                                 size="1x"
                             />
                         </span>
-                        <span @click="modifyPendingUser(row.item, 0)" style="margin-left: 10px !important">
+                        <span style="margin-left: 10px !important">
                             <FontAwesomeIcon
                                 icon="fa-solid fa-trash-can"
                                 size="1x"
@@ -85,10 +85,11 @@
     </div>
 </template>
 <script>
- import { mapActions, mapState } from 'pinia'
- import { useUsersStore } from '@/stores'
-import CardHeader from '@/Components/Card/CardHeader.vue';
-import FontAwesomeIcon from '@/Components/Icon/FontAwesomeIcon.vue';
+import { mapActions, mapState } from 'pinia'
+import { useUsersStore } from '@/stores'
+import ModifyPendingUserComponent from '@/components/Modal/Admin/ModifyPendingUserComponent.vue'
+import CardHeader from '@/components/Card/CardHeader.vue';
+import FontAwesomeIcon from '@/components/Icon/FontAwesomeIcon.vue';
 
 export default {
 
@@ -120,13 +121,15 @@ export default {
 
     components: {
         CardHeader,
-        FontAwesomeIcon
-    },
+        FontAwesomeIcon,
+        ModifyPendingUserComponent
+    },  
 
     computed: {
       ...mapState(
          useUsersStore, {
-            activatedUsers: 'activatedUsers'
+            activatedUsers: 'activatedUsers',
+            getUserById: 'getUserById'
          }
       )
    },
@@ -137,13 +140,29 @@ export default {
             getUsers: 'userList',
             modifyPendingUser: 'modifyPendingUser'
          }
-      )
+      ),
+
+      async modifyUser(user) {
+            this.$vbsModal.open({
+                content: ModifyPendingUserComponent,
+                contentProps: {
+                    user: user
+                },
+                contentEmits: {
+                    onUpdate: this.AmodifyPendingUser,
+                }
+            });
+        },
+
+        async AmodifyPendingUser(values) {
+            await this.modifyPendingUser(values)
+        }
    },
 
    created() {
-      this.getUsers().then(() => {
-         this.totalRows = this.users.length
-      })
+        this.getUsers().then(() => {
+            this.totalRows = this.users.length
+    })
    }
 }
 </script>
