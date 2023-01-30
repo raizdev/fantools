@@ -53,6 +53,28 @@
                     @filtered="onFiltered"
                     responsive striped outlined hover fixed head-variant="dark" table-variant="light"
                     >
+                    
+                    <template #cell(email)="email">
+                        <span v-clipboard="email.item.email" @click="notifyClipboard(email)" style="cursor: pointer !important">
+                        <FontAwesomeIcon 
+                           icon="fa-regular fa-clipboard"
+                           size="1x"
+                           variant="dark"
+                        />
+                        {{ email.item.email }}
+                     </span>
+                    </template>
+
+                    <template #cell(telephone)="telephone">
+                        <span v-clipboard="telephone.item.telephone" @click="notifyClipboard(telephone)" style="cursor: pointer !important">
+                        <FontAwesomeIcon 
+                           icon="fa-regular fa-clipboard"
+                           size="1x"
+                           variant="dark"
+                        />
+                        {{ telephone.item.telephone }}
+                     </span>
+                    </template>
 
                     <template #cell(actions)="row">
                         <span @click="editRecipient(row.item.id)">
@@ -90,7 +112,11 @@ import CardHeader from '@/Components/Card/CardHeader.vue';
 import FontAwesomeIcon from '@/Components/Icon/FontAwesomeIcon.vue';
 import EditRecipientComponent from '@/Components/Modal/EditRecipientComponent.vue';
 import CreateRecipientComponent from '@/Components/Modal/CreateRecipientComponent.vue';
+
 export default {
+
+    inject: ["notyf"],
+    
     data() {
         return {
             fields: [{
@@ -119,12 +145,14 @@ export default {
             filterOn: [],
         }
     },
+
     components: {
         CardHeader,
         FontAwesomeIcon,
         EditRecipientComponent,
         CreateRecipientComponent
     },
+
     computed: {
         ...mapState(
             useToolsStore, { 
@@ -132,11 +160,13 @@ export default {
                 recipientById: 'recipientById'
             }
         ),
+
         ...mapWritableState(
             useNotificationStore, { 
                 addNotification: 'notifications'
         }),
     },
+
     methods: {
         ...mapActions(
             useToolsStore, { 
@@ -145,10 +175,12 @@ export default {
                 delete: 'deleteRecipient'
             }
         ),
+
         onFiltered(filteredItems) {
             this.totalRows = filteredItems.length
             this.currentPage = 1
         },
+
         editRecipient(recipientId) {
             this.$vbsModal.open({
                 content: EditRecipientComponent,
@@ -160,6 +192,7 @@ export default {
                 }
             });
         },
+
         createRecipient(recipientId) {
             this.$vbsModal.open({
                 content: CreateRecipientComponent,
@@ -168,6 +201,7 @@ export default {
                 }
             });
         },
+
         updateRecipient(newValue) {
             this.modifyRecipient(newValue).then((result) => {
                 this.getAllRecipients()
@@ -175,6 +209,7 @@ export default {
                 this.$vbsModal.close();
             })
         },
+
         deleteRecipient(recipient) {
             this.$vbsModal.confirm({
                 message: recipient.name + this.$i18n.t('contractor.recipient.delete'),
@@ -188,10 +223,14 @@ export default {
                     this.getAllRecipients()
                 }
             });
+        },
+
+        notifyClipboard(type) {
+            this.notyf.success(type.field.label + " " + this.$i18n.t('contractor.recipient.copied'));
         }
     },
+
     created() {
-        console.log(this.$zo.hasAnyRole('super-admin'))
         this.getAllRecipients().then(() => {
             this.totalRows = this.recipients.length
         })
