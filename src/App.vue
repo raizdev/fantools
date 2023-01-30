@@ -41,16 +41,16 @@
             </div>
             <div v-else>
                <b-nav-item :to="{ name: 'accessarea-migrations'}">
-                  Access Area Migrations
+                  {{ $t('tiles.accessarea.title') }}
                </b-nav-item>
                <b-nav-item :to="{ name: 'transport-instance'}">
-                  Transport Instances
+                  {{ $t('tiles.transport.title') }}
                </b-nav-item>
                <b-nav-item :to="{ name: 'grabber'}">
-                  Grabber (RODGS)
+                  {{ $t('tiles.grabber.title') }}
                </b-nav-item>
                <b-nav-item :to="{ name: 'contractor-details'}" v-role:any="'escalatiedesk-view|super-admin'">
-                  Contactpersonen
+                  {{ $t('tiles.contractor.title') }}
                </b-nav-item>
                <b-nav-item :to="{ name: 'admin-userpanel'}" v-role:any="'super-admin'">
                   User Panel
@@ -79,7 +79,6 @@ import { mapActions, mapState } from 'pinia';
 import FontAwesomeIcon from '@/Components/Icon/FontAwesomeIcon.vue';
 import { useAuthStore, useGatesStore } from '@/stores'
 import { Notyf } from 'notyf';
-import { onBeforeMount, onMounted } from '@vue/runtime-core';
 
 
 const NotfyProvider = new Notyf({

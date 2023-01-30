@@ -55,7 +55,7 @@
                     >
                     
                     <template #cell(email)="email">
-                        <span v-clipboard="email.item.email" @click="notifyClipboard(email)" style="cursor: pointer !important">
+                        <span v-clipboard="email.item.email" @click="notifyClipboard(email)" style="cursor: pointer !important" v-if="email.item.email">
                         <FontAwesomeIcon 
                            icon="fa-regular fa-clipboard"
                            size="1x"
@@ -66,7 +66,7 @@
                     </template>
 
                     <template #cell(telephone)="telephone">
-                        <span v-clipboard="telephone.item.telephone" @click="notifyClipboard(telephone)" style="cursor: pointer !important">
+                        <span v-clipboard="telephone.item.telephone" @click="notifyClipboard(telephone)" style="cursor: pointer !important" v-if="telephone.item.telephone">
                         <FontAwesomeIcon 
                            icon="fa-regular fa-clipboard"
                            size="1x"

@@ -54,6 +54,7 @@
                 />
             </b-form-group>
             <b-form-group
+                style="display: none"
                 id="recipient-slm"
                 label-for="recipient-slm"
                 class="mt-2 mb-2"
@@ -73,10 +74,10 @@
                     name="level"
                     type="number"
                     rules="required"
-                    v-model="this.person.level"
+                    v-model="this.recipient.level"
                 />
             </b-form-group>
-
+            
             <b-form-group
                 id="recipient-slm"
                 :label="$t('contractor.modal.recipient.isslm')"

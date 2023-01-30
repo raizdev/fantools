@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
-
+import { environment } from '../../environment'
+import { version } from '../../package'
 import { useAuthStore } from '@/stores';
 import { Home } from '@/views';
 import accountRoutes from './account.routes';
@@ -19,6 +20,9 @@ export const router = createRouter({
 });
 
 router.beforeEach(async (to) => {
+
+    document.title = `${environment.ApplicationName} - v${version}`
+
     const publicPages = ['/account/login', '/account/register'];
     const authRequired = !publicPages.includes(to.path);
     const authStore = useAuthStore();
