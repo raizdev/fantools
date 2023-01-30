@@ -35,7 +35,7 @@
                         name="mail"
                         type="email"
                         :placeholder="$t('auth.signup.email')"
-                        rules="required"
+                        rules="required|emailContainsDomain"
                         class="mb-3"
                     />
                 </b-card-body>
@@ -52,12 +52,14 @@ import { useAuthStore } from '@/stores';
 
 import { Form, Field, defineRule } from 'vee-validate';
 import { required } from '@vee-validate/rules';
+import { emailContainsDomain } from '@/includes/rules';
 
 import CardHeader from '@/components/Card/CardHeader.vue';
 import TextInput from "@/components/Input/TextInput.vue";
 import Button from '@/Components/Input/Button.vue';
 
 defineRule('required', required);
+defineRule('emailContainsDomain', emailContainsDomain);
 
 export default {
 
