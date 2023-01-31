@@ -26,26 +26,7 @@
         </Form>
 
         <b-card no-body class="border-0 p-2" v-if="items">
-            <table class="table">
-                <thead>
-                    <tr>
-                    <th scope="col">DSLAM</th>
-                    <th scope="col">Old AccessArea</th>
-                    <th scope="col">New AccessArea</th>
-                    <th scope="col">Mig type</th>
-                    <th scope="col">Plandate</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    <th scope="row">{{ this.items.dslam }}</th>
-                    <td>{{ this.items.old_aa }}</td>
-                    <td>{{ this.items.new_aa }}</td>
-                    <td>{{ this.items.mig_type }}</td>
-                    <td>{{ this.items.plandate }}</td>
-                    </tr>
-                </tbody>
-                </table>
+            <b-table responsive striped outlined small hover fixed head-variant="dark" table-variant="light" :fields="fields" :items="items" v-if="items"></b-table>
         </b-card>
     </div>
 </template>

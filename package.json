@@ -1,6 +1,6 @@
 {
   "name": "fantools",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": ".",
   "description": "fantools for KPN",
   "author": "Bryan",
@@ -14,7 +14,7 @@
     "electron:start": "electron .",
     "vite:build": "vite build",
     "build:prod": "vite build && electron-builder --win",
-    "build:publish": "set GH_TOKEN=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 && vite build && electron-builder --win --publish always"
+    "build:publish": "set GH_TOKEN=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 && vite build && electron-builder --win --publish always"
   },
   "build": {
     "appId": "com.autoupdater.fantools",
