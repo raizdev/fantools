@@ -1,10 +1,22 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap');
 
-$primary-color: #46a335;
 $font-family: 'Poppins';
 
+:root {
+  --background-color-primary: #46a335;
+  --background-color-jumbotron: #46a335;
+  --background-color-secondary: #ebebeb;
+}
+
+:root.dark-theme {
+  --background-color-primary: #1e1e1e;
+  --background-color-secondary: #1e1e1e;
+  --background-color-jumbotron: #292929;
+  --background-color-card-bg: #292929;
+}
+
 body {
-  background-color: #f9f9fc !important;
+  background-color: var(--background-color-secondary) !important;
   font-size: 15px !important;
 }
 
@@ -22,7 +34,7 @@ a {
     font-size: 16px !important;
   }
 
-  background-color: $primary-color;
+  background-color: var(--background-color-primary);
 
   a {
     color: #fff !important
@@ -55,13 +67,13 @@ a {
 }
 
 .primary-link {
-    color: $primary-color;
+    background-color: var(--background-color-primary);
     text-decoration: none;
     cursor: pointer;
 }
 
 .bi--variant-primary {
-  color: $primary-color !important
+  color: var(--background-color-primary) !important
 }
 
 
@@ -79,7 +91,7 @@ a {
     border: none;
 
     .title {
-      color: $primary-color
+      color: var(--background-color-primary);
     }
 
     .description {
@@ -91,8 +103,7 @@ a {
     margin: -8px !important;
 
     .btn {
-      background-color: $primary-color;
-      background-color: #46a335;
+      background-color: var(--background-color-primary);
       border-color: #d1d1d1ed;
       border-top-left-radius: 0;
       border-top-right-radius: 0;
@@ -123,7 +134,7 @@ a {
     line-height: 1.4;
     margin: 0 0 20px 0;
     font-weight: 400;
-    color: $primary-color;
+    color: var(--background-color-primary);;
     text-transform: none;
   }
 
@@ -138,7 +149,7 @@ a {
 }
 
 .jumbotron {
-  background-color: $primary-color;
+  background-color: var(--background-color-jumbotron);
   height: 220px;
 
   input {
@@ -248,7 +259,7 @@ input[type="color"]:focus,
 
 [data-prefix="fas"],
 [data-prefix="far"] {
-  color: $primary-color !important
+  color: var(--background-color-primary) !important
 }
 
 .v-toast__text {
@@ -258,14 +269,14 @@ input[type="color"]:focus,
 .modal {
 
   .modal-title {
-    color: $primary-color;
+    color: var(--background-color-primary);
   }
 
   .btn {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     border: 1px solid #ddcece96;
-    background-color: $primary-color;
+    background-color: var(--background-color-primary);
   }
 
   .btn:hover,

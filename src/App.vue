@@ -27,6 +27,7 @@
          <button class="btn" style="padding: 0 !important; background-color: #fff">
             <LanguageSwitcher/>
          </button>
+         <ThemeButton/>
       </div>
       <span v-role="'test'">test</span>
       <nav>
@@ -79,7 +80,7 @@ import { mapActions, mapState } from 'pinia';
 import FontAwesomeIcon from '@/Components/Icon/FontAwesomeIcon.vue';
 import { useAuthStore, useGatesStore } from '@/stores'
 import { Notyf } from 'notyf';
-
+import ThemeButton from '@/components/Input/ThemeButton.vue';
 
 const NotfyProvider = new Notyf({
    duration: 5000,
@@ -131,7 +132,8 @@ export default {
       Navigation,
       Notifications,
       LanguageSwitcher,
-      FontAwesomeIcon
+      FontAwesomeIcon,
+      ThemeButton
    },
 
    computed: {

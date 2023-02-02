@@ -1,5 +1,16 @@
 <template>
     <div class="container-lg p-4">
+      <b-card no-body class="border-0 p-2" v-if="this.contractor.information">
+          <template #header>
+             <CardHeader
+                title="Information"
+                >
+             </CardHeader>
+          </template>
+          <b-card-body>
+             <p v-html="this.contractor.information"></p>
+          </b-card-body>
+       </b-card>
        <b-card no-body class="border-0 p-2">
           <template #header>
              <div class="d-flex justify-content-between">
@@ -52,17 +63,6 @@
           </template>
           <b-card-body>
              <b-table striped outlined small hover fixed :fields="fieldsServiceLevelManager" :items="this.contractor.service_level_manager" />
-          </b-card-body>
-       </b-card>
-       <b-card no-body class="border-0 p-2" v-if="this.contractor.information">
-          <template #header>
-             <CardHeader
-                title="Information"
-                >
-             </CardHeader>
-          </template>
-          <b-card-body>
-             {{ this.contractor.information }}
           </b-card-body>
        </b-card>
     </div>
