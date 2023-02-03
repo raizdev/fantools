@@ -52,8 +52,11 @@ export const useAuthStore = defineStore({
                     useGate.setRoles()
                 }
 
-                this.router.push('/')
-
+                if(!this.user.temp_password) {
+                    this.router.push('/')
+                } else {
+                    this.router.push('/account/change-password')  
+                }
             } catch (e) {
                 this.logout()
             }

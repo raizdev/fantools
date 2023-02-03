@@ -25,10 +25,18 @@ router.beforeEach(async (to) => {
 
     const publicPages = ['/account/login', '/account/register'];
     const authRequired = !publicPages.includes(to.path);
+
+    const tempPages = ['/account/change-password'];
+    const inTempPassword = !tempPages.includes(to.path);
+
     const authStore = useAuthStore();
 
     if (authRequired && !authStore.user) {
         authStore.returnUrl = to.fullPath;
         return '/account/login';
+    }
+
+    if(inTempPassword && authStore.user.temp_password) {
+        return '/account/change-password';
     }
 });

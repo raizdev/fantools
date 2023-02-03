@@ -108,6 +108,11 @@
             "title-success": "Account geregistreerd!",
             "success": "Je account is met succes geregistreerd, deze dient echter door de beheerder te worden goedgekeurd. Wanneer dit gebeurd is ontvang je per mail een wachtwoord van ons waarmee je kunt inloggen op de app. Na het inloggen kun je je wachtwoord direct wijzigen.",
             "too-long": "Mocht de activatie te lang op zich laten wachten neem dan contact op met de beheerder."
+        },
+        "change": {
+            "old_password": "Oud wachtwoord",
+            "password": "Nieuw Wachtwoord",
+            "password_confirmation": "Herhaling wachtwoord"
         }
     },
     "notification": {
@@ -134,11 +139,12 @@
         "min": "{field} moet minimaal 0:{length} karakters zijn",
         "min_value": "{field} moet minimaal 0:{min} zijn",
         "numeric": "{field} mag alleen nummers bevatten",
-        "regex": "{field} formaat is ongeldig",
+        "regex": "{field} moet 1 letter, 1 cijfer",
         "required": "{field} is verplicht",
         "required_if": "{field} is verplicht",
         "size": "{field} mag niet groter zijn dan 0:{size}KB",
         "usernameTaken": "{field} is al in al ingebruik!",
-        "emailContainsDomain": "{field} moet kpn.com extensie bevatten!"
+        "emailContainsDomain": "{field} moet kpn.com extensie bevatten!",
+        "changepassword.regex": "moet bevatten: hoofdletters, kleine letters, cijfer en specialeteken"
     }
 }

@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
 import api from "@/includes/api";
-import { useNotificationStore } from '@/stores';
 
 export const useUsersStore = defineStore({
     id: 'users',
@@ -23,6 +22,11 @@ export const useUsersStore = defineStore({
 
         async modifyPendingUser(user, type, roles) {
             const response = await api.post('user/modifyPendingUser', { id: user.id, activated: type, roles: roles })
+            return response
+        },
+
+        async changePassword(user) {
+            const response = await api.post('user/change-password', { password: user.password })
             return response
         },
     }
