@@ -36,7 +36,7 @@ router.beforeEach(async (to) => {
         return '/account/login';
     }
 
-    if(inTempPassword && authStore.user.temp_password) {
+    if(inTempPassword && authStore.user && authStore.user.temp_password) {
         return '/account/change-password';
     }
 });
