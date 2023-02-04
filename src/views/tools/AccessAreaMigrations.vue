@@ -1,5 +1,6 @@
 <template>
     <div>
+        <b-breadcrumb :items="breadcrumbs"></b-breadcrumb>
         <Form
             @submit="onSubmit"
         >
@@ -56,6 +57,21 @@ export default {
         TextInput,
         Form,
         Button
+    },
+
+    computed: {
+        breadcrumbs() {
+            return [
+                {
+                    text: 'Home',
+                    to: { name: 'home' }
+                },
+                {
+                    text: this.$i18n.t('tiles.accessarea.title'),
+                    active: true
+                }
+            ]
+        }
     },
 
     methods: {

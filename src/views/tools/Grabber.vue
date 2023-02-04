@@ -1,5 +1,6 @@
 <template>
     <div>
+        <b-breadcrumb :items="breadcrumbs"></b-breadcrumb>
         <Form
             @submit="onSubmit"
         >
@@ -60,6 +61,21 @@ export default {
     components: {
         Form,
         CardHeader
+    },
+
+    computed: {
+        breadcrumbs() {
+            return [
+                {
+                    text: 'Home',
+                    to: { name: 'home' }
+                },
+                {
+                    text: this.$i18n.t('tiles.grabber.title'),
+                    active: true
+                }
+            ]
+        }
     },
 
     methods: {

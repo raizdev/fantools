@@ -1,121 +1,119 @@
 <template>
-    <div class="container-lg p-4">
-        <b-card no-body class="border-0 p-2">
-            <template #header>
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <CardHeader
-                            :title="$t('admin.userlist.pending.title')"
-                            :description="$t('admin.userlist.pending.description')"
-                        >
-                        </CardHeader>
-                    </div>
+    <b-card no-body class="border-0 p-2">
+        <template #header>
+            <div class="d-flex justify-content-between">
+                <div>
+                    <CardHeader
+                        :title="$t('admin.userlist.pending.title')"
+                        :description="$t('admin.userlist.pending.description')"
+                    >
+                    </CardHeader>
                 </div>
-            </template>
-            <b-card-body>
-                <b-table
-                    :fields="fieldsPending"
-                    :items="this.activatedUsers(0)"
-                    stacked="md"
-                    show-empty
-                    small
-                    responsive striped outlined hover fixed head-variant="dark" table-variant="light"
-                >
-                    <template #cell(actions)="row">
-                        <span @click="modifyPendingUser(row.item)">
-                            <FontAwesomeIcon
-                                icon="fa-solid fa-user-plus"
-                                size="1x"
-                            />
-                        </span>
-                        <span style="margin-left: 10px !important">
-                            <FontAwesomeIcon
-                                icon="fa-solid fa-trash-can"
-                                size="1x"
-                            />
-                        </span>
-                    </template>
-                </b-table>
-            </b-card-body>
-        </b-card>
-        <b-card no-body class="border-0 p-2">
-            <template #header>
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <CardHeader
-                            :title="$t('admin.userlist.current.title')"
-                            :description="$t('admin.userlist.current.description')"
-                        >
-                        </CardHeader>
-                    </div>
+            </div>
+        </template>
+        <b-card-body>
+            <b-table
+                :fields="fieldsPending"
+                :items="this.activatedUsers(0)"
+                stacked="md"
+                show-empty
+                small
+                responsive striped outlined hover fixed head-variant="dark" table-variant="light"
+            >
+                <template #cell(actions)="row">
+                    <span @click="modifyPendingUser(row.item)">
+                        <FontAwesomeIcon
+                            icon="fa-solid fa-user-plus"
+                            size="1x"
+                        />
+                    </span>
+                    <span style="margin-left: 10px !important">
+                        <FontAwesomeIcon
+                            icon="fa-solid fa-trash-can"
+                            size="1x"
+                        />
+                    </span>
+                </template>
+            </b-table>
+        </b-card-body>
+    </b-card>
+    <b-card no-body class="border-0 p-2">
+        <template #header>
+            <div class="d-flex justify-content-between">
+                <div>
+                    <CardHeader
+                        :title="$t('admin.userlist.current.title')"
+                        :description="$t('admin.userlist.current.description')"
+                    >
+                    </CardHeader>
                 </div>
-            </template>
-            <b-card-body>
-                <b-row>
-                    <b-col lg="6" class="my-1">
-                        <b-form-group
-                        label="Filter"
-                        label-for="filter-input"
-                        label-cols-sm="3"
-                        label-align-sm="right"
-                        label-size="sm"
-                        class="mb-0"
-                        >
-                        <b-input-group size="sm">
-                            <b-form-input
-                                id="filter-input"
-                                v-model="filter"
-                                type="search"
-                                ></b-form-input>
-                        </b-input-group>
-                        </b-form-group>
-                    </b-col>
-                </b-row>
-                <b-table
-                    :fields="fieldsCurrent"
-                    :items="this.allUsers"
-                    :current-page="currentPage"
-                    :per-page="perPage"
-                    :filter="filter"
-                    :filter-included-fields="filterOn"
-                    stacked="md"
-                    show-empty
-                    small
-                    @filtered="onFiltered"
-                    responsive striped outlined hover fixed head-variant="dark" table-variant="light"
-                >
-                    <template #cell(last_login)="row">
-                        {{ convertLastLogin(row.item.last_login) }}
-                    </template>
+            </div>
+        </template>
+        <b-card-body>
+            <b-row>
+                <b-col lg="6" class="my-1">
+                    <b-form-group
+                    label="Filter"
+                    label-for="filter-input"
+                    label-cols-sm="3"
+                    label-align-sm="right"
+                    label-size="sm"
+                    class="mb-0"
+                    >
+                    <b-input-group size="sm">
+                        <b-form-input
+                            id="filter-input"
+                            v-model="filter"
+                            type="search"
+                            ></b-form-input>
+                    </b-input-group>
+                    </b-form-group>
+                </b-col>
+            </b-row>
+            <b-table
+                :fields="fieldsCurrent"
+                :items="this.allUsers"
+                :current-page="currentPage"
+                :per-page="perPage"
+                :filter="filter"
+                :filter-included-fields="filterOn"
+                stacked="md"
+                show-empty
+                small
+                @filtered="onFiltered"
+                responsive striped outlined hover fixed head-variant="dark" table-variant="light"
+            >
+                <template #cell(last_login)="row">
+                    {{ convertLastLogin(row.item.last_login) }}
+                </template>
 
-                    <template #cell(actions)="row">
-                        <span @click="modifyUser(row.item)">
-                            <FontAwesomeIcon
-                                icon="fa-solid fa-user-plus"
-                                size="1x"
-                            />
-                        </span>
-                        <span style="margin-left: 10px !important">
-                            <FontAwesomeIcon
-                                icon="fa-solid fa-trash-can"
-                                size="1x"
-                            />
-                        </span>
-                    </template>
-                </b-table>
-                <b-col sm="7" md="6" class="my-1">
-                        <b-pagination
-                        v-model="currentPage"
-                        :total-rows="totalRows"
-                        :per-page="perPage"
-                        align="fill"
-                        size="sm"
-                        class="my-0"
-                        ></b-pagination>
-                    </b-col>
-            </b-card-body>
-        </b-card>
-    </div>
+                <template #cell(actions)="row">
+                    <span @click="modifyUser(row.item)">
+                        <FontAwesomeIcon
+                            icon="fa-solid fa-user-plus"
+                            size="1x"
+                        />
+                    </span>
+                    <span style="margin-left: 10px !important">
+                        <FontAwesomeIcon
+                            icon="fa-solid fa-trash-can"
+                            size="1x"
+                        />
+                    </span>
+                </template>
+            </b-table>
+            <b-col sm="7" md="6" class="my-1">
+                    <b-pagination
+                    v-model="currentPage"
+                    :total-rows="totalRows"
+                    :per-page="perPage"
+                    align="fill"
+                    size="sm"
+                    class="my-0"
+                    ></b-pagination>
+                </b-col>
+        </b-card-body>
+    </b-card>
 </template>
 <script>
 import { mapActions, mapState } from 'pinia'

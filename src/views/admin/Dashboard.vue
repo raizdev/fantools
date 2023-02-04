@@ -1,5 +1,6 @@
 <template>
     <div>
+      <b-breadcrumb :items="breadcrumbs"></b-breadcrumb>
        <UserList 
           :users="this.userList" 
        />
@@ -20,6 +21,22 @@
 
    components: {
       UserList
-   }
+   },
+
+   
+   computed: {
+        breadcrumbs() {
+            return [
+                {
+                    text: 'Home',
+                    to: { name: 'home' }
+                },
+                {
+                    text: 'Admin Dsahboard',
+                    active: true
+                }
+            ]
+        }
+    },
  }
  </script>
