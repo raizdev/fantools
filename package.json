@@ -1,6 +1,6 @@
 {
   "name": "fantools",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "homepage": ".",
   "description": "fantools for KPN",
   "author": "Bryan",
@@ -58,8 +58,10 @@
     "vue-gates": "^2.1.2",
     "vue-i18n": "^9.0.0-beta.18",
     "vue-json-viewer": "3",
+    "vue-moment": "^4.1.0",
     "vue-router": "^4.0.15",
     "vue-select": "^4.0.0-beta.6",
+    "vue-simple-password-meter": "^1.1.2",
     "vue-underscore": "^0.1.4"
   },
   "devDependencies": {

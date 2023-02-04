@@ -154,7 +154,7 @@ export default {
    
    watch:{
       $route (){
-         this.bodyContainerStyling = (this.$route.name === "contractor-details")
+         this.bodyContainerStyling = (this.$route.name === "contractor-details" || this.$route.name === "contractor-by-name")
       },
       deep: true
    },

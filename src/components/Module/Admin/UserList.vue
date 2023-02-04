@@ -13,6 +13,44 @@
                 </div>
             </template>
             <b-card-body>
+                <b-table
+                    :fields="fieldsPending"
+                    :items="this.activatedUsers(0)"
+                    stacked="md"
+                    show-empty
+                    small
+                    responsive striped outlined hover fixed head-variant="dark" table-variant="light"
+                >
+                    <template #cell(actions)="row">
+                        <span @click="modifyPendingUser(row.item)">
+                            <FontAwesomeIcon
+                                icon="fa-solid fa-user-plus"
+                                size="1x"
+                            />
+                        </span>
+                        <span style="margin-left: 10px !important">
+                            <FontAwesomeIcon
+                                icon="fa-solid fa-trash-can"
+                                size="1x"
+                            />
+                        </span>
+                    </template>
+                </b-table>
+            </b-card-body>
+        </b-card>
+        <b-card no-body class="border-0 p-2">
+            <template #header>
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <CardHeader
+                            :title="$t('admin.userlist.current.title')"
+                            :description="$t('admin.userlist.current.description')"
+                        >
+                        </CardHeader>
+                    </div>
+                </div>
+            </template>
+            <b-card-body>
                 <b-row>
                     <b-col lg="6" class="my-1">
                         <b-form-group
@@ -34,8 +72,8 @@
                     </b-col>
                 </b-row>
                 <b-table
-                    :fields="fields"
-                    :items="this.activatedUsers(0)"
+                    :fields="fieldsCurrent"
+                    :items="this.allUsers"
                     :current-page="currentPage"
                     :per-page="perPage"
                     :filter="filter"
@@ -46,6 +84,10 @@
                     @filtered="onFiltered"
                     responsive striped outlined hover fixed head-variant="dark" table-variant="light"
                 >
+                    <template #cell(last_login)="row">
+                        {{ convertLastLogin(row.item.last_login) }}
+                    </template>
+
                     <template #cell(actions)="row">
                         <span @click="modifyUser(row.item)">
                             <FontAwesomeIcon
@@ -76,11 +118,13 @@
     </div>
 </template>
 <script>
-import { mapActions, mapState, mapWritableState } from 'pinia'
+import { mapActions, mapState } from 'pinia'
 import { useUsersStore } from '@/stores'
 import ModifyPendingUserComponent from '@/components/Modal/Admin/ModifyPendingUserComponent.vue'
+import ModifyUserComponent from '@/components/Modal/Admin/ModifyUserComponent.vue'
 import CardHeader from '@/components/Card/CardHeader.vue';
 import FontAwesomeIcon from '@/components/Icon/FontAwesomeIcon.vue';
+import moment from 'moment'
 
 export default {
 
@@ -90,13 +134,27 @@ export default {
 
     data() {
         return {
-            fields: [{
+            fieldsPending: [{
                 key: 'username',
                 label: 'Ruisnaam',
                 thStyle: { width: "25%" }
             },{
                 key: 'mail',
                 thStyle: { width: "62%" }
+            },{
+                key: 'actions', 
+                label: 'Actions' 
+            }],
+            fieldsCurrent: [{
+                key: 'username',
+                label: 'Ruisnaam',
+                thStyle: { width: "15%" }
+            },{
+                key: 'mail',
+                thStyle: { width: "40%" }
+            },{
+                key: 'last_login',
+                thStyle: { width: "32%" }
             },{
                 key: 'actions', 
                 label: 'Actions' 
@@ -113,13 +171,16 @@ export default {
     components: {
         CardHeader,
         FontAwesomeIcon,
-        ModifyPendingUserComponent
+        ModifyPendingUserComponent,
+        ModifyUserComponent,
+        moment
     },  
 
     computed: {
         ...mapState(
             useUsersStore, {
             activatedUsers: 'activatedUsers',
+            allUsers: 'users',
             getUserById: 'getUserById',
         })
    },
@@ -130,7 +191,15 @@ export default {
             getUsers: 'userList'
         }),
  
-        async modifyUser(user) {
+        convertLastLogin(value) {
+            if(value === null) {
+                return 'not logged in'
+            }
+            var timestamp = moment.unix(value);
+            return timestamp.format("d MMMM YYYY")
+        },
+
+        async modifyPendingUser(user) {
             this.$vbsModal.open({
                 content: ModifyPendingUserComponent,
                 contentProps: {
@@ -142,15 +211,34 @@ export default {
             });
         },
 
+        async modifyUser(user) {
+            this.$vbsModal.open({
+                content: ModifyUserComponent,
+                contentProps: {
+                    user: user
+                },
+                contentEmits: {
+                    onUpdate: this.modifyPendingUser,
+                }
+            });
+        },
+        
         async modifyPendingUser() {
+            this.getUsersAndRoles();
             this.$vbsModal.close();
+        },
+
+        getUsersAndRoles() {
+            this.getUsers().then(() => {
+                this.totalRows = this.users.length
+            })
+
+
         }
    },
 
    created() {
-        this.getUsers().then(() => {
-            this.totalRows = this.users.length
-    })
-   }
+        this.getUsersAndRoles();
+    }
 }
 </script>

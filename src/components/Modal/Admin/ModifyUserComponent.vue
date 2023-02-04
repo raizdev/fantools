@@ -1,6 +1,6 @@
 <template>
     <div class="modal-header">
-       <h5 class="modal-title">{{ $t('admin.userlist.pending.approve') }} {{ this.person.username }}</h5>
+       <h5 class="modal-title">{{ $t('admin.userlist.current.modify') }} {{ this.person.username }}</h5>
        <span @click="close">
            <FontAwesomeIcon
                icon="fa-solid fa-xmark"
@@ -19,7 +19,7 @@
                 label-for="roles"
                 class="mt-2 mb-2"
             >
-            <vSelect :options="this.roles" v-model="this.addedRoles" :placeholder="$t('admin.userlist.pending.roles')" label="name" multiple />
+                <vSelect :options="this.roles" v-model="this.addedRoles" :placeholder="$t('admin.userlist.pending.roles')" label="name" multiple />
             </b-form-group>
         </div>
         <Button variant="success" :isSubmitting="isSubmitting" :text="$t('button.update')"></Button>
@@ -39,69 +39,75 @@ import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 
 export default {
-   name: "ModifyPendingUserComponent",
-   emits: ["onUpdate"],
+    name: "ModifyUserComponent",
+    emits: ["onUpdate"],
 
-   props: {
-       user: Object
-   },
+    props: {
+        user: Object
+    },
 
-   components: {
-       Form,
-       FontAwesomeIcon,
-       TextInput,
-       vSelect,
-       Button
-   },
+    components: {
+        Form,
+        FontAwesomeIcon,
+        TextInput,
+        vSelect,
+        Button
+    },
 
-   data() {
-       return {
-           person: this.user,
-           addedRoles: []
-       }
-   },
+    data() {
+        return {
+            person: this.user,
+            addedRoles: []
+        }
+    },
    
-   computed: {
+    computed: {
         ...mapState(
             useRolesStore, { 
                 roles: 'roles'
+            }
+        ),
+        ...mapState(
+            useUsersStore, { 
+                getUser: 'getUserById'
             }
         ),
         ...mapWritableState(
             useNotificationStore, { 
                 addNotification: 'notifications'
         }),
-   },
+    },
 
-   created() {
-       this.getRoles()
-   },
+    created() {
+        this.getRoles()
+        const user = this.getUser(this.user.id)[0];
+        this.addedRoles = user.roles
+    },
 
-   methods: {
-        ...mapActions(
-            useUsersStore, {
-                modifyPendingUser: 'modifyPendingUser'
-            }
-        ),
-
+    methods: {
         ...mapActions(
             useRolesStore, { 
-               getRoles: 'getRoles'
+                getRoles: 'getRoles'
             }
         ),
 
-       close() {
-           this.$vbsModal.close();
-       },
-
-       async onSubmit() {
-            const result = await this.modifyPendingUser(this.person, '1', this.addedRoles);
-            if(result) {
-                this.addNotification.push({ text: 'Account sucessfully approved!', type: 'success'})
-                this.$emit("onUpdate");
+        ...mapActions(
+            useUsersStore, {
+                modifyUserRoles: 'modifyUserRoles'
             }
-       }
-   }
-   
+        ),
+
+        close() {
+            this.$vbsModal.close();
+        },
+
+        async onSubmit() {
+                const result = await this.modifyUserRoles(this.person, this.addedRoles);
+                if(result) {
+                    this.addNotification.push({ text: 'Account modified!', type: 'success'})
+                    this.$emit("onUpdate");
+                }
+        }
+    }
 }
 </script>

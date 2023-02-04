@@ -9,6 +9,7 @@
             :placeholder="placeholder"
             :autocomplete="autocomplete"
             @input="handleChange"
+            @change="$emit('input', $event.target.value)"
             @blur="handleBlur"
             :class="{ 'is-invalid': !!errorMessage, 'is-valid': meta.valid }"
             :aria-describedby="`errorHandler-${name}`"
@@ -17,9 +18,11 @@
             :id="`errorHandler-${name}`" v-show="errorMessage || meta.valid"
         >{{ errorMessage }}
         </b-form-invalid-feedback>
+        <password-meter :password="inputValue" v-if="this.passwordMeter" />
     </b-form-group>
 </template>
 <script>
+import PasswordMeter from 'vue-simple-password-meter';
 import { useField } from 'vee-validate';
 import { watch, ref } from 'vue';
 
@@ -28,6 +31,10 @@ export default {
     name: 'TextInput',
 
     props: {
+        passwordMeter: {
+            type: Boolean,
+            required: false
+        },
         type: {
             type: String,
             default: "text",
@@ -101,6 +108,10 @@ export default {
     },
 
     emits: ['update:modelValue'],
+
+    components: {
+        PasswordMeter
+    },
 
     computed: {
         isRequired() {

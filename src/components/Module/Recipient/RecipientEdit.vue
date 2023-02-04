@@ -1,5 +1,6 @@
 <template>
     <div class="container-lg p-4" v-if="!selectedContractor">
+        <b-breadcrumb :items="breadcrumbs"></b-breadcrumb>
         <b-card no-body class="border-0 p-2">
             <template #header>
                 <div class="d-flex justify-content-between">
@@ -154,6 +155,18 @@ export default {
     },
 
     computed: {
+        breadcrumbs() {
+            return [
+                {
+                    text: 'Home',
+                    to: { name: 'home' }
+                },
+                {
+                    text: 'Contractor Details',
+                    to: { name: 'contractor-details' }
+                }
+            ]
+        },
         ...mapState(
             useToolsStore, { 
                 recipients: 'recipients',

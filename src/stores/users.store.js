@@ -25,6 +25,11 @@ export const useUsersStore = defineStore({
             return response
         },
 
+        async modifyUserRoles(user, roles) {
+            const response = await api.post('role/update', { user: user, roles: roles })
+            return response
+        },
+
         async changePassword(user) {
             const response = await api.post('user/change-password', { password: user.password })
             return response

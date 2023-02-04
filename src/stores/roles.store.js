@@ -12,6 +12,7 @@ export const useRolesStore = defineStore({
     actions: {
         async getRoles() {
             const response = await api.get('role/list')
+            console.log(response)
             this.roles = response
         }
     }

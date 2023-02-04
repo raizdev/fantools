@@ -91,6 +91,11 @@
                 "approve": "Aanvraag",
                 "roles": "Welke rollen mag deze gebruiker?",
                 "approved": "Gebruiker toevoegen gelukt"
+            },
+            "current": {
+                "title": "Medewerkers",
+                "description": "Hier kun je een medewerkers aanpassen en of rollen toewijzen",
+                "modify": "Wijzig"
             }
         }
     },
@@ -109,10 +114,18 @@
             "success": "Je account is met succes geregistreerd, deze dient echter door de beheerder te worden goedgekeurd. Wanneer dit gebeurd is ontvang je per mail een wachtwoord van ons waarmee je kunt inloggen op de app. Na het inloggen kun je je wachtwoord direct wijzigen.",
             "too-long": "Mocht de activatie te lang op zich laten wachten neem dan contact op met de beheerder."
         },
-        "change": {
+        "change_password": {
+            "title": "Wijzig je wachtwoord",
             "old_password": "Oud wachtwoord",
             "password": "Nieuw Wachtwoord",
-            "password_confirmation": "Herhaling wachtwoord"
+            "password_confirmation": "Herhaling wachtwoord",
+            "requirements": {
+                "must_contain": "Wachtwoord moet bevatten",
+                "characters": "Op zijn minst 8 karakters",
+                "lowercase": "Op zijn minst 1 kleine letter",
+                "uppercase": "Op zijn minst 1 kleine letter",
+                "special": "Op zijn minst 1 cijfer en specialeteken (#?!@$%^&*-)"
+            }
         }
     },
     "notification": {

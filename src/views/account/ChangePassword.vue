@@ -6,14 +6,21 @@
             <b-card no-body class="border-0 p-2">
                 <template #header>
                     <CardHeader
-                        title="Change Password"
+                        :title="$t('auth.change_password.title')"
                     >
                     </CardHeader>
                 </template>
                 <b-card-body>
+                    <b-alert show variant="info" style="font-size: 14px">
+                        {{ $t('auth.change_password.requirements.must_contain') }}
+                        <li>{{ $t('auth.change_password.requirements.characters') }}</li>
+                        <li>{{ $t('auth.change_password.requirements.lowercase') }}</li>
+                        <li>{{ $t('auth.change_password.requirements.uppercase') }}</li>
+                        <li>{{ $t('auth.change_password.requirements.special') }}</li>
+                    </b-alert>
                     <b-form-group
                         id="password"
-                        :label="$t('auth.change.password')"
+                        :label="$t('auth.change_password.password')"
                         label-for="password"
                         class="mt-2 mb-2"
                     >
@@ -27,7 +34,7 @@
 
                     <b-form-group
                         id="password_confirmation-email"
-                        :label="$t('auth.change.password_confirmation')"
+                        :label="$t('auth.change_password.password_confirmation')"
                         label-for="password_confirmation-email"
                         class="mt-2 mb-2"
                     >
@@ -36,6 +43,7 @@
                             type="password"
                             :rules="{ required: true, confirmed: '@password', regex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).*$/ }"
                             class="mb-2"
+                            passwordMeter
                         />
                     </b-form-group>
                 </b-card-body>
@@ -70,7 +78,7 @@ defineRule('regex', (value, [target]) => {
     if(value.match(target)) {
         return true;
     }
-    return 'Does not meet the requirements, needs 1 upper, lower, number and special chacarater';
+    return 'Required: upper, lowercase characters and atleast 1 specialchar (#?!@$%^&*-)';
 })
 
 export default {
@@ -87,10 +95,7 @@ export default {
 
     data() {
         return {
-            form: {
-                password: '',
-                password_confirmation: ''
-            }
+            passwordd: ''
         }
     },
 

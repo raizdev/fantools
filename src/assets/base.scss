@@ -6,13 +6,15 @@ $font-family: 'Poppins';
   --background-color-primary: #46a335;
   --background-color-jumbotron: #46a335;
   --background-color-secondary: #ebebeb;
+  --background-color-href: #46a335;
 }
 
 :root.dark-theme {
-  --background-color-primary: #1e1e1e;
-  --background-color-secondary: #1e1e1e;
+  --background-color-primary: #1e1e1ef2;
+  --background-color-secondary: #1e1e1ee6;
   --background-color-jumbotron: #292929;
-  --background-color-card-bg: #292929;
+  --background-color-card-bg: #141414;
+  --background-color-href: #fff;
 }
 
 body {
@@ -306,3 +308,28 @@ input::placeholder {
   font-size: 14px
 }
 
+.breadcrumb {
+  display: -ms-flexbox !important;;
+  display: flex !important;;
+  -ms-flex-wrap: wrap !important;;
+  flex-wrap: wrap !important;;
+  padding: .75rem 1rem !important;;
+  margin-bottom: 1rem !important;;
+  list-style: none !important;;
+  background-color: #acacac26 !important;
+  border-radius: .25rem !important;
+
+  span {
+    color: #7e7e7e !important;
+  }
+
+  a {
+    color: var(--background-color-href) !important;
+  }
+
+  .breadcrumb-item {
+    &.active {
+      color: #000 !important;
+    }
+  }
+}
