@@ -17,6 +17,7 @@
                 id="contractor-name"
                 :label="$t('contractor.modal.contractor.name')"
                 label-for="contractor-name"
+                class="mb-3"
             >
                 <TextInput
                     name="name"
@@ -27,13 +28,26 @@
             </b-form-group>
 
             <b-form-group
+                id="abbreviation-name"
+                :label="$t('contractor.modal.contractor.abbreviation')"
+                label-for="abbreviation-name"
+            >
+                <TextInput
+                    name="abbreviation"
+                    type="text"
+                    v-model="this.contractor.abbreviation"
+                />
+            </b-form-group>
+
+
+            <b-form-group
                 id="recipient"
                 :label="$t('contractor.modal.contractor.recipients')"
                 label-for="recipient-1"
                 :description="$t('contractor.modal.contractor.recipients-select')"
                 class="mt-3"
             >
-                <vSelect :options="this.filterAllRecipients(0)" :components="{Deselect}" placeholder="Add employee to list" label="name" multiple v-model="selectedRecipients">
+                <vSelect :options="this.recipientByType(0, 'slm')" :components="{Deselect}" placeholder="Add employee to list" label="name" multiple v-model="selectedRecipients">
                     <template v-slot:no-options>{{ $t('contractor.modal.contractor.search')}}</template>
                 </vSelect>
             </b-form-group>
@@ -44,7 +58,7 @@
                 label-for="service-level-manager-1"
                 class="mt-3"
             >
-                <vSelect :options="this.filterAllRecipients(1)" placeholder="Service Level Manager" label="name" v-model="selectedServiceLevelManager" />
+                <vSelect :options="this.recipientByType(1, 'slm')" placeholder="Service Level Manager" label="name" v-model="selectedServiceLevelManager" />
             </b-form-group>
 
             <b-form-group
@@ -103,9 +117,10 @@ export default defineComponent({
 
     data() {
         return {
-            selectedRecipients: this.contractor.contractors_details,
-            selectedServiceLevelManager: this.contractor.service_level_manager,
             information: this.contractor.information,
+            abbreviation: this.contractor.abbreviation,
+            selectedRecipients: [],
+            selectedServiceLevelManager: null,
             Deselect: {
                 render: createElement => createElement('span', '❌'),
             }
@@ -115,30 +130,38 @@ export default defineComponent({
     computed: {
         ...mapState(
             useToolsStore, { 
-                filterAllRecipients: 'recipientByType',
+                getRecipientSorted: 'getRecipientSorted',
+                recipientByType: 'recipientByType'
             }
         )
     },
 
     created() {
+        this.selectedRecipients = this.getRecipientSorted('level', 0)
+        this.selectedServiceLevelManager = this.getRecipientSorted('level', 1)[0]
         this.getAllRecipients()
     },
 
     methods: {
         ...mapActions(
             useToolsStore, { 
-                getAllRecipients: 'getAllRecipients'
+                getAllRecipients: 'getAllRecipients',
             }
         ),
 
         onSubmit: function (value) {
 
+            const recipientsIds = this.selectedRecipients.map(item => {
+                return item.id
+            })
+
+            recipientsIds.push(this.selectedServiceLevelManager.id)
+
             const values = {
                 name: value.name,
-                contractors_id: this.contractor.id,
-                contractorPersons: this.selectedRecipients,
-                serviceLevelManager: this.selectedServiceLevelManager[0] ?? this.selectedServiceLevelManager,
-                information: this.information
+                abbreviation: this.abbreviation,
+                information: this.information,
+                recipients: recipientsIds
             }
 
             this.$emit("onUpdate", values);

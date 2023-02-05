@@ -8,7 +8,12 @@ export const useGatesStore = defineStore("gates", () => {
     const authStore = useAuthStore();
 
     const setRoles = () => {
-        $zo.setRoles([...authStore.permissions]);
+
+        const permission = authStore.permissions.map(permission => {
+            return permission
+        })
+
+        $zo.setRoles([...permission]);
     }
 
     return {

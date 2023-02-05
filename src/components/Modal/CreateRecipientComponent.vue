@@ -147,7 +147,6 @@ export default {
        onSubmit: function (value) {
 
            const values = {
-               id: 0,
                name: value.name,
                email: value.email,
                telephone: value.telephone,

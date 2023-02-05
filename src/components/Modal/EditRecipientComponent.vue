@@ -102,8 +102,6 @@
 
 <script>
 import { Form } from 'vee-validate';
-import { mapState, mapActions } from  'pinia'
-import { useToolsStore } from '@/stores'
 
 import FontAwesomeIcon from '../Icon/FontAwesomeIcon.vue';
 import TextInput from "../Input/TextInput.vue";
@@ -129,32 +127,11 @@ export default {
     data() {
         return {
             recipient: this.recipients,
-            contractors: null,
             isServiceLevelManager: 0
         }
     },
     
-    computed: {
-        ...mapState(
-            useToolsStore, { 
-                contractor: 'contractor',
-            }
-        )
-    },
-
-    created() {
-        this.getAllRecipientByContractor(this.recipient.id).then((result) => {
-            this.contractors = result[0].contract_person
-        })
-    },
-
     methods: {
-        ...mapActions(
-            useToolsStore, { 
-                getAllRecipientByContractor: 'getAllRecipientByContractor',
-                getContractors: 'getContractors'
-            }
-        ),
 
         close() {
             this.$vbsModal.close();
@@ -163,15 +140,14 @@ export default {
         onSubmit: function (value) {
 
             const values = {
-                id: this.recipient.id,
                 name: value.name,
-                email: value.email,
                 telephone: value.telephone,
-                slm: (this.isServiceLevelManager === true) ? '1' : '0',
+                email: value.email,
+                slm: (this.isServiceLevelManager === true) ? 1 : 0,
                 level: value.level
             }
             
-            this.$emit("onUpdate", values);
+            this.$emit("onUpdate", values, this.recipient.id);
         }
     }
 }

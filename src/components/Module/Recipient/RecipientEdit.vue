@@ -11,7 +11,7 @@
                         </CardHeader>
                     </div>
                     <div>
-                        <span @click="createRecipient(0)" v-role:any="'super-admin|escalatiedesk-edit'">
+                        <span @click="createRecipient(0)" v-role:any="'super-admin|escalationdesk-edit'">
                             <FontAwesomeIcon
                                 icon="fa-solid fa-plus"
                                 size="1x"
@@ -43,7 +43,7 @@
                 </b-row>
                 <b-table
                     :fields="fields"
-                    :items="this.recipients"
+                    :items="this.recipients.items"
                     :current-page="currentPage"
                     :per-page="perPage"
                     :filter="filter"
@@ -108,7 +108,8 @@
 </template>
 <script>
 import { mapActions, mapState, mapWritableState } from 'pinia'
-import { useToolsStore, useNotificationStore  } from '@/stores'
+import { useToolsStore, useNotificationStore, useDatabaseStore } from '@/stores'
+
 import CardHeader from '@/Components/Card/CardHeader.vue';
 import FontAwesomeIcon from '@/Components/Icon/FontAwesomeIcon.vue';
 import EditRecipientComponent from '@/Components/Modal/EditRecipientComponent.vue';
@@ -134,8 +135,8 @@ export default {
                 thStyle: { width: "25%" }
             },{ 
                 key: 'actions', 
-                tdClass: (this.$zo.hasAnyRole('super-admin|escalatiedesk-edit')) ? '': 'd-none',
-                thClass: (this.$zo.hasAnyRole('super-admin|escalatiedesk-edit')) ? '': 'd-none',
+                tdClass: (this.$zo.hasAnyRole('super-admin|escalationdesk-edit')) ? '': 'd-none',
+                thClass: (this.$zo.hasAnyRole('super-admin|escalationdesk-edit')) ? '': 'd-none',
                 label: this.$i18n.t('contractor.recipient.table.actions')
             }],
             totalRows: 1,
@@ -170,7 +171,7 @@ export default {
         ...mapState(
             useToolsStore, { 
                 recipients: 'recipients',
-                recipientById: 'recipientById'
+                recipientByType: 'recipientByType'
             }
         ),
 
@@ -183,9 +184,15 @@ export default {
     methods: {
         ...mapActions(
             useToolsStore, { 
-                getAllRecipients: 'getAllRecipients',
-                modifyRecipient: 'modifyRecipient',
-                delete: 'deleteRecipient'
+                getAllRecipients: 'getAllRecipients'
+            }
+        ),
+
+        ...mapActions(
+            useDatabaseStore, { 
+                update: 'update',
+                delete: 'delete',
+                create: 'create'
             }
         ),
 
@@ -198,7 +205,7 @@ export default {
             this.$vbsModal.open({
                 content: EditRecipientComponent,
                 contentProps: {
-                    recipients: this.recipientById(recipientId)[0]
+                    recipients: this.recipientByType(recipientId, 'id')[0]
                 },
                 contentEmits: {
                     onUpdate: this.updateRecipient,
@@ -206,19 +213,27 @@ export default {
             });
         },
 
-        createRecipient(recipientId) {
+        createRecipient() {
             this.$vbsModal.open({
                 content: CreateRecipientComponent,
                 contentEmits: {
-                    onUpdate: this.updateRecipient,
+                    onUpdate: this.createdRecipient,
                 }
             });
         },
 
-        updateRecipient(newValue) {
-            this.modifyRecipient(newValue).then((result) => {
+        createdRecipient(values) {
+            this.create(values, 'recipients').then(() => {
                 this.getAllRecipients()
-                this.addNotification.push({ text: this.$i18n.t('notification.updated', {name: newValue.name}), type: 'success'})
+                this.addNotification.push({ text: this.$i18n.t('notification.updated', {name: values.name}), type: 'success'})
+                this.$vbsModal.close();
+            })
+        },
+
+        updateRecipient(values, recordId) {
+            this.update(values, recordId, 'recipients').then(() => {
+                this.getAllRecipients()
+                this.addNotification.push({ text: this.$i18n.t('notification.updated', {name: values.name}), type: 'success'})
                 this.$vbsModal.close();
             })
         },
@@ -231,9 +246,9 @@ export default {
             })
             .then((confirmed) => {
                 if (confirmed) {
-                    this.delete(recipient.id);
-                    this.addNotification.push({ text: this.$i18n.t('notification.deleted', {name: recipient.name}), type: 'success'})
                     this.getAllRecipients()
+                    this.delete(recipient.id, 'recipients');
+                    this.addNotification.push({ text: this.$i18n.t('notification.deleted', {name: recipient.name}), type: 'success'})
                 }
             });
         },
@@ -245,7 +260,7 @@ export default {
 
     created() {
         this.getAllRecipients().then(() => {
-            this.totalRows = this.recipients.length
+            this.totalRows = this.recipients.totalItems
         })
     },
 }

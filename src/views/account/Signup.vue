@@ -32,7 +32,7 @@
                         class="mb-3"
                     />
                     <TextInput
-                        name="mail"
+                        name="email"
                         type="email"
                         :placeholder="$t('auth.signup.email')"
                         rules="required|emailContainsDomain"

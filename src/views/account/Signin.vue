@@ -71,7 +71,11 @@ export default {
 
     methods: {
         async onSubmit(values) {
-            await this.signIn(values)
+            const result = await this.signIn(values)
+            if(result) {
+                console.log(1)
+                this.$router.push({ name: 'home' })
+            }
         },
 
         ...mapActions(useAuthStore, { signIn: 'signIn'})

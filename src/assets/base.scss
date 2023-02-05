@@ -162,6 +162,7 @@ a {
     padding: 10px 0px 11px 0px;
     font-size: 19px !important;
     color: #fff !important;
+    font-size: 17px !important;
   }
 
 
@@ -318,6 +319,7 @@ input::placeholder {
   list-style: none !important;;
   background-color: #acacac26 !important;
   border-radius: .25rem !important;
+  font-family: $font-family !important;
 
   span {
     color: var(--background-color-href) !important;

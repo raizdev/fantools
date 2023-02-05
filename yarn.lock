@@ -2071,6 +2071,11 @@
     "base64-js" "^1.5.1"
     "xmlbuilder" "^15.1.1"
 
+"pocketbase@^0.10.1":
+  "integrity" "sha512-FMBhF+9o2AmdKJYbfz2qunnk4Q5/efYMRcukdQF49UfhsIuaSYl39fSPN1l880bYI4XAvDDeySAjK1MlxrK37A=="
+  "resolved" "https://registry.npmjs.org/pocketbase/-/pocketbase-0.10.1.tgz"
+  "version" "0.10.1"
+
 "popper.js@^1.16.1":
   "integrity" "sha512-Wb4p1J4zyFTbM+u6WuO4XstYx4Ky9Cewe4DWrel7B0w6VVICvPwdOpotjzcf6eD8TsckVnIMNONQyPIUFOUbCQ=="
   "resolved" "https://registry.npmjs.org/popper.js/-/popper.js-1.16.1.tgz"

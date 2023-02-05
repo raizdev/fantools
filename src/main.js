@@ -27,15 +27,14 @@ const app = createApp(App)
 app.config.errorHandler = () => null;
 app.config.warnHandler = () => null;
 
-app.use(i18n).use(VueZo).use(pinia)
-
-const authStore = useAuthStore();
-authStore.attempt(localStorage.getItem('token'), false).then(() => {
-    app.use(router)
-    .use(VueClipboard)
-    .use(BootstrapVue)
-    .use(Modal)
-    .component("font-awesome-icon", FontAwesomeIcon)
-    .mount('#app')
-    progressBar(router)
-})
+app
+.use(i18n)
+.use(VueZo)
+.use(pinia)
+.use(router)
+.use(VueClipboard)
+.use(BootstrapVue)
+.use(Modal)
+.component("font-awesome-icon", FontAwesomeIcon)
+.mount('#app')
+progressBar(router)

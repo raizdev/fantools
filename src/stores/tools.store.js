@@ -1,58 +1,60 @@
 import { defineStore } from 'pinia';
 import api from "@/includes/api";
+import { db } from '@/includes/pocketbase';
 
 export const useToolsStore = defineStore({
     id: 'tools',
     state: () => ({
-        recipients: null,
+        contractors: null,
         contractor: null,
-        contractorRecipients: null
+        recipients: null
     }),
     getters: {
-        recipientByType: (state) => (type) => {
-            return state.recipients.filter(recipient => recipient.slm == type)
-        },
-        recipientById: (state) => (value) => {
-            return state.recipients.filter(recipient => recipient.id == value)
+        recipientByType: (state) => (value, type) => {
+            return state.recipients.items.filter(recipient => recipient[type] == value)
         },
         getContractorByName: (state) => (value) => {
-            return state.contractor.filter((contractor => contractor.slug.toLowerCase().includes(value)))
+            return state.contractors.filter((contractor => contractor.slug.toLowerCase().includes(value)))
+        },
+        getRecipientSorted: (state) => (value, type) => {
+            const sorted = state.contractor.expand.recipients.sort(function(a, b) {
+                return a[value] - b[value]
+            })
+
+            return sorted.filter(recipient => recipient.slm == type)
         }
     },
     actions: {
 
-        clearRecipients() {
-            this.contractorRecipients = null
-        },
-
         async getContractors() {
-            const response = await api.get('tools/contractor/list/all')
-            this.contractor = response
+            const response = await db.collection('contractors').getList();
+
+            response.items.map(item => {
+                const slug = [
+                    item.name,
+                    item.abbreviation
+                ];
+
+                item.slug = slug.join(', ')
+            })
+
+            this.contractors = response.items
         },
 
         async getContractorRecipients (value) {
-            const response = await api.get('tools/contractor/' + value)
-            this.contractorRecipients = response
+            const response = await db.collection('contractors').getOne(value, {
+                expand: 'recipients',
+            })
+            
+            this.contractor = response
         },
 
         async getAllRecipients () {
-            const response = await api.get('/tools/contractor/employee/list')
+            const response = await db.collection('recipients').getList(1, 500, {
+                sort: 'name'
+            });
+
             this.recipients = response
-        },
-
-        async getAllRecipientByContractor(recipientId) {
-            const response = await api.get('/tools/contractor/list/employee/' + recipientId)
-            return response
-        },
-        
-        async modifyContractor (values) {
-            const response = await api.post('tools/contractor/modify', values)
-            return response
-        },
-
-        async modifyRecipient (values) {
-            const response = await api.post('tools/contractor/recipient/modify', values)
-            return response
         },
 
         async accessareaMigration (values) {

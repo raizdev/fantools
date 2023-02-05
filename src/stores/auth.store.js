@@ -1,15 +1,14 @@
 import { defineStore } from 'pinia';
+import { db } from '@/includes/pocketbase';
 import { useGatesStore, useNotificationStore } from '@/stores';
-import api from "@/includes/api";
-import i18n from '@/includes/i18n';
 
 export const useAuthStore = defineStore({
     
     id: 'auth',
     state: () => ({
-        token: localStorage.getItem('token')| '',
-        user: null,
-        permissions: null
+        token: db?.authStore?.token ?? '',
+        user: db?.authStore?.model ?? '',
+        permissions: db?.authStore?.model?.role ?? ''
     }),
     getters: {
         authenticated(state) {
@@ -19,56 +18,42 @@ export const useAuthStore = defineStore({
     actions: {
 
         async signIn(credentials) {
-            const response = await api.post('auth/login', credentials); 
-            return this.attempt(response.token)
-        },
+            const auth = await db.collection('users').authWithPassword(
+                credentials.username,
+                credentials.password,
+            );
 
-        async signUp(credentials) {
-            const response = await api.post('auth/register', credentials); 
-            return response
-        },     
-
-        async attempt(token, skip = true) {
-            if (token) {
-                this.token = token
-            }
-
-            if (!this.token) {
-                return
-            }
-
-            localStorage.setItem('token', this.token)
-
-            try {
-                let response = await api.get('user');
+            if(auth) {
 
                 this.$patch({
-                    user: response,
-                    permissions: response.permission
+                    token: auth.token,
+                    user: auth.record,
+                    permissions: auth.record.role
                 })
 
-                if(skip) {
-                    const useGate = useGatesStore()
-                    useGate.setRoles()
-                }
-
-                if(!this.user.temp_password) {
-                    this.router.push('/')
-                } else {
-                    this.router.push('/account/change-password')  
-                }
-            } catch (e) {
-                this.logout()
+                const useGate = useGatesStore()
+                useGate.setRoles()
             }
-        },
+
+            this.router.push('/');
+         },
+
+        async signUp(credentials) {
+
+            let randomPassword = (Math.random() + 1).toString(36).substring(5);
+
+            const data = {
+                username: credentials.username,
+                email: credentials.email,
+                password: randomPassword,
+                passwordConfirm: randomPassword
+            }
+
+            return await db.collection("users").create(data);
+        },     
 
         logout() {
-            this.$patch({
-                user: '',
-                token: ''
-            })
-
-            localStorage.removeItem('token')
+            db.authStore.clear();
             this.router.push('/account/login');
         }
     }
