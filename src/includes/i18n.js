@@ -27,5 +27,4 @@ import(`../locales/frontend/${locale}.json`)
         })
     });
 
-
 export default i18n

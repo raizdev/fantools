@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia';
-import api from "@/includes/api";
 
 export const useUsersStore = defineStore({
     id: 'users',

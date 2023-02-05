@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia';
-import api from "@/includes/api";
 import { db } from '@/includes/pocketbase';
 
 export const useToolsStore = defineStore({
@@ -8,7 +7,7 @@ export const useToolsStore = defineStore({
         contractors: null,
         contractor: null,
         recipients: null
-    }),
+    }), 
     getters: {
         recipientByType: (state) => (value, type) => {
             return state.recipients.items.filter(recipient => recipient[type] == value)

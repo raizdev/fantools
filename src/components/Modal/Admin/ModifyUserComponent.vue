@@ -29,7 +29,7 @@
 <script>
 import { Form } from 'vee-validate';
 import { mapState, mapActions, mapWritableState } from  'pinia'
-import { useRolesStore, useUsersStore, useNotificationStore  } from '@/stores'
+import { useUsersStore, useNotificationStore  } from '@/stores'
 
 import FontAwesomeIcon from '@/components/Icon/FontAwesomeIcon.vue';
 import TextInput from "@/components/Input/TextInput.vue";
@@ -63,11 +63,6 @@ export default {
    
     computed: {
         ...mapState(
-            useRolesStore, { 
-                roles: 'roles'
-            }
-        ),
-        ...mapState(
             useUsersStore, { 
                 getUser: 'getUserById'
             }
@@ -85,12 +80,6 @@ export default {
     },
 
     methods: {
-        ...mapActions(
-            useRolesStore, { 
-                getRoles: 'getRoles'
-            }
-        ),
-
         ...mapActions(
             useUsersStore, {
                 modifyUserRoles: 'modifyUserRoles'

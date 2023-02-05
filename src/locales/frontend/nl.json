@@ -103,7 +103,8 @@
         "signin" : {
             "title": "Inloggen",
             "description": "Wachtwoord vergeten?",
-            "button": "Inloggen"
+            "button": "Inloggen",
+            "not_activated": "Je account is nog niet geactiveerd door de beheerder"
         },
         "signup": {
             "title": "Registreer account",

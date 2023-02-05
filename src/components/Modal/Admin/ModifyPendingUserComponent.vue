@@ -29,7 +29,7 @@
 <script>
 import { Form } from 'vee-validate';
 import { mapState, mapActions, mapWritableState } from  'pinia'
-import { useRolesStore, useUsersStore, useNotificationStore  } from '@/stores'
+import { useUsersStore, useNotificationStore  } from '@/stores'
 
 import FontAwesomeIcon from '@/components/Icon/FontAwesomeIcon.vue';
 import TextInput from "@/components/Input/TextInput.vue";
@@ -62,11 +62,6 @@ export default {
    },
    
    computed: {
-        ...mapState(
-            useRolesStore, { 
-                roles: 'roles'
-            }
-        ),
         ...mapWritableState(
             useNotificationStore, { 
                 addNotification: 'notifications'
@@ -84,15 +79,9 @@ export default {
             }
         ),
 
-        ...mapActions(
-            useRolesStore, { 
-               getRoles: 'getRoles'
-            }
-        ),
-
-       close() {
-           this.$vbsModal.close();
-       },
+        close() {
+            this.$vbsModal.close();
+        },
 
        async onSubmit() {
             const result = await this.modifyPendingUser(this.person, '1', this.addedRoles);

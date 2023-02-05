@@ -17,7 +17,6 @@ import progressBar from './includes/progress-bar';
 import App from './App.vue';
 import i18n from './includes/i18n';
 
-import { useAuthStore } from '@/stores';
 
 const pinia = createPinia();
 pinia.use(({ store }) => { store.router = markRaw(router) });

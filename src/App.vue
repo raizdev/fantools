@@ -81,7 +81,6 @@ import FontAwesomeIcon from '@/Components/Icon/FontAwesomeIcon.vue';
 import { useAuthStore, useGatesStore } from '@/stores'
 import { Notyf } from 'notyf';
 import ThemeButton from '@/components/Input/ThemeButton.vue';
-import { db } from '@/includes/pocketbase';
 
 const NotfyProvider = new Notyf({
    duration: 5000,
