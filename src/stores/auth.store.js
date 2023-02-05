@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { db, errorMessage } from '@/includes/pocketbase';
+import { db } from '@/includes/pocketbase';
 import { useGatesStore, useNotificationStore } from '@/stores';
 import i18n from '@/includes/i18n';
 const { t } = i18n.global
@@ -19,57 +19,73 @@ export const useAuthStore = defineStore({
     },
     actions: {
 
-        async signIn(credentials) {
-
-            try {
-                const auth = await db.collection('users').authWithPassword(
-                    credentials.username,
-                    credentials.password,
-                );
-
-                if(!auth.verified) {
-                    useNotificationStore().notifications.push({ 
-                        text: t('auth.signin.not_activated'), 
-                        type: 'error' 
-                    })
-
-                    return this.logout()
+        /* Set lastLogin in user collection */
+        async setLastLogin() {
+            return await db.collection('users').update(
+                this.user.id, {
+                    lastLogin: new Date()
                 }
-
-                this.$patch({
-                    token: auth.token,
-                    user: auth.record,
-                    permissions: auth.record.role
-                })
-
-                const useGate = useGatesStore()
-                useGate.setRoles()
-
-                this.router.push('/');
-
-            } catch(error) { errorMessage(error) }
+            )
         },
 
+        /* Sign in user */
+        async signIn(credentials) {
+
+            /* Get credentials and initate authentication */
+            const auth = await db.collection('users').authWithPassword(
+                credentials.username,
+                credentials.password,
+            );
+
+            /* If user is verified pass otherwise throw notification */
+            if(!auth.record.verified) {
+                useNotificationStore().notifications.push({ 
+                    text: t('auth.signin.not_activated'), 
+                    type: 'error' 
+                })
+
+                return db.authStore.clear();
+            }
+
+            /* Store user collection */
+            this.$patch({
+                token: auth.token,
+                user: auth.record,
+                permissions: auth.record.role
+            })
+
+            /* Set roles */
+            this.setRoles()
+
+            /* Set lastLogin */
+            this.setLastLogin()
+
+            this.router.push('/');
+        },
+
+        /* Create user with random password without verified status */
         async signUp(credentials) {
 
-            let randomPassword = (Math.random() + 1).toString(36).substring(2);
+            const data = {
+                username: credentials.username,
+                email: credentials.email,
+                password: credentials.password,
+                passwordConfirm: credentials.password_confirmation
+            }
 
-            try {
-                const data = {
-                    username: credentials.username,
-                    email: credentials.email,
-                    password: randomPassword,
-                    passwordConfirm: randomPassword
-                }
-
-                return await db.collection("users").create(data);
-
-            } catch(error) { errorMessage(error) }
+            return await db.collection("users").create(data);
         },     
 
+        /* Logout the user */
         logout() {
             db.authStore.clear();
             this.router.push('/account/login');
+        },
+
+        /* Set roles in useGateStore */
+        setRoles() {
+            const useGate = useGatesStore()
+            useGate.setRoles()
         }
     }
 });

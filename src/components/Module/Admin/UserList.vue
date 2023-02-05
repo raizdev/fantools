@@ -14,7 +14,7 @@
         <b-card-body>
             <b-table
                 :fields="fieldsPending"
-                :items="this.activatedUsers(0)"
+                :items="this.getUserByType('verified', 0)"
                 stacked="md"
                 show-empty
                 small
@@ -72,7 +72,7 @@
             </b-row>
             <b-table
                 :fields="fieldsCurrent"
-                :items="this.allUsers"
+                :items="this.getUserByType('verified', 1)"
                 :current-page="currentPage"
                 :per-page="perPage"
                 :filter="filter"
@@ -83,10 +83,6 @@
                 @filtered="onFiltered"
                 responsive striped outlined hover fixed head-variant="dark" table-variant="light"
             >
-                <template #cell(last_login)="row">
-                    {{ convertLastLogin(row.item.last_login) }}
-                </template>
-
                 <template #cell(actions)="row">
                     <span @click="modifyUser(row.item)">
                         <FontAwesomeIcon
@@ -126,10 +122,6 @@ import moment from 'moment'
 
 export default {
 
-    props: {
-        users: Object
-    },  
-
     data() {
         return {
             fieldsPending: [{
@@ -137,7 +129,7 @@ export default {
                 label: 'Ruisnaam',
                 thStyle: { width: "25%" }
             },{
-                key: 'mail',
+                key: 'email',
                 thStyle: { width: "62%" }
             },{
                 key: 'actions', 
@@ -148,10 +140,10 @@ export default {
                 label: 'Ruisnaam',
                 thStyle: { width: "15%" }
             },{
-                key: 'mail',
+                key: 'email',
                 thStyle: { width: "40%" }
             },{
-                key: 'last_login',
+                key: 'lastLogin',
                 thStyle: { width: "32%" }
             },{
                 key: 'actions', 
@@ -177,25 +169,17 @@ export default {
     computed: {
         ...mapState(
             useUsersStore, {
-            activatedUsers: 'activatedUsers',
-            allUsers: 'users',
-            getUserById: 'getUserById',
+                users: 'users',
+                getUserByType: 'getUserByType'
         })
-   },
+    },
 
     methods: {
         ...mapActions(
             useUsersStore, { 
-            getUsers: 'userList'
+                getUsers: 'userList'
         }),
- 
-        convertLastLogin(value) {
-            if(value === null) {
-                return 'not logged in'
-            }
-            var timestamp = moment.unix(value);
-            return timestamp.format("d MMMM YYYY")
-        },
+
 
         async modifyPendingUser(user) {
             this.$vbsModal.open({
@@ -226,12 +210,10 @@ export default {
             this.$vbsModal.close();
         },
 
-        getUsersAndRoles() {
-            this.getUsers().then(() => {
-                this.totalRows = this.users.length
-            })
-
-
+        async getUsersAndRoles() {
+            const response = await this.getUsers();
+            this.totalRows = this.users.totalItems
+            console.log(this.users)
         }
    },
 

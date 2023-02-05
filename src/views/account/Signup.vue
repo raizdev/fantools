@@ -24,20 +24,71 @@
                     </CardHeader>
                 </template>
                 <b-card-body>
-                    <TextInput
-                        name="username"
-                        type="text"
-                        :placeholder="$t('auth.signup.username')"
-                        rules="required"
-                        class="mb-3"
-                    />
-                    <TextInput
-                        name="email"
-                        type="email"
-                        :placeholder="$t('auth.signup.email')"
-                        rules="required|emailContainsDomain"
-                        class="mb-3"
-                    />
+                    <b-alert show variant="info" style="font-size: 14px">
+                        {{ $t('auth.change_password.requirements.must_contain') }}
+                        <li>{{ $t('auth.change_password.requirements.characters') }}</li>
+                        <li>{{ $t('auth.change_password.requirements.lowercase') }}</li>
+                        <li>{{ $t('auth.change_password.requirements.uppercase') }}</li>
+                        <li>{{ $t('auth.change_password.requirements.special') }}</li>
+                    </b-alert>
+
+                    <b-form-group
+                        id="password"
+                        :label="$t('auth.signup.username')"
+                        label-for="password"
+                        class="mt-2 mb-2"
+                    >
+                        <TextInput
+                            name="username"
+                            type="text"
+                            rules="required"
+                            class="mb-3"
+                        />
+                    </b-form-group>
+
+                    <b-form-group
+                        id="password"
+                        :label="$t('auth.signup.email')"
+                        label-for="password"
+                        class="mt-2 mb-2"
+                    >
+                        <TextInput
+                            name="email"
+                            type="email"
+                            placeholder="@kpn.com"
+                            rules="required|emailContainsDomain"
+                            class="mb-3"
+                        />
+                    </b-form-group>
+
+                    <b-form-group
+                        id="password"
+                        :label="$t('auth.change_password.password')"
+                        label-for="password"
+                        class="mt-2 mb-2"
+                    >
+                        <TextInput
+                            name="password"
+                            type="password"
+                            rules="required|min:8"
+                            class="mb-3"
+                        />
+                    </b-form-group>
+
+                    <b-form-group
+                        id="password_confirmation-email"
+                        :label="$t('auth.change_password.password_confirmation')"
+                        label-for="password_confirmation-email"
+                        class="mt-2 mb-2"
+                    >
+                        <TextInput
+                            name="password_confirmation"
+                            type="password"
+                            :rules="{ required: true, confirmed: '@password', regex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).*$/ }"
+                            class="mb-2"
+                            passwordMeter
+                        />
+                    </b-form-group>
                 </b-card-body>
                 <b-card-footer class="p-0 m-0">
                     <Button variant="success" :isSubmitting="isSubmitting" :text="$t('auth.signup.button')"></Button>
@@ -51,7 +102,7 @@ import { mapActions } from 'pinia'
 import { useAuthStore } from '@/stores';
 
 import { Form, Field, defineRule } from 'vee-validate';
-import { required } from '@vee-validate/rules';
+import { required, confirmed, regex } from '@vee-validate/rules';
 import { emailContainsDomain } from '@/includes/rules';
 
 import CardHeader from '@/components/Card/CardHeader.vue';
@@ -60,6 +111,18 @@ import Button from '@/Components/Input/Button.vue';
 
 defineRule('required', required);
 defineRule('emailContainsDomain', emailContainsDomain);
+defineRule('confirmed', (value, [target]) => {
+  if (value === target) {
+    return true;
+  }
+  return 'Passwords must match';
+});
+defineRule('regex', (value, [target]) => {
+    if(value.match(target)) {
+        return true;
+    }
+    return 'Required: upper, lowercase characters and atleast 1 specialchar (#?!@$%^&*-)';
+})
 
 export default {
 

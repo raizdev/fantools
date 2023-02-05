@@ -3,22 +3,27 @@ import { useAuthStore, useNotificationStore } from '@/stores';
 
 const db = new PocketBase(import.meta.env.VITE_API_URL);
 
-export function errorMessage(error) {
+db.afterSend = function (response, data) {
 
     const notificationStore = useNotificationStore()
     const { token, logout } = useAuthStore();
 
-    if ([401, 403].includes(error.code) && token) {
+    if ([401, 403].includes(data.code) && token) {
         logout();
     }
 
-    const field = Object.keys(error.data.data)[0];
-    console.log(field)
-    if(error.data.data[field]) {
-        notificationStore.notifications.push({ text: error.data.data[field].message, type: 'error' })
-    } else {
-        notificationStore.notifications.push({ text: error.message, type: 'error' })
+    
+    if([400].includes(data.code)) {
+        const field = Object.keys(data?.data)[0];
+
+        if(data.data[field]) {
+            notificationStore.notifications.push({ text: data.data[field].message, type: 'error' })
+        } else {
+            notificationStore.notifications.push({ text: data.message, type: 'error' })
+        }
     }
+
+    return Object.assign(data);
 }
 
 export { db };

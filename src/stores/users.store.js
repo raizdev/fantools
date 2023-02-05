@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { db } from '@/includes/pocketbase';
 
 export const useUsersStore = defineStore({
     id: 'users',
@@ -6,16 +7,14 @@ export const useUsersStore = defineStore({
         users: null
     }),
     getters: {
-        activatedUsers: (state) => (activated) => {
-            return state.users.filter(users => users.activated == activated)
-        },
-        getUserById: (state) => (id) => {
-            return state.users.filter(users => users.id == id)
+        getUserByType: (state) => (param, value) => {
+            return state.users.filter(users => users[param] == value)
         }
     },
     actions: {
         async userList() {
-            const response = await api.get('user/list')
+            const response = await db.collection('users').getFullList(200)
+            console.log(response)
             this.users = response
         },
 
