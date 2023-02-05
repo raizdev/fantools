@@ -13,15 +13,11 @@ export const useToolsStore = defineStore({
         recipientByType: (state) => (value, type) => {
             return state.recipients.items.filter(recipient => recipient[type] == value)
         },
+        contractorRecipientByType: (state) => (value, type) => {
+            return state.contractor.expand.recipients.filter(recipient => recipient[type] == value)
+        },
         getContractorByName: (state) => (value) => {
             return state.contractors.filter((contractor => contractor.slug.toLowerCase().includes(value)))
-        },
-        getRecipientSorted: (state) => (value, type) => {
-            const sorted = state.contractor.expand.recipients.sort(function(a, b) {
-                return a[value] - b[value]
-            })
-
-            return sorted.filter(recipient => recipient.slm == type)
         }
     },
     actions: {
@@ -44,6 +40,7 @@ export const useToolsStore = defineStore({
         async getContractorRecipients (value) {
             const response = await db.collection('contractors').getOne(value, {
                 expand: 'recipients',
+                sort: 'recipients.level'
             })
             
             this.contractor = response

@@ -31,7 +31,7 @@
              </div>
           </template>
           <b-card-body>
-             <b-table responsive striped outlined small hover fixed head-variant="dark" table-variant="light" :fields="fieldsContractor" :items="this.getRecipientSorted('level', 0)">
+             <b-table responsive striped outlined small hover fixed head-variant="dark" table-variant="light" :fields="fieldsContractor" :items="this.contractorRecipientByType(0, 'slm')">
                   <template #cell(email)="email">
                      <span v-clipboard="email.item.email" @click="notifyClipboard(email)" style="cursor: pointer !important" v-if="email.item.email">
                         <FontAwesomeIcon 
@@ -63,7 +63,7 @@
              </CardHeader>
           </template>
           <b-card-body>
-             <b-table striped outlined small hover fixed :fields="fieldsServiceLevelManager" :items="this.getRecipientSorted('level', 1)" />
+             <b-table striped outlined small hover fixed :fields="fieldsServiceLevelManager" :items="this.contractorRecipientByType(1, 'slm')" />
           </b-card-body>
        </b-card>
     </div>
@@ -137,7 +137,7 @@ export default {
       ...mapState(
          useToolsStore, { 
             contractor: 'contractor' ,
-            getRecipientSorted: 'getRecipientSorted'
+            contractorRecipientByType: 'contractorRecipientByType'
          }
       ),
       ...mapWritableState(
