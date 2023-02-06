@@ -63,19 +63,6 @@ export const useAuthStore = defineStore({
             this.router.push('/');
         },
 
-        /* Create user with random password without verified status */
-        async signUp(credentials) {
-
-            const data = {
-                username: credentials.username,
-                email: credentials.email,
-                password: credentials.password,
-                passwordConfirm: credentials.password_confirmation
-            }
-
-            return await db.collection("users").create(data);
-        },     
-
         /* Logout the user */
         logout() {
             db.authStore.clear();
