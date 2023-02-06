@@ -82,7 +82,7 @@
                         class="mt-2 mb-2"
                     >
                         <TextInput
-                            name="password_confirmation"
+                            name="passwordConfirm"
                             type="password"
                             :rules="{ required: true, confirmed: '@password', regex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).*$/ }"
                             class="mb-2"
@@ -99,7 +99,7 @@
 </template>
 <script>
 import { mapActions } from 'pinia'
-import { useAuthStore } from '@/stores';
+import { useAuthStore, useDatabaseStore } from '@/stores';
 
 import { Form, Field, defineRule } from 'vee-validate';
 import { required, confirmed, regex } from '@vee-validate/rules';
@@ -145,18 +145,29 @@ export default {
     },
 
     computed: {
+        
     },
 
     methods: {
 
-        async onSubmit(values) {
-            const response = await this.signUp(values)
+        async onSubmit(credentials) {
+            const response = await this.create(credentials, 'users')
             if(response) {
                 this.registrationDone = true
             }
         },
 
-        ...mapActions(useAuthStore, { signUp: 'signUp'}),
+        ...mapActions(
+            useAuthStore, {
+                 signUp: 'signUp'
+            }
+        ),
+
+        ...mapActions(
+            useDatabaseStore, {
+                create: 'create'
+            }
+        )
     }
   }
 </script>
