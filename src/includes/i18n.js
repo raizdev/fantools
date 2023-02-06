@@ -1,14 +1,13 @@
 import { createI18n } from 'vue-i18n'
 import { messages } from "vite-i18n-resources";
-import { environment } from '../../environment';
 import { configure } from "vee-validate";
 import { localize } from '@vee-validate/i18n';
 
-const locale = localStorage.getItem('locale') || environment.locale.default;
+const locale = localStorage.getItem('locale') || import.meta.env.VITE_LOCALE_DEFAULT;
 
 const i18n = createI18n({
     locale: locale,
-    fallbackLocale: environment.locale.fallback,
+    fallbackLocale: import.meta.env.VITE_LOCALE_FALLBACK,
     messages
 });
 

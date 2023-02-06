@@ -119,7 +119,7 @@ export default defineComponent({
         return {
             information: this.contractor.information,
             abbreviation: this.contractor.abbreviation,
-            selectedRecipients: [],
+            selectedRecipirecipientByTypeents: [],
             selectedServiceLevelManager: null,
             Deselect: {
                 render: createElement => createElement('span', '❌'),
@@ -130,15 +130,15 @@ export default defineComponent({
     computed: {
         ...mapState(
             useToolsStore, { 
-                getRecipientSorted: 'getRecipientSorted',
+                contractorRecipientByType: 'contractorRecipientByType',
                 recipientByType: 'recipientByType'
             }
         )
     },
 
     created() {
-        this.selectedRecipients = this.getRecipientSorted('level', 0)
-        this.selectedServiceLevelManager = this.getRecipientSorted('level', 1)[0]
+        this.selectedRecipients = this.contractorRecipientByType(0, 'slm')
+        this.selectedServiceLevelManager = this.contractorRecipientByType(1, 'slm')[0]
         this.getAllRecipients()
     },
 

@@ -14,7 +14,7 @@
     "electron:start": "electron .",
     "vite:build": "vite build",
     "build:prod": "vite build && electron-builder --win",
-    "build:publish": "set GH_TOKEN=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 && vite build && electron-builder --win --publish always"
+    "build:publish": "set GH_TOKEN=$gh_token && vite build && electron-builder --win --publish always"
   },
   "build": {
     "appId": "com.autoupdater.fantools",

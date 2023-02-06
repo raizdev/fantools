@@ -75,7 +75,6 @@
 <script>
 import LanguageSwitcher from '@/Components/LanguageSwitcher/LanguageSwitcher.vue';
 import Notifications from '@/Components/Notification/notifications.vue'
-import { environment } from '../environment'
 import { mapActions, mapState } from 'pinia';
 import FontAwesomeIcon from '@/Components/Icon/FontAwesomeIcon.vue';
 import { useAuthStore, useGatesStore } from '@/stores'
@@ -119,7 +118,7 @@ export default {
    data() {
       return {
          offCanvasWidth: '250px',
-         applicationName: environment.ApplicationName,
+         applicationName: import.meta.env.VITE_APPLICATION_NAME,
          bodyContainerStyling: false
       }
    },
