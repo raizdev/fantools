@@ -119,7 +119,7 @@ export default defineComponent({
         return {
             information: this.contractor.information,
             abbreviation: this.contractor.abbreviation,
-            selectedRecipirecipientByTypeents: [],
+            selectedRecipients: [],
             selectedServiceLevelManager: null,
             Deselect: {
                 render: createElement => createElement('span', '❌'),

@@ -41,7 +41,7 @@ export const useToolsStore = defineStore({
                 expand: 'recipients',
                 sort: 'recipients.level'
             })
-            
+
             this.contractor = response
         },
 

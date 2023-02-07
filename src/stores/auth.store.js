@@ -3,14 +3,14 @@ import { db } from '@/includes/pocketbase';
 import { useGatesStore, useNotificationStore } from '@/stores';
 import i18n from '@/includes/i18n';
 const { t } = i18n.global
+const auth = db.authStore
 
 export const useAuthStore = defineStore({
     
     id: 'auth',
     state: () => ({
-        token: db?.authStore?.token ?? '',
-        user: db?.authStore?.model ?? '',
-        permissions: db?.authStore?.model?.expand?.roles ?? ''
+        token: auth?.token ?? '',
+        user: auth?.model ?? ''
     }),
     getters: {
         authenticated(state) {
@@ -41,28 +41,13 @@ export const useAuthStore = defineStore({
                 }
             );
  
-            /* If user is verified pass otherwise throw notification */
-            if(!auth.record.verified) {
-                useNotificationStore().notifications.push({ 
-                    text: t('auth.signin.not_activated'), 
-                    type: 'error' 
-                })
+            const useGate = useGatesStore()
+            useGate.setRoles()
 
-                return db.authStore.clear();
-            }
-
-            /* Store user collection */
             this.$patch({
                 token: auth.token,
-                user: auth.record,
-                permissions: auth.record.expand.roles
+                user: auth.record
             })
-
-            /* Set roles */
-            this.setRoles()
-
-            /* Set lastLogin */
-            this.setLastLogin()
 
             this.router.push('/');
         },
@@ -75,24 +60,11 @@ export const useAuthStore = defineStore({
                 email: credentials.email,
                 password: credentials.password,
                 passwordConfirm: credentials.password_confirmation,
-                emailVisibility: 1
+                emailVisibility: true
             }
 
             return await db.collection("users").create(data);
         },     
-
-        async authRefresh() {
-            const user = await db.collection("users").authRefresh({}, {
-                expand: "roles"
-            })
-
-            /* Store user collection */
-            this.$patch({
-                token: user.token,
-                user: user.record,
-                permissions: user.record.expand.roles
-            })
-        },
 
         /* Logout the user */
         logout() {
@@ -100,17 +72,10 @@ export const useAuthStore = defineStore({
 
             this.$patch({
                 token: null,
-                user: null,
-                permissions: null
+                user: null
             })
 
             this.router.push('/account/login');
-        },
-
-        /* Set roles in useGateStore */
-        setRoles() {
-            const useGate = useGatesStore()
-            useGate.setRoles()
         }
     }
 });

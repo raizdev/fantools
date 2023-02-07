@@ -31,7 +31,7 @@
              </div>
           </template>
           <b-card-body>
-             <b-table responsive striped outlined small hover fixed head-variant="dark" table-variant="light" :fields="fieldsContractor" :items="this.contractorRecipientByType(0, 'slm')">
+             <b-table responsive striped outlined small hover fixed head-variant="dark" v-model:sort-by.sync="sortBy" v-model:sort-desc.sync="sortDesc" table-variant="light" :fields="fieldsContractor" :items="this.contractorRecipientByType(0, 'slm')">
                   <template #cell(email)="email">
                      <span v-clipboard="email.item.email" @click="notifyClipboard(email)" style="cursor: pointer !important" v-if="email.item.email">
                         <FontAwesomeIcon 
@@ -83,6 +83,8 @@ export default {
 
    data() {
       return {
+         sortBy: 'level',
+         sortDesc: false,
          fieldsContractor: [{
             key: 'name', 
             label: this.$i18n.t('contractor.recipient.table.name'),

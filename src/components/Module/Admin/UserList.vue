@@ -27,7 +27,7 @@
                             size="1x"
                         />
                     </span>
-                    <span style="margin-left: 10px !important">
+                    <span @click="deleteUser(row.item)" style="margin-left: 10px !important">
                         <FontAwesomeIcon
                             icon="fa-solid fa-trash-can"
                             size="1x"
@@ -107,7 +107,7 @@
 </template>
 <script>
 import { mapActions, mapState } from 'pinia'
-import { useUsersStore } from '@/stores'
+import { useUsersStore, useDatabaseStore } from '@/stores'
 import ModifyUserComponent from '@/components/Modal/Admin/ModifyUserComponent.vue'
 import CardHeader from '@/components/Card/CardHeader.vue';
 import FontAwesomeIcon from '@/components/Icon/FontAwesomeIcon.vue';
@@ -172,6 +172,10 @@ export default {
                 getUsers: 'userList'
         }),
 
+        ...mapActions(
+            useDatabaseStore, { 
+                delete: 'delete'
+        }),
 
         async modifyUserModal(user) {
             this.$vbsModal.open({
@@ -184,6 +188,22 @@ export default {
                 }
             });
         },
+
+        deleteUser(user) {
+            this.$vbsModal.confirm({
+                message: user.username + this.$i18n.t('contractor.recipient.delete'),
+                title: this.$i18n.t('contractor.recipient.delete-recipient'),
+                icon: null
+            })
+            .then((confirmed) => {
+                if (confirmed) {
+                    this.getUsersAndRoles()
+                    this.delete(user.id, 'users');
+                    this.addNotification.push({ text: this.$i18n.t('notification.deleted', {name: user.username}), type: 'success'})
+                }
+            });
+        },
+
         
         async modifyUser() {
             this.getUsersAndRoles();

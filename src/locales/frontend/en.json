@@ -125,7 +125,7 @@
                 "characters": "At least 8 characters",
                 "lowercase": "At least 1 lowercase letter",
                 "uppercase": "At leasr 1 uppercase letter",
-                "special": "At least 1 number and one special character (#?!@$%^&*-)"
+                "special": "At least 1 number and one special character"
             }
         }
     },
