@@ -73,7 +73,6 @@ export default {
         async onSubmit(values) {
             const result = await this.signIn(values)
             if(result) {
-                console.log(1)
                 this.$router.push({ name: 'home' })
             }
         },
