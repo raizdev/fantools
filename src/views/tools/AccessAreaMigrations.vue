@@ -47,7 +47,7 @@ export default {
 
     data() {
         return {
-            fields: ['dslam', 'old_aa', 'new_aa', 'plandate', 'mig_type'],
+            fields: ['dslam', 'old', 'new', 'plandate', 'type'],
             items: null
         }
     },

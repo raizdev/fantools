@@ -21,7 +21,7 @@
                 responsive striped outlined hover fixed head-variant="dark" table-variant="light"
             >
                 <template #cell(actions)="row">
-                    <span @click="modifyPendingUser(row.item)">
+                    <span @click="modifyUserModal(row.item)">
                         <FontAwesomeIcon
                             icon="fa-solid fa-user-plus"
                             size="1x"
@@ -84,7 +84,7 @@
                 responsive striped outlined hover fixed head-variant="dark" table-variant="light"
             >
                 <template #cell(actions)="row">
-                    <span @click="modifyUser(row.item)">
+                    <span @click="modifyUserModal(row.item)">
                         <FontAwesomeIcon
                             icon="fa-solid fa-user-plus"
                             size="1x"
@@ -114,7 +114,6 @@
 <script>
 import { mapActions, mapState } from 'pinia'
 import { useUsersStore } from '@/stores'
-import ModifyPendingUserComponent from '@/components/Modal/Admin/ModifyPendingUserComponent.vue'
 import ModifyUserComponent from '@/components/Modal/Admin/ModifyUserComponent.vue'
 import CardHeader from '@/components/Card/CardHeader.vue';
 import FontAwesomeIcon from '@/components/Icon/FontAwesomeIcon.vue';
@@ -161,7 +160,6 @@ export default {
     components: {
         CardHeader,
         FontAwesomeIcon,
-        ModifyPendingUserComponent,
         ModifyUserComponent,
         moment
     },  
@@ -181,31 +179,19 @@ export default {
         }),
 
 
-        async modifyPendingUser(user) {
-            this.$vbsModal.open({
-                content: ModifyPendingUserComponent,
-                contentProps: {
-                    user: user
-                },
-                contentEmits: {
-                    onUpdate: this.modifyPendingUser,
-                }
-            });
-        },
-
-        async modifyUser(user) {
+        async modifyUserModal(user) {
             this.$vbsModal.open({
                 content: ModifyUserComponent,
                 contentProps: {
                     user: user
                 },
                 contentEmits: {
-                    onUpdate: this.modifyPendingUser,
+                    onUpdate: this.modifyUser,
                 }
             });
         },
         
-        async modifyPendingUser() {
+        async modifyUser() {
             this.getUsersAndRoles();
             this.$vbsModal.close();
         },
@@ -213,7 +199,6 @@ export default {
         async getUsersAndRoles() {
             const response = await this.getUsers();
             this.totalRows = this.users.totalItems
-            console.log(this.users)
         }
    },
 

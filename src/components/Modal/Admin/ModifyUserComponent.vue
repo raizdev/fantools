@@ -1,6 +1,6 @@
 <template>
     <div class="modal-header">
-       <h5 class="modal-title">{{ $t('admin.userlist.current.modify') }} {{ this.person.username }}</h5>
+       <h5 class="modal-title">{{ $t('admin.userlist.current.title') }} {{ this.person.username }}</h5>
        <span @click="close">
            <FontAwesomeIcon
                icon="fa-solid fa-xmark"
@@ -19,7 +19,7 @@
                 label-for="roles"
                 class="mt-2 mb-2"
             >
-                <vSelect :options="this.roles" v-model="this.addedRoles" :placeholder="$t('admin.userlist.pending.roles')" label="name" multiple />
+            <vSelect :options="this.roles" v-model="this.selectedRoles" :placeholder="$t('admin.userlist.pending.roles')" label="name" multiple />
             </b-form-group>
         </div>
         <Button variant="success" :isSubmitting="isSubmitting" :text="$t('button.update')"></Button>
@@ -28,8 +28,8 @@
 
 <script>
 import { Form } from 'vee-validate';
-import { mapState, mapActions, mapWritableState } from  'pinia'
-import { useUsersStore, useNotificationStore  } from '@/stores'
+import { mapActions, mapWritableState, mapState } from  'pinia'
+import { useUsersStore, useNotificationStore, useRoleStore, useDatabaseStore } from '@/stores'
 
 import FontAwesomeIcon from '@/components/Icon/FontAwesomeIcon.vue';
 import TextInput from "@/components/Input/TextInput.vue";
@@ -39,7 +39,7 @@ import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 
 export default {
-    name: "ModifyUserComponent",
+    name: "ModifyPendingUserComponent",
     emits: ["onUpdate"],
 
     props: {
@@ -57,32 +57,44 @@ export default {
     data() {
         return {
             person: this.user,
-            addedRoles: []
+            selectedRoles: []
         }
     },
-   
+
     computed: {
-        ...mapState(
-            useUsersStore, { 
-                getUser: 'getUserById'
-            }
-        ),
         ...mapWritableState(
             useNotificationStore, { 
                 addNotification: 'notifications'
         }),
+
+        ...mapState(
+            useRoleStore, {
+                roles: 'roles'
+            }
+        )
     },
 
     created() {
+        this.selectedRoles = this.person.expand.roles
         this.getRoles()
-        const user = this.getUser(this.user.id)[0];
-        this.addedRoles = user.roles
     },
 
     methods: {
         ...mapActions(
             useUsersStore, {
-                modifyUserRoles: 'modifyUserRoles'
+                modifyPendingUser: 'modifyPendingUser',
+            }
+        ),
+
+        ...mapActions(
+            useRoleStore, {
+                getRoles: 'getRoles'
+            }
+        ),
+
+        ...mapActions(
+            useDatabaseStore, {
+                update: 'update'
             }
         ),
 
@@ -91,11 +103,22 @@ export default {
         },
 
         async onSubmit() {
-                const result = await this.modifyUserRoles(this.person, this.addedRoles);
-                if(result) {
-                    this.addNotification.push({ text: 'Account modified!', type: 'success'})
-                    this.$emit("onUpdate");
-                }
+            
+            const roleIds = this.selectedRoles.map(item => {
+                return item.id
+            })
+            
+            const values = {
+                verified: true,
+                roles: roleIds
+            }
+
+            const result = await this.update(values, this.person.id, 'users');
+
+            if(result) {
+                this.addNotification.push({ text: 'Account sucessfully approved!', type: 'success'})
+                this.$emit("onUpdate");
+            }
         }
     }
 }

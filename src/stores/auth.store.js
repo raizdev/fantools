@@ -10,7 +10,7 @@ export const useAuthStore = defineStore({
     state: () => ({
         token: db?.authStore?.token ?? '',
         user: db?.authStore?.model ?? '',
-        permissions: db?.authStore?.model?.role ?? ''
+        permissions: null
     }),
     getters: {
         authenticated(state) {
@@ -34,7 +34,7 @@ export const useAuthStore = defineStore({
             /* Get credentials and initate authentication */
             const auth = await db.collection('users').authWithPassword(
                 credentials.username,
-                credentials.password,
+                credentials.password
             );
 
             /* If user is verified pass otherwise throw notification */
@@ -50,8 +50,7 @@ export const useAuthStore = defineStore({
             /* Store user collection */
             this.$patch({
                 token: auth.token,
-                user: auth.record,
-                permissions: auth.record.role
+                user: auth.record
             })
 
             /* Set roles */
@@ -70,7 +69,8 @@ export const useAuthStore = defineStore({
                 username: credentials.username,
                 email: credentials.email,
                 password: credentials.password,
-                passwordConfirm: credentials.password_confirmation
+                passwordConfirm: credentials.password_confirmation,
+                emailVisibility: 1
             }
 
             return await db.collection("users").create(data);
@@ -79,6 +79,13 @@ export const useAuthStore = defineStore({
         /* Logout the user */
         logout() {
             db.authStore.clear();
+
+            this.$patch({
+                token: null,
+                user: null,
+                permissions: null
+            })
+
             this.router.push('/account/login');
         },
 
@@ -87,5 +94,9 @@ export const useAuthStore = defineStore({
             const useGate = useGatesStore()
             useGate.setRoles()
         }
+    },
+    persist: {
+        enabled: true,
+        paths: ['permissions']
     }
 });

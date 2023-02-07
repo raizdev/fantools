@@ -29,7 +29,7 @@
                         <li>{{ $t('auth.change_password.requirements.characters') }}</li>
                         <li>{{ $t('auth.change_password.requirements.lowercase') }}</li>
                         <li>{{ $t('auth.change_password.requirements.uppercase') }}</li>
-                        <li>{{ $t('auth.change_password.requirements.special') }}</li>
+                        <li>{{ $t('auth.change_password.requirements.special') }} (#?!@$%^&*-)</li>
                     </b-alert>
 
                     <b-form-group
@@ -117,6 +117,7 @@ defineRule('confirmed', (value, [target]) => {
   }
   return 'Passwords must match';
 });
+
 defineRule('regex', (value, [target]) => {
     if(value.match(target)) {
         return true;

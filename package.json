@@ -14,7 +14,7 @@
     "electron:start": "electron .",
     "vite:build": "vite build",
     "build:prod": "vite build && electron-builder --win",
-    "build:publish": "set GH_TOKEN=$gh_token && vite build && electron-builder --win --publish always"
+    "build:publish": "set GH_TOKEN=%TOKEN% && vite build && electron-builder --win --publish always"
   },
   "build": {
     "appId": "com.autoupdater.fantools",
@@ -50,6 +50,7 @@
     "notyf": "^3.10.0",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.29",
+    "pinia-plugin-persistedstate": "^3.0.2",
     "pocketbase": "^0.10.1",
     "vee-validate": "4.2.2",
     "vue": "^3.2.45",

@@ -54,18 +54,20 @@ export const useToolsStore = defineStore({
         },
 
         async accessareaMigration (values) {
-            const response = await api.post('tools/accessarea-migration', { dslam: values.dslam })
-            return response
-        },
+            const response = await db.collection('migrations').getList(1, 100, {
+                filter: `dslam ~ "${values.dslam}"`
+            });
+            
+            return response.items
+         },
 
         async transportInstances (values) {
-            const response = await api.post('tools/transport-instance', { wso: values.wso, accessarea: values.accessarea })
-            return response
-        },
-
-        async deleteRecipient (recipientId ) {
-            const response = await api.post('tools/contractor/recipient/delete', { id: recipientId })
-            return response
+            const response = await db.collection('transport').getList(1, 100, {
+                filter: `wso = "${values.wso}" && accessarea = "AA/${values.accessarea}"`,
+                sort: 'wap_vlan'
+            });
+            
+            return response.items
         }
     }
 });

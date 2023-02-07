@@ -125,7 +125,7 @@
                 "characters": "Op zijn minst 8 karakters",
                 "lowercase": "Op zijn minst 1 kleine letter",
                 "uppercase": "Op zijn minst 1 kleine letter",
-                "special": "Op zijn minst 1 cijfer en specialeteken (#?!@$%^&*-)"
+                "special": "Op zijn minst 1 cijfer en specialeteken"
             }
         }
     },

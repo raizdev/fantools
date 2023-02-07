@@ -1,22 +1,37 @@
 import { inject } from 'vue'
 import { defineStore } from "pinia";
 import { useAuthStore } from '@/stores'
+import { db } from '@/includes/pocketbase';
 
 export const useGatesStore = defineStore("gates", () => {
 
     const $zo = inject("$zo");
     const authStore = useAuthStore();
 
-    const setRoles = () => {
+    const getRoles = (role) => {
 
-        const permission = authStore.permissions.map(permission => {
-            return permission
+        if(!role) {
+            role = authStore.permissions
+        }
+
+        $zo.setRoles([...role]);
+    }
+
+    const setRoles = async () => {
+        const roles = await db.collection('users').getOne(authStore.user.id, {
+            expand: 'roles'
         })
 
-        $zo.setRoles([...permission]);
+        const role = roles.expand.roles.map(role => {
+            return role.name
+        })
+
+        authStore.permissions = role
+        getRoles(role)
     }
 
     return {
-        setRoles
+        setRoles,
+        getRoles
     };
 })

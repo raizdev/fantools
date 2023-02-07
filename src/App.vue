@@ -112,7 +112,7 @@ export default {
 
    setup() {
       const gateStore = useGatesStore();
-      gateStore.setRoles()
+      gateStore.getRoles()
    },
 
    data() {

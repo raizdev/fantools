@@ -139,16 +139,9 @@ export default defineComponent({
     created() {
         this.selectedRecipients = this.contractorRecipientByType(0, 'slm')
         this.selectedServiceLevelManager = this.contractorRecipientByType(1, 'slm')[0]
-        this.getAllRecipients()
     },
 
     methods: {
-        ...mapActions(
-            useToolsStore, { 
-                getAllRecipients: 'getAllRecipients',
-            }
-        ),
-
         onSubmit: function (value) {
 
             const recipientsIds = this.selectedRecipients.map(item => {

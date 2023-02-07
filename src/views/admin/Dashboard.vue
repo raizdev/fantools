@@ -23,7 +23,7 @@
                     to: { name: 'home' }
                 },
                 {
-                    text: 'Admin Dsahboard',
+                    text: 'Admin Dashboard',
                     active: true
                 }
             ]
