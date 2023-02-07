@@ -111,8 +111,16 @@ const NotfyProvider = new Notyf({
 export default {
 
    setup() {
-      const gateStore = useGatesStore();
-      gateStore.getRoles()
+      /* Refresh Auth after page load */
+      const authStore = useAuthStore();
+
+      if(authStore.token) {
+         authStore.authRefresh()
+      }
+
+      /* Set roles after page load */
+      const gate = useGatesStore();
+      gate.setRoles()
    },
 
    data() {

@@ -10,7 +10,7 @@ export const useAuthStore = defineStore({
     state: () => ({
         token: db?.authStore?.token ?? '',
         user: db?.authStore?.model ?? '',
-        permissions: null
+        permissions: db?.authStore?.model?.expand?.roles ?? ''
     }),
     getters: {
         authenticated(state) {
@@ -34,9 +34,13 @@ export const useAuthStore = defineStore({
             /* Get credentials and initate authentication */
             const auth = await db.collection('users').authWithPassword(
                 credentials.username,
-                credentials.password
+                credentials.password,
+                {},
+                {
+                    expand: 'roles'
+                }
             );
-
+ 
             /* If user is verified pass otherwise throw notification */
             if(!auth.record.verified) {
                 useNotificationStore().notifications.push({ 
@@ -50,7 +54,8 @@ export const useAuthStore = defineStore({
             /* Store user collection */
             this.$patch({
                 token: auth.token,
-                user: auth.record
+                user: auth.record,
+                permissions: auth.record.expand.roles
             })
 
             /* Set roles */
@@ -76,6 +81,19 @@ export const useAuthStore = defineStore({
             return await db.collection("users").create(data);
         },     
 
+        async authRefresh() {
+            const user = await db.collection("users").authRefresh({}, {
+                expand: "roles"
+            })
+
+            /* Store user collection */
+            this.$patch({
+                token: user.token,
+                user: user.record,
+                permissions: user.record.expand.roles
+            })
+        },
+
         /* Logout the user */
         logout() {
             db.authStore.clear();
@@ -94,9 +112,5 @@ export const useAuthStore = defineStore({
             const useGate = useGatesStore()
             useGate.setRoles()
         }
-    },
-    persist: {
-        enabled: true,
-        paths: ['permissions']
     }
 });

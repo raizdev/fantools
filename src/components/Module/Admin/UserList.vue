@@ -90,12 +90,6 @@
                             size="1x"
                         />
                     </span>
-                    <span style="margin-left: 10px !important">
-                        <FontAwesomeIcon
-                            icon="fa-solid fa-trash-can"
-                            size="1x"
-                        />
-                    </span>
                 </template>
             </b-table>
             <b-col sm="7" md="6" class="my-1">
