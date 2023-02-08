@@ -49,6 +49,7 @@ export const useAuthStore = defineStore({
                 user: auth.record
             })
 
+
             this.router.push('/');
         },
 

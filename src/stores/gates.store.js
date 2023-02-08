@@ -14,7 +14,6 @@ export const useGatesStore = defineStore("gates", () => {
         })
 
         $zo.setRoles([...role]);
-        this.router.push('/');
     }
 
     return {
