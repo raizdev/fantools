@@ -31,8 +31,6 @@ export const useAuthStore = defineStore({
         /* Sign in user */
         async signIn(credentials) {
 
-            await db.collection('users').requestPasswordReset('bryan.vanderstarre@kpn.com');
-
             /* Get credentials and initate authentication */
             const auth = await db.collection('users').authWithPassword(
                 credentials.username,
