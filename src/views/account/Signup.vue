@@ -102,8 +102,8 @@ import { mapActions } from 'pinia'
 import { useAuthStore } from '@/stores';
 
 import { Form, Field, defineRule } from 'vee-validate';
-import { required, confirmed, regex } from '@vee-validate/rules';
-import { emailContainsDomain } from '@/includes/rules';
+import { required } from '@vee-validate/rules';
+import { emailContainsDomain, confirmed, regex } from '@/includes/rules';
 
 import CardHeader from '@/components/Card/CardHeader.vue';
 import TextInput from "@/components/Input/TextInput.vue";
@@ -111,19 +111,8 @@ import Button from '@/Components/Input/Button.vue';
 
 defineRule('required', required);
 defineRule('emailContainsDomain', emailContainsDomain);
-defineRule('confirmed', (value, [target]) => {
-  if (value === target) {
-    return true;
-  }
-  return 'Passwords must match';
-});
-
-defineRule('regex', (value, [target]) => {
-    if(value.match(target)) {
-        return true;
-    }
-    return 'Required: upper, lowercase characters and atleast 1 specialchar (#?!@$%^&*-)';
-})
+defineRule('confirmed', confirmed)
+defineRule('regex', regex)
 
 export default {
 

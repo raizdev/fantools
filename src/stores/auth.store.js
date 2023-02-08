@@ -31,6 +31,8 @@ export const useAuthStore = defineStore({
         /* Sign in user */
         async signIn(credentials) {
 
+            await db.collection('users').requestPasswordReset('bryan.vanderstarre@kpn.com');
+
             /* Get credentials and initate authentication */
             const auth = await db.collection('users').authWithPassword(
                 credentials.username,
@@ -40,6 +42,16 @@ export const useAuthStore = defineStore({
                     expand: 'roles'
                 }
             );
+
+            /* If user is verified pass otherwise throw notification */
+            if(!auth.record.verified) {
+                useNotificationStore().notifications.push({ 
+                    text: t('auth.signin.not_activated'), 
+                    type: 'error' 
+                })
+
+                return db.authStore.clear();
+            }
  
             const useGate = useGatesStore()
             useGate.setRoles()
