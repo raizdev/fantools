@@ -116,6 +116,9 @@
             "too-long": "Mocht de activatie te lang op zich laten wachten neem dan contact op met de beheerder."
         },
         "change_password": {
+            "title_": "Wachtwoord vergeten",
+            "mail": "Mail adres",
+            "send": "Email met instructies is gestuurd naar je mailbox!",
             "title": "Wijzig je wachtwoord",
             "old_password": "Oud wachtwoord",
             "password": "Nieuw Wachtwoord",
@@ -127,7 +130,8 @@
                 "uppercase": "Op zijn minst 1 kleine letter",
                 "special": "Op zijn minst 1 cijfer en specialeteken"
             }
-        }
+        },
+        "passwordlost": "Wachtwoord vergeten?"
     },
     "notification": {
         "deleted": "{name} is verwijderd!",

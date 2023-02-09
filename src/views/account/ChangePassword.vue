@@ -1,80 +1,56 @@
 <template>
     <div>
         <Form
-            @submit="onSubmit"
+            @submit="forgotPassword"
+            v-slot="{ isSubmitting }"
         >
             <b-card no-body class="border-0 p-2">
                 <template #header>
                     <CardHeader
-                        :title="$t('auth.change_password.title')"
+                        :title="$t('auth.change_password.title_')"
                     >
                     </CardHeader>
                 </template>
                 <b-card-body>
-                    <b-alert show variant="info" style="font-size: 14px">
-                        {{ $t('auth.change_password.requirements.must_contain') }}
-                        <li>{{ $t('auth.change_password.requirements.characters') }}</li>
-                        <li>{{ $t('auth.change_password.requirements.lowercase') }}</li>
-                        <li>{{ $t('auth.change_password.requirements.uppercase') }}</li>
-                        <li>{{ $t('auth.change_password.requirements.special') }}</li>
-                    </b-alert>
                     <b-form-group
                         id="password"
-                        :label="$t('auth.change_password.password')"
+                        :label="$t('auth.change_password.mail')"
                         label-for="password"
                         class="mt-2 mb-2"
                     >
                         <TextInput
-                            name="password"
-                            type="password"
-                            rules="required|min:8"
+                            name="email"
+                            type="email"
+                            rules="email|emailContainsDomain"
+                            placeholder="@kpn.com"
                             class="mb-3"
-                        />
-                    </b-form-group>
-
-                    <b-form-group
-                        id="password_confirmation-email"
-                        :label="$t('auth.change_password.password_confirmation')"
-                        label-for="password_confirmation-email"
-                        class="mt-2 mb-2"
-                    >
-                        <TextInput
-                            name="password_confirmation"
-                            type="password"
-                            :rules="{ required: true, confirmed: '@password', regex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).*$/ }"
-                            class="mb-2"
-                            passwordMeter
                         />
                     </b-form-group>
                 </b-card-body>
                 <b-card-footer class="p-0 m-0">
-                    <Button variant="success" :text="$t('button.update')"></Button>
+                    <Button variant="success" :isSubmitting="isSubmitting" :text="$t('auth.signin.button')"></Button>
                 </b-card-footer>
             </b-card>
         </Form>
     </div>
 </template>
 <script>
-import { mapActions, mapWritableState } from 'pinia'
-import { useUsersStore, useAuthStore  } from '@/stores';
+import { mapActions } from 'pinia'
+import { useUsersStore } from '@/stores';
 
 import { Form, Field, defineRule } from 'vee-validate';
-import { required, max, min } from '@vee-validate/rules';
-import { confirmed, regex } from '@/includes/rules';
+import { required, email } from '@vee-validate/rules';
+import { emailContainsDomain } from '@/includes/rules';
 
 import CardHeader from '@/components/Card/CardHeader.vue';
 import TextInput from "@/components/Input/TextInput.vue";
 import Button from '@/Components/Input/Button.vue';
 
-defineRule('min', min);
 defineRule('required', required);
-defineRule('max', max);
-defineRule('confirmed', confirmed)
-defineRule('regex', regex)
+defineRule('email', email);
+defineRule('emailContainsDomain', emailContainsDomain)
 
 export default {
-
-    inject: ["notyf"],
 
     components: {
         Form,
@@ -86,31 +62,15 @@ export default {
 
     data() {
         return {
-            passwordd: ''
+            email: ''
         }
-    },
-
-    computed: {
-        ...mapWritableState(
-            useAuthStore, { 
-                userState: 'user'
-        }),
     },
 
     methods: {
         ...mapActions(
             useUsersStore, { 
-                changePassword: 'changePassword'
+                forgotPassword: 'forgotPassword'
         }),
-
-        async onSubmit(values) {
-            const response = await this.changePassword(values);
-            if(response) {
-                this.notyf.success('Password changed!');
-                this.userState.temp_password = null
-                this.$router.push('/');
-            }
-        }
     }
   }
 </script>

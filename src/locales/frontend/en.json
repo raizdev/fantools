@@ -116,6 +116,9 @@
             "too-long": "If the activations takes to long, please contact the admin."
         },
         "change_password": {
+            "title_": "Forgot password",
+            "mail": "Mail address",
+            "send": "Email with instructions has been send",
             "title": "Change password",
             "old_password": "Old password",
             "password": "New password",
@@ -127,7 +130,8 @@
                 "uppercase": "At leasr 1 uppercase letter",
                 "special": "At least 1 number and one special character"
             }
-        }
+        },
+        "passwordlost": "Forgot password?"
     },
     "notification": {
         "deleted": "{name} has been deleted!",

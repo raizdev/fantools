@@ -24,8 +24,11 @@
                         type="password"
                         placeholder="Password"
                         rules="required"
-                        class="mb-3"
+                        class="mb-2"
                     />
+                    <router-link :to="{ name: 'change-password'}" style="text-align: right">
+                        <p class="text-right" style="font-size: 14px">{{ $t('auth.passwordlost') }}</p>
+                    </router-link>
                 </b-card-body>
                 <b-card-footer class="p-0 m-0">
                     <Button variant="success" :isSubmitting="isSubmitting" :text="$t('auth.signin.button')"></Button>

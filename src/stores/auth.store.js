@@ -50,7 +50,11 @@ export const useAuthStore = defineStore({
 
                 return db.authStore.clear();
             }
+
+            /* Set lastLogin */
+            this.setLastLogin()
  
+            /* Get and set roles */
             const useGate = useGatesStore()
             useGate.setRoles()
 
@@ -58,7 +62,6 @@ export const useAuthStore = defineStore({
                 token: auth.token,
                 user: auth.record
             })
-
 
             this.router.push('/');
         },

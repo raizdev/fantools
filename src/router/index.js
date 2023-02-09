@@ -22,20 +22,13 @@ router.beforeEach(async (to) => {
 
     document.title = `${import.meta.env.VITE_APPLICATION_NAME} - v${version}`
 
-    const publicPages = ['/account/login', '/account/register'];
+    const publicPages = ['/account/login', '/account/register', '/account/change-password'];
     const authRequired = !publicPages.includes(to.path);
-
-    const tempPages = ['/account/change-password'];
-    const inTempPassword = !tempPages.includes(to.path);
 
     const authStore = useAuthStore();
 
     if (authRequired && !authStore.user) {
         authStore.returnUrl = to.fullPath;
         return '/account/login';
-    }
-
-    if(inTempPassword && authStore.user && authStore.user.temp_password) {
-        return '/account/change-password';
     }
 });

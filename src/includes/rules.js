@@ -1,5 +1,5 @@
 export const emailContainsDomain = (value) => {
-    if (value.endsWith('@kpn.com')) {
+    if (value !== undefined && value.endsWith('@kpn.com')) {
         return true;
     }
 
