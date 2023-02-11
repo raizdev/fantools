@@ -12,7 +12,6 @@ import { router } from './router';
 import { VueClipboard } from '@soerenmartius/vue3-clipboard';
 import { VueZo } from 'vue-zo';
 
-import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import Modal from "vue-bs-modal";
 import progressBar from './includes/progress-bar';
 import App from './App.vue';
@@ -20,7 +19,6 @@ import i18n from './includes/i18n';
 
 
 const pinia = createPinia();
-pinia.use(piniaPluginPersistedstate)
 pinia.use(({ store }) => { store.router = markRaw(router) });
 
 const app = createApp(App)

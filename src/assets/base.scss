@@ -31,6 +31,16 @@ a {
   color: var(--background-color-primary) !important;
 }
 
+.vbt-autcomplete-list a {
+    color: var(--background-color-card-bg) !important;
+    border: 0;
+}
+
+.vbt-autcomplete-list a:hover {
+    background-color: var(--background-color-jumbotron) !important;
+    color: var(--background-color-href) !important
+}
+
 .navbar {
 
   .collapsed {
