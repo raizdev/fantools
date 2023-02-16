@@ -346,3 +346,19 @@ input::placeholder {
     }
   }
 }
+
+.speedchecker-content {
+  
+  .tabs {
+    ul {
+      background-color: #e9e9e9;
+      padding: 5px 5px 0px 5px;
+      border: 1px solid #d7d7d7;
+    }
+
+    .tab-content {
+      margin: -1px 8px 0px 8px;
+      border: 1px solid #d1d1d1;
+    }
+  }
+}

@@ -11,19 +11,25 @@
             :description="$t('tiles.transport.description')"
             icon="fa-solid fa-window-restore"
             link="transport-instance"
-            />
+        />
         <CardTile
             :title="$t('tiles.grabber.title')"
             :description="$t('tiles.grabber.description')"
             icon="fa-solid fa-recycle"
             link="grabber"
-            />
+        />
         <CardTile
             :title="$t('tiles.contractor.title')"
             :description="$t('tiles.contractor.description')"
             icon="fa-regular fa-address-book"
             link="contractor-details"
             v-role:any="'escalationdesk-view|super-admin'"
+        />
+        <CardTile
+            title="Internet Speed Checker"
+            description="See what speed a customer can achieve and also on which carrier with details"
+            icon="fa-solid fa-wifi"
+            link="speed-checker"
         />
     </div>
 </template>

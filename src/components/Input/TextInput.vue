@@ -11,7 +11,7 @@
             @input="handleChange"
             @change="$emit('input', $event.target.value)"
             @blur="handleBlur"
-            :class="{ 'is-invalid': !!errorMessage, 'is-valid': meta.valid }"
+            :class="{ 'is-invalid': !!errorMessage, 'is-valid': inputValue || false }"
             :aria-describedby="`errorHandler-${name}`"
         ></b-form-input>
         <b-form-invalid-feedback

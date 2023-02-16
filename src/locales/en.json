@@ -1,0 +1,168 @@
+{
+    "header": {
+        "button": {
+            "menu": "Menu"
+        }
+    },
+    "button": {
+        "search": "Search",
+        "update": "Updating",
+        "create": "Create"
+    },
+    "tiles": {
+        "accessarea": {
+            "title": "Access Area Migraties",
+            "description": "DSLAMs involved in Access Area Migrations"
+        },
+        "transport": {
+            "title": "Transport instances",
+            "description": "List of transport instances and bandwiths filtered on WSO"
+        },
+        "grabber": {
+            "title": "Grabber (RODGS)",
+            "description": "Filter services from kanvas or the availibility checker"
+        },            
+        "contractor": {
+            "title": "Escalatiematrix",
+            "description": "Mailadresses and phonenumbers sorted per contractor"
+        }
+    },
+    "accessarea-migration": {
+        "title": "Migrations per DSLAM",
+        "description": "Fill in Dslam name, for example: ZL-Z-DSLA-5. When migration date is today, the dslams has been migrated.",
+        "placeholder": {
+            "dslam": "DSLAM"
+        }
+    },
+    "transport-instance": {
+        "title": "Transport Instances",
+        "description": "Enter name of WSO, for example: DSLW with accessarea 45 (AA/45). Result will give you which WAP vlan the transport instance is configurated on and how much bandwith is ordered.",
+        "placeholder": {
+            "wso": "WSO",
+            "accessarea": "AA/"
+        }
+    },
+    "grabber": {
+        "title": "Grabber (RODGS)",
+        "description": "Grab service ids from KANVAS or the Availibility checker" 
+    },
+    "contractor": {
+        "placeholder": "Search contracter",
+        "recipient": {
+            "recipient": "Contacts",
+            "table": {
+                "name": "Name",
+                "email": "Email",
+                "telephone": "Phonenumber",
+                "actions": "Action"
+            },
+            "delete": " Delete?",
+            "delete-recipient": "Delete contact",
+            "copied": "Copied!"
+        },
+        "modal": {
+            "contractor": {
+                "title": "Change contracter",
+                "name": "Contractor:",
+                "recipients": "Contacts",
+                "recipients-select": "You can select multiple contacts",
+                "servicelevelmanager": "Service Level Manager:",
+                "information": "Information:",
+                "information-description": "You can add important information here",
+                "search": "Search contacts in directory"
+            },
+            "recipient": {
+                "title": "Change contact",
+                "new": "Create contact",
+                "name": "Name:",
+                "email": "Email:",
+                "telephone": "Phonenumber:",
+                "contractor": "Contractors:",
+                "search": "Search contractor",
+                "isslm": "Is Service level Manager?"
+            }
+        }
+    },
+    "admin": {
+        "userlist": {
+            "pending": {
+                "title": "Users in queue",
+                "description": "Requests for using this tool",
+                "approve": "Request",
+                "roles": "Which roles for this user",
+                "approved": "Succeeded in adding user"
+            },
+            "current": {
+                "title": "Employees",
+                "description": "Here you can modify employees or appoint roles",
+                "modify": "Modify"
+            }
+        }
+    },
+    "auth": {
+        "signin" : {
+            "title": "Log in",
+            "description": "Forgot Password?",
+            "button": "Log in",
+            "not_activated": "You account has not been approved by administrator"
+        },
+        "signup": {
+            "title": "Sign up for an new account",
+            "button": "Signup",
+            "username": "Gripname",
+            "email": "Email (work)",
+            "title-success": "Account registered!",
+            "success": "Your account has been succesfully registered, but has to be approved by the admin. When this has been done, you will get an email with a password you can use to log into the app. After logging in for the first time, you can change your password.",
+            "too-long": "If the activations takes to long, please contact the admin."
+        },
+        "change_password": {
+            "title_": "Forgot password",
+            "mail": "Mail address",
+            "send": "Email with instructions has been send",
+            "title": "Change password",
+            "old_password": "Old password",
+            "password": "New password",
+            "password_confirmation": "Confirm new password",
+            "requirements": {
+                "must_contain": "Password must contain",
+                "characters": "At least 8 characters",
+                "lowercase": "At least 1 lowercase letter",
+                "uppercase": "At leasr 1 uppercase letter",
+                "special": "At least 1 number and one special character"
+            }
+        },
+        "passwordlost": "Forgot password?"
+    },
+    "notification": {
+        "deleted": "{name} has been deleted!",
+        "updated": "{name} has been updated!"
+    },
+    "messages": {
+        "alpha": "{field} can only contain letters",
+        "alpha_dash": "{field} can only contain letters, numerics and dashes",
+        "alpha_num": "{field} can only contain letters and numerics",
+        "alpha_spaces": "{field} can only contain letters and spaces",
+        "between": "{field} has to be between 0:{min} and 1:{max}",
+        "confirmed": "{field} confirmation is not the same",
+        "digits": "{field} has to be an numeric and contain exactly 0:{length} characters",
+        "dimensions": "{field} has to be 0:{width} pixels wide and 1:{height} pixels high",
+        "email": "{field} has to be a valid emailaddress",
+        "excluded": "{field} is invalid",
+        "ext": "{field} has to be a valid file",
+        "image": "{field} has to be an image",
+        "one_of": "{field} has to be a valid value",
+        "max": "{field} cannot be larger than 0:{length} characters",
+        "max_value": "{field} can be maximum 0:{max}",
+        "mimes": "{field} has to have a valid file type",
+        "min": "{field} has to be a minimum of 0:{length} characters",
+        "min_value": "{field} has to be at least 0:{min} ",
+        "numeric": "{field} can only contain numerics",
+        "regex": "{field} has to be 1 letter, 1 number",
+        "required": "{field} is required",
+        "required_if": "{field} is required",
+        "size": "{field} Cannot exceed 0:{size}KB",
+        "usernameTaken": "{field} already in use!",
+        "emailContainsDomain": "{field} has to have the kpn.com extenstion!",
+        "changepassword.regex": "has to contain uppercase, lowercase, numeric and special characters"
+    }
+}

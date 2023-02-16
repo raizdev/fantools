@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { db } from '@/includes/pocketbase';
+import axios from 'axios';
 
 export const useToolsStore = defineStore({
     id: 'tools',
@@ -68,6 +69,11 @@ export const useToolsStore = defineStore({
             });
             
             return response.items
+        },
+
+        async kpnNetwerkDetails (values) {
+            const response = axios.post('https://kpn.fatools.site/kpnnetwerk/check')
+            return response
         }
     }
 });
