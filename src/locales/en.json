@@ -25,6 +25,10 @@
         "contractor": {
             "title": "Escalatiematrix",
             "description": "Mailadresses and phonenumbers sorted per contractor"
+        },
+        "broadband_checker": {
+            "title": "Broadband checker",
+            "description": "Look up fiber or copper status from customers"
         }
     },
     "accessarea-migration": {
@@ -132,6 +136,33 @@
             }
         },
         "passwordlost": "Forgot password?"
+    },
+    "speedchecker": {
+        "title": "Broadband checker",
+        "fiber_info": {
+            "title": "Fiber",
+            "thirdparty_name": "Thirdparty name",
+            "thirdparty_delivery": "Thirdparty delivery",
+            "nl_type": "NL type",
+            "construction_type": "Construction type",
+            "reason_not_connected": "Reason not connected",
+            "planned_fiber_to_the_home_date": "HAS plandate",
+            "civil_date": "Civil plandate",
+            "delivery_date": "Delivery date",
+            "wholesale_broadband_access_plan_date_description": "Wholesale access plandate",
+            "sp_diy_allowed": "DIY allowed",
+            "connection_fee": "Connection fee",
+            "no": "No",
+            "yes": "Yes",
+            "open": "Open",
+            "not_connected_fine": "No comment",
+            "maximum_speed": "Maximum speed achievable: "
+        },
+        "placeholder": {
+            "zip_code": "Zip code",
+            "house_number": "House number",
+            "house_number_extension": "Extension"
+        }
     },
     "notification": {
         "deleted": "{name} has been deleted!",

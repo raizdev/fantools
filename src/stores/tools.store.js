@@ -72,7 +72,7 @@ export const useToolsStore = defineStore({
         },
 
         async kpnNetwerkDetails (values) {
-            const response = axios.post('https://kpn.fatools.site/kpnnetwerk/check')
+            const response = axios.post('https://kpn.fatools.site/kpnnetwerk/check', values)
             return response
         }
     }

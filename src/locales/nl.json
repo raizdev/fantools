@@ -25,6 +25,10 @@
         "contractor": {
             "title": "Escalatiematrix",
             "description": "Contactpersonen mails, telefoonummers gesorteerd per aannemer"
+        },            
+        "broadband_checker": {
+            "title": "Breedband checker",
+            "description": "Status glasvezel of koper opvragen van huishoudens"
         }
     },
     "accessarea-migration": {
@@ -132,6 +136,33 @@
             }
         },
         "passwordlost": "Wachtwoord vergeten?"
+    },
+    "speedchecker": {
+        "title": "Breedband checker",
+        "fiber_info": {
+            "title": "Glasvezel",
+            "thirdparty_name": "Netwerk leverancier",
+            "thirdparty_delivery": "Derde netwerk",
+            "nl_type": "NL type",
+            "construction_type": "Gebouw type",
+            "reason_not_connected": "Toelichting HAS",
+            "planned_fiber_to_the_home_date": "HAS plandatum",
+            "civil_date": "Civiel datum",
+            "delivery_date": "Opleverdatum",
+            "wholesale_broadband_access_plan_date_description": "WBA openstelling",
+            "sp_diy_allowed": "Doe het zelf",
+            "connection_fee": "Eigen bijdragen verplicht",
+            "no": "Nee",
+            "yes": "Ja",
+            "open": "Open",
+            "not_connected_fine": "Geen bijzonderheden",
+            "maximum_speed": "Miximaal haalbaar: "
+        },
+        "placeholder": {
+            "zip_code": "Postcode",
+            "house_number": "Huisnummer",
+            "house_number_extension": "Extensie"
+        }
     },
     "notification": {
         "deleted": "{name} is verwijderd!",

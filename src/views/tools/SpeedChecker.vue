@@ -19,19 +19,19 @@
                             type="text"
                             rules="required"
                             class="form-control"
-                            placeholder="Postal code"
+                            :placeholder="$t('speedchecker.placeholder.zip_code')"
                         />
                         <TextInput
                             name="house_number"
                             type="number"
                             class="form-control"
-                            placeholder="House number"
+                            :placeholder="$t('speedchecker.placeholder.house_number')"
                             rules="required"
                         />
                         <TextInput
                             name="house_number_extension"
                             class="form-control"
-                            placeholder="House number extension"
+                            :placeholder="$t('speedchecker.placeholder.house_number_extension')"
                             type="number"
                         />
                         </b-input-group>
@@ -42,71 +42,73 @@
             </b-card>
         </Form>
 
-        <b-card no-body class="border-0 p-2 speedchecker-content" v-if="responseData">
+        <b-card no-body class="border-0 p-2 speedchecker-content" v-if="this.responseData">
             <template #header>
                     <CardHeader
-                        :title="$t('speedchecker.fiber_info')"
+                        :title="$t('speedchecker.title')"
                     >
                     </CardHeader>
                 </template>
                 <b-tabs card>
-                <b-tab title="Fiber Info" active>
+                <b-tab :title="$t('speedchecker.fiber_info.title')" active v-if="this.responseData.fixed_info.fiber_access">
                     <b-card-text>
                         <table class="table" style="width: 550px">
                             <tr>
-                                <td>Netwerk leverancier</td>
+                                <td>{{ $t('speedchecker.fiber_info.thirdparty_name') }}</td>
                                 <td>{{ this.responseData.fiber_info.thirdparty_name }}</td>
                             </tr>
                             <tr>
-                                <td>Derde netwerk</td>
+                                <td>{{ $t('speedchecker.fiber_info.thirdparty_delivery') }}</td>
                                 <td>{{ this.responseData.fiber_info.thirdparty_delivery ? 'Ja' : 'Nee' }}</td>
                             </tr>
                             <tr>
-                                <td>NL type</td>
+                                <td>{{ $t('speedchecker.fiber_info.nl_type') }}</td>
                                 <td>{{ this.responseData.fiber_info.nl_type }}</td>
                             </tr>
                             <tr>
-                                <td>Gebouw type</td>
+                                <td>{{ $t('speedchecker.fiber_info.construction_type') }}</td>
                                 <td>{{ this.responseData.fiber_info.construction_type }}</td>
                             </tr>
                             <tr>
-                                <td>Toelichting HAS</td>
-                                <td>{{ this.responseData.fiber_info.reason_not_connected ? this.responseData.fiber_info.reason_not_connected : 'Geen bijzonderheden' }}</td>
+                                <td>{{ $t('speedchecker.fiber_info.reason_not_connected') }}</td>
+                                <td>{{ this.responseData.fiber_info.reason_not_connected ? this.responseData.fiber_info.reason_not_connected : $t('speedchecker.fiber_info.not_connected_fine') }}</td>
                             </tr>
                             <tr>
-                                <td>HAS plandatum</td>
+                                <td>{{ $t('speedchecker.fiber_info.planned_fiber_to_the_home_date') }}</td>
                                 <td>{{ this.responseData.fiber_info.planned_fiber_to_the_home_date }}</td>
                             </tr>
                             <tr>
-                                <td>Civiel datum</td>
+                                <td>{{ $t('speedchecker.fiber_info.civil_date') }}</td>
                                 <td>{{ this.responseData.fiber_info.civil_date }}</td>
                             </tr>
                             <tr>
-                                <td>Oplever datum</td>
+                                <td>{{ $t('speedchecker.fiber_info.delivery_date') }}</td>
                                 <td>{{ this.responseData.fiber_info.delivery_date }}</td>
                             </tr>
                             <tr>
-                                <td>WBA openstelling</td>
-                                <td>{{ this.responseData.fiber_info.wholesale_broadband_access_plan_date_description ? 'Open' : this.responseData.fiber_info.wholesale_broadband_access_plan_date }}</td>
+                                <td>{{ $t('speedchecker.fiber_info.wholesale_broadband_access_plan_date_description') }}</td>
+                                <td>{{ this.responseData.fiber_info.wholesale_broadband_access_plan_date_description ? $t('speedchecker.fiber_info.open') : this.responseData.fiber_info.wholesale_broadband_access_plan_date }}</td>
                             </tr>
                             <tr>
-                                <td>Doe het zelf</td>
-                                <td>{{ this.responseData.fiber_info.sp_diy_allowed ? 'Nee' : 'Ja' }}</td>
+                                <td>{{ $t('speedchecker.fiber_info.sp_diy_allowed') }}</td>
+                                <td>{{ this.responseData.fiber_info.sp_diy_allowed ? $t('speedchecker.fiber_info.no') : $t('speedchecker.fiber_info.yes') }}</td>
                             </tr>
                             <tr>
-                                <td>Eigen bijdragen verplicht</td>
-                                <td>{{ this.responseData.fiber_info.connection_fee ? 'Ja' : 'Nee' }}</td>
+                                <td>{{ $t('speedchecker.fiber_info.connection_fee') }}</td>
+                                <td>{{ this.responseData.fiber_info.connection_fee ? $t('speedchecker.fiber_info.yes') : $t('speedchecker.fiber_info.no') }}</td>
                             </tr>
                         </table>
 
                         <span v-for="(item, index) in this.technologyFilter('FIBER')" style="font-size: 14px; color: #000">
-                            Maximaal leverbaar: {{ item.download }}/{{ item.upload }} mbps
+                            {{ $t('speedchecker.fiber_info.maximum_speed') }} {{ item.download }}/{{ item.upload }} mbps
                         </span>
                     </b-card-text>
                 </b-tab>
-                <b-tab title="Copper Info">
+                <b-tab title="Copper Info" v-if="this.responseData.fixed_info.copper_access">
                     <b-card-text>
-                        {{ this.responseData.copper_info }}
+                        <span v-for="(item, index) in this.technologyFilter('COPPER')" style="font-size: 14px; color: #000">
+                            {{ $t('speedchecker.fiber_info.maximum_speed') }}  {{ item.download }}/{{ item.upload }} mbps
+                        </span>
                     </b-card-text>
                 </b-tab>
                 </b-tabs>
@@ -150,7 +152,7 @@ export default {
                     to: { name: 'home' }
                 },
                 {
-                    text: this.$i18n.t('tiles.speedchecker.title'),
+                    text: this.$i18n.t('speedchecker.title'),
                     active: true
                 }
             ]

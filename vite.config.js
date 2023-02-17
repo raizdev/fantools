@@ -22,7 +22,7 @@ export default defineConfig({
         }
       }),
       i18nResources({
-          path: resolve(__dirname, "src/locales/frontend"),
+          path: resolve(__dirname, "src/locales"),
       }),
       [pluginRewriteAll()]
   ],

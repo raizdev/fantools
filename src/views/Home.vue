@@ -19,17 +19,17 @@
             link="grabber"
         />
         <CardTile
+            :title="$t('tiles.broadband_checker.title')"
+            :description="$t('tiles.broadband_checker.description')"
+            icon="fa-solid fa-wifi"
+            link="speed-checker"
+        />
+        <CardTile
             :title="$t('tiles.contractor.title')"
             :description="$t('tiles.contractor.description')"
             icon="fa-regular fa-address-book"
             link="contractor-details"
             v-role:any="'escalationdesk-view|super-admin'"
-        />
-        <CardTile
-            title="Internet Speed Checker"
-            description="See what speed a customer can achieve and also on which carrier with details"
-            icon="fa-solid fa-wifi"
-            link="speed-checker"
         />
     </div>
 </template>
