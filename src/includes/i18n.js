@@ -18,7 +18,7 @@ configure({
     validateOnModelUpdate: true
 });
 
-import(`../locales/frontend/${locale}.json`)
+import(`../locales/${locale}.json`)
     .then((module) => {
         let messages = module.default.messages;
         configure({

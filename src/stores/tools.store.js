@@ -7,7 +7,8 @@ export const useToolsStore = defineStore({
     state: () => ({
         contractors: null,
         contractor: null,
-        recipients: null
+        recipients: null,
+        migrations: null
     }), 
     getters: {
         recipientByType: (state) => (value, type) => {
@@ -54,12 +55,13 @@ export const useToolsStore = defineStore({
             this.recipients = response
         },
 
-        async accessareaMigration (values) {
-            const response = await db.collection('migrations').getList(1, 100, {
-                filter: `dslam ~ "${values.dslam}"`
+        async accessareaMigration () {
+
+            const response = await db.collection('migrations').getFullList(500, {
+                sort: 'dslam'
             });
             
-            return response.items
+            this.migrations = response
          },
 
         async transportInstances (values) {
