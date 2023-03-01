@@ -18,19 +18,8 @@ export const useAuthStore = defineStore({
         }
     },
     actions: {
-
-        /* Set lastLogin in user collection */
-        async setLastLogin() {
-            return await db.collection('users').update(
-                this.user.id, {
-                    lastLogin: new Date()
-                }
-            )
-        },
-
         /* Sign in user */
         async signIn(credentials) {
-
             /* Get credentials and initate authentication */
             const auth = await db.collection('users').authWithPassword(
                 credentials.username,
@@ -51,9 +40,6 @@ export const useAuthStore = defineStore({
                 return db.authStore.clear();
             }
 
-            /* Set lastLogin */
-            this.setLastLogin()
- 
             /* Get and set roles */
             const useGate = useGatesStore()
             useGate.setRoles()
@@ -64,6 +50,24 @@ export const useAuthStore = defineStore({
             })
 
             this.router.push('/');
+        },
+
+        async tokenRefresh() {
+            /* Refresh token */
+            if (this.token) {
+                const result = await db.collection('users').authRefresh();
+
+                if(!result) {
+                    this.$patch({
+                        token: null,
+                        user: null
+                    });
+
+                    this.router.push('/');
+                }
+                return result;
+            }
+            return false;
         },
 
         /* Create user with random password without verified status */
