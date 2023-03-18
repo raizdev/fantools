@@ -9,12 +9,10 @@ export const useGatesStore = defineStore("gates", () => {
 
     const setRoles = () => {
 
-        const auth = useAuthStore();
-        console.log(auth)
         const role = db.authStore.model.expand.roles.map(role => {
             return role.name
         })
-        console.log(role)
+
         $zo.setRoles([...role]);
     }
 

@@ -32,7 +32,7 @@
                             name="house_number_extension"
                             class="form-control"
                             :placeholder="$t('speedchecker.placeholder.house_number_extension')"
-                            type="number"
+                            type="text"
                         />
                         </b-input-group>
                 </b-card-body>
@@ -50,7 +50,7 @@
                     </CardHeader>
                 </template>
                 <b-tabs card>
-                <b-tab :title="$t('speedchecker.fiber_info.title')" active v-if="this.responseData.fixed_info.fiber_access">
+                <b-tab :title="$t('speedchecker.fiber_info.title')" active>
                     <b-card-text>
                         <table class="table" style="width: 550px">
                             <tr>

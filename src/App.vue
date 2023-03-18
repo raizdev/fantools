@@ -113,10 +113,10 @@ export default {
    setup() {
       const auth = useAuthStore();
       auth.tokenRefresh();
-
+      
       /* Set roles after page load */
       const gate = useGatesStore();
-      gate.setRoles()
+      gate.setRoles();
    },
 
    data() {

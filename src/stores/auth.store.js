@@ -53,21 +53,21 @@ export const useAuthStore = defineStore({
         },
 
         async tokenRefresh() {
-            /* Refresh token */
             if (this.token) {
-                const result = await db.collection('users').authRefresh();
 
-                if(!result) {
-                    this.$patch({
-                        token: null,
-                        user: null
-                    });
+                const auth = await db.collection('users').authRefresh({}, {
+                    expand: 'roles'
+                });
 
-                    this.router.push('/');
+                if(!auth) {
+                    this.logout();
                 }
-                return result;
+
+                this.$patch({
+                    token: auth.token,
+                    user: auth.record
+                })
             }
-            return false;
         },
 
         /* Create user with random password without verified status */
