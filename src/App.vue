@@ -56,6 +56,9 @@
                <b-nav-item :to="{ name: 'admin-userpanel'}" v-role:any="'super-admin'">
                   User Panel
                </b-nav-item>
+               <b-nav-item :to="{ name: 'admin-upload-migrations'}" v-role:any="'super-admin'">
+                  Upload Migrations
+               </b-nav-item>
                <b-nav-item @click="this.logout()">
                   Logout
                </b-nav-item>
