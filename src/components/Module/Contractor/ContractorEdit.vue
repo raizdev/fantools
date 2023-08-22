@@ -72,9 +72,9 @@
 import { mapActions, mapState, mapWritableState } from 'pinia'
 import { useToolsStore, useDatabaseStore, useNotificationStore } from '@/stores'
 
-import CardHeader from '@/Components/Card/CardHeader.vue';
-import FontAwesomeIcon from '@/Components/Icon/FontAwesomeIcon.vue';
-import EditContractorComponent from '@/Components/Modal/EditContractorComponent.vue';
+import CardHeader from '@/components/Card/CardHeader.vue';
+import FontAwesomeIcon from '@/components/Icon/FontAwesomeIcon.vue';
+import EditContractorComponent from '@/components/Modal/EditContractorComponent.vue';
 
 export default {
    name: 'ContractorEdit',

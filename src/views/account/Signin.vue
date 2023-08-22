@@ -46,7 +46,7 @@ import { required } from '@vee-validate/rules';
 
 import CardHeader from '@/components/Card/CardHeader.vue';
 import TextInput from "@/components/Input/TextInput.vue";
-import Button from '@/Components/Input/Button.vue';
+import Button from '@/components/Input/Button.vue';
 
 defineRule('required', required);
 

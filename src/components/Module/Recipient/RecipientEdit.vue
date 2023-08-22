@@ -110,10 +110,10 @@
 import { mapActions, mapState, mapWritableState } from 'pinia'
 import { useToolsStore, useNotificationStore, useDatabaseStore } from '@/stores'
 
-import CardHeader from '@/Components/Card/CardHeader.vue';
-import FontAwesomeIcon from '@/Components/Icon/FontAwesomeIcon.vue';
-import EditRecipientComponent from '@/Components/Modal/EditRecipientComponent.vue';
-import CreateRecipientComponent from '@/Components/Modal/CreateRecipientComponent.vue';
+import CardHeader from '@/components/Card/CardHeader.vue';
+import FontAwesomeIcon from '@/components/Icon/FontAwesomeIcon.vue';
+import EditRecipientComponent from '@/components/Modal/EditRecipientComponent.vue';
+import CreateRecipientComponent from '@/components/Modal/CreateRecipientComponent.vue';
 
 export default {
 

@@ -14,7 +14,7 @@
     </router-link>
 </template>
 <script>
-import FontAwesomeIcon from '@/Components/Icon/FontAwesomeIcon.vue';
+import FontAwesomeIcon from '@/components/Icon/FontAwesomeIcon.vue';
 
 export default {
     props: {

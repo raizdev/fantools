@@ -33,7 +33,7 @@ import { useUsersStore, useNotificationStore, useRoleStore, useDatabaseStore } f
 
 import FontAwesomeIcon from '@/components/Icon/FontAwesomeIcon.vue';
 import TextInput from "@/components/Input/TextInput.vue";
-import Button from '@/Components/Input/Button.vue';
+import Button from '@/components/Input/Button.vue';
 
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";

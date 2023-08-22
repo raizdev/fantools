@@ -121,7 +121,7 @@ import { required } from '@vee-validate/rules';
 import { mapActions } from 'pinia'
 import { useToolsStore } from '@/stores'
 
-import Button from '@/Components/Input/Button.vue';
+import Button from '@/components/Input/Button.vue';
 import CardHeader from '@/components/Card/CardHeader.vue';
 import TextInput from "@/components/Input/TextInput.vue";
 

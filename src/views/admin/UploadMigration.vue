@@ -38,7 +38,7 @@ import { useDatabaseStore, useNotificationStore } from '@/stores';
 
 import Papa from 'papaparse';
 import CardHeader from '@/components/Card/CardHeader.vue';
-import Button from '@/Components/Input/Button.vue';
+import Button from '@/components/Input/Button.vue';
 
 
 export default {
