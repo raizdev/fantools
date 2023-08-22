@@ -2,7 +2,7 @@
 
    <Notifications />
 
-   <nav class="navbar navbar-expand-lg bg-body-tertiary">
+   <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
         <router-link :to="{ name: 'home' }" class="navbar-brand">
             {{ this.applicationName }}
@@ -76,10 +76,10 @@
    </div>
 </template>
 <script>
-import LanguageSwitcher from '@/Components/LanguageSwitcher/LanguageSwitcher.vue';
-import Notifications from '@/Components/Notification/notifications.vue'
+import LanguageSwitcher from '@/components/LanguageSwitcher/languageSwitcher.vue';
+import Notifications from '@/components/Notification/notifications.vue'
 import { mapActions, mapState } from 'pinia';
-import FontAwesomeIcon from '@/Components/Icon/FontAwesomeIcon.vue';
+import FontAwesomeIcon from '@/components/Icon/FontAwesomeIcon.vue';
 import { useAuthStore, useGatesStore } from '@/stores'
 import { Notyf } from 'notyf';
 import ThemeButton from '@/components/Input/ThemeButton.vue';
@@ -135,7 +135,6 @@ export default {
    },
 
    components: {
-      Navigation,
       Notifications,
       LanguageSwitcher,
       FontAwesomeIcon,
