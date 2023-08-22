@@ -77,7 +77,7 @@
 </template>
 <script>
 import LanguageSwitcher from '@/components/LanguageSwitcher/languageSwitcher.vue';
-import Notifications from '@/components/Notification/notifications.vue'
+import Notifications from '@/components/Notification/Notifications.vue'
 import { mapActions, mapState } from 'pinia';
 import FontAwesomeIcon from '@/components/Icon/FontAwesomeIcon.vue';
 import { useAuthStore, useGatesStore } from '@/stores'
