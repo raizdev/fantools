@@ -16,7 +16,7 @@
             </div>
             <b-progress :value="loadedState" max="100" variant="success" show-progress striped :animated="animate" v-if="loadedState > 0 && loadedState != 100"></b-progress>
 
-            <template v-if="this.duplicates.length">
+            <template v-if="loadedState == 100">
                 {{ this.file.name }} is uploaded and {{ this.duplicates.length }} duplicates found!
             </template>
 
@@ -111,6 +111,9 @@ export default {
 
             for await (let element of this.content.data) {
 
+                filesProgressed++;
+                this.loadedState = filesProgressed / this.content.data.length * 100;
+
                 if(exstingDslams.includes(element.Dslam)) {
                     this.duplicates.push(element.Dslam);
                     filesProgressed++;
@@ -129,8 +132,6 @@ export default {
                     type: element.Type_Migratie
                 }, 'migrations');
 
-                filesProgressed++;
-                this.loadedState = filesProgressed / this.content.data.length * 100;
                 this.parsed = false;
             }
 
