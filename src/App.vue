@@ -162,10 +162,6 @@ export default {
          this.bodyContainerStyling = (this.$route.name === "contractor-details" || this.$route.name === "contractor-by-name")
       },
       deep: true
-   },
-
-   created() {
-      this.$router.push('/');
    }
 }
 </script>

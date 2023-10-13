@@ -16,7 +16,7 @@
             </div>
             <b-progress :value="loadedState" max="100" variant="success" show-progress striped :animated="animate" v-if="loadedState > 0 && loadedState != 100"></b-progress>
 
-            <template v-if="loadedState == 100">
+            <template v-if="this.duplicates.length">
                 {{ this.file.name }} is uploaded and {{ this.duplicates.length }} duplicates found!
             </template>
 
