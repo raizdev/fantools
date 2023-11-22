@@ -32,6 +32,7 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
       vue: '@vue/compat',
       find: 'vue-i18n',
+      "./runtimeConfig": "./runtimeConfig.browser",
       replacement: 'vue-i18n/dist/vue-i18n.cjs.js'
     },
     dedupe: ['vue']
