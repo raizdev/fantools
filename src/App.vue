@@ -50,9 +50,6 @@
                <b-nav-item :to="{ name: 'grabber'}">
                   {{ $t('tiles.grabber.title') }}
                </b-nav-item>
-               <b-nav-item :to="{ name: 'contractor-details'}" v-role:any="'escalationdesk-view|super-admin'">
-                  {{ $t('tiles.contractor.title') }}
-               </b-nav-item>
                <b-nav-item :to="{ name: 'admin-userpanel'}" v-role:any="'super-admin'">
                   User Panel
                </b-nav-item>
