@@ -24,13 +24,6 @@
             icon="fa-solid fa-wifi"
             link="speed-checker"
         />
-        <CardTile
-            :title="$t('tiles.contractor.title')"
-            :description="$t('tiles.contractor.description')"
-            icon="fa-regular fa-address-book"
-            link="contractor-details"
-            v-role:any="'escalationdesk-view|super-admin'"
-        />
     </div>
 </template>
 <script>
